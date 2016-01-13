@@ -1,16 +1,9 @@
-local M = {}
+local Explorer = torch.class('rl.Explorer')
 
-do
-    local Explorer = torch.class('rl.Explorer')
-
-    function Explorer:__init()
-    end
-
-    --- Return epsilon, the probability of exploring randomly, given a state
-    function Explorer:get_eps(s)
-        error('Explorer must implement get_eps')
-    end
+function Explorer:__init()
 end
-M.Explorer = Explorer
 
-return M
+--- Return epsilon, the probability of exploring randomly, given a state
+function Explorer:get_eps(s)
+    error('Explorer must implement get_eps')
+end

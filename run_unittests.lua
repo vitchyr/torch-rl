@@ -9,5 +9,5 @@ qv_tester:run()
 fe_tester = require 'unittest_featureextraction'
 fe_tester:run()
 
-mdp_tester = require 'unittest_mdp'
-mdp_tester:run()
+agent_tester = require 'unittest_agent'
+agent_tester:run()

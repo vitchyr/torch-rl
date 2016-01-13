@@ -1,7 +1,13 @@
 require 'torch'
 
-local rl = {}
+include('Agent.lua')
 
-rl.hellomodule = require 'rl.hellomodule'
+include('Policy.lua')
+include('GreedyPolicy.lua')
+include('GreedyPolicy.lua')
+
+include('Explorer.lua')
+include('ConstExplorer.lua')
+include('DecayTableExplorer.lua')
 
 return rl

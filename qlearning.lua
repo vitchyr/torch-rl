@@ -1,4 +1,4 @@
-local mdp = require 'mdp'
+local agent = require 'agent'
 local util = require 'util'
 local env = require 'easy21'
 local envutil = require 'envutil'
@@ -50,7 +50,7 @@ function M.get_policy_params(n_iters, eval_policy_fn)
     local Nsa = QHash:new()
     for i = 1, n_iters do
         policy = M.eps_greedy_improve_policy(Q, Ns)
-        Q, Ns, Nsa = eval_policy_fn(policy, mdp, Q, Ns, Nsa)
+        Q, Ns, Nsa = eval_policy_fn(policy, agent, Q, Ns, Nsa)
     end
     return Q, Ns
 end

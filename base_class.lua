@@ -1,16 +1,9 @@
-local M = {}
+local Name = torch.class('Name')
 
-do
-    local Name = torch.class('Name')
-
-    function Name:__init(foo)
-        self.lambda = foo
-    end
-
-    function Name:bar(x)
-        return x
-    end
+function Name:__init(foo)
+    self.lambda = foo
 end
-M.Name = Name
 
-return M
+function Name:bar(x)
+    return x
+end
