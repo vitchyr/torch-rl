@@ -92,5 +92,6 @@ end
 
 function is_terminal(s)
     return s == TERMINAL
+end
 
 return M
