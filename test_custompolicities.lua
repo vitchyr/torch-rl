@@ -9,8 +9,7 @@ math.randomseed(os.time())
 local a = Agent(easy21)
 local e = Evaluator(a)
 for t = -1, 22 do
-    e:displayMetrics(cp.get_threshold_policy(t), 'thresh, t = ' .. t)
+    e:displayMetrics(ThresholdPolicy(t), 'thresh, t = ' .. t)
 end
 e:displayMetrics(cp.always_hit, 'always hit')
-e:displayMetrics(cp.always_stick, 'always stick')
 e:displayMetrics(cp.always_stick, 'always stick')

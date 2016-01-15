@@ -11,7 +11,7 @@ function Agent:sample_reward(policy)
     local s = self.env.get_start_state()
     local total_r, r = 0, 0
     while s ~= TERMINAL do
-        s, r = self.env.step(s, policy(s))
+        s, r = self.env.step(s, policy:get_action(s))
         total_r = total_r + r
     end
     return total_r
@@ -49,7 +49,7 @@ function Agent:get_episode(policy)
             end
             eligibility:add(s, 1)
         end
-        a = policy(s)
+        a = policy:get_action(s)
         s, r = self.env.step(s, a)
         episode[t] = {last_s, a, 0, r}
         if r ~= 0 then

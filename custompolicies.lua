@@ -1,15 +1,21 @@
 require 'constants'
+require 'Policy'
 
-local M = {}
+do
+    --[[
+    -- A simple policy that always does the same thing based on the player's sum:
+    --  Hit if their sum is greater than some threshold `t`.
+    --]]
+    local ThresholdPolicy, parent = torch.class('ThresholdPolicy', 'Policy')
 
---[[
--- A simple policy that always does the same thing based on the player's sum:
---  Hit if their sum is greater than some threshold `t`.
---]]
-function M.get_threshold_policy(t)
-    return function (s)
-        local dealerSum, playerSum = table.unpack(s)
-        if playerSum < t then
+    function ThresholdPolicy:__init(threshold)
+        parent.__init(self)
+        self.threshold = threshold
+    end
+
+    function ThresholdPolicy:get_action(s)
+        local _, player_sum = table.unpack(s)
+        if player_sum < self.threshold then
             return HIT
         else
             return STICK
@@ -17,12 +23,9 @@ function M.get_threshold_policy(t)
     end
 end
 
-function M.always_hit(s)
-    return HIT
-end
+local M = {}
 
-function M.always_stick(s)
-    return STICK
-end
+M.always_hit = ThresholdPolicy(22)
+M.always_stick = ThresholdPolicy(-1)
 
 return M

@@ -10,10 +10,11 @@ cmd:option('-max', 5,'minimum log_10(# iterations)')
 
 local params = cmd:parse(arg)
 
-local mc_eval = mc.montecarlo_eval_policy
+local a = Agent(easy21)
+local e = Evaluator(a)
 for n = params.min, params.max do
     local num_iters = 10^n
-    eval.displayMetrics(
+    e:displayMetrics(
         ql.get_policy(num_iters, mc_eval),
         'MC, # iters = ' .. num_iters)
 end
