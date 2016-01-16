@@ -1,7 +1,7 @@
-require 'qhash'
+require 'QHash'
 
 local tester = torch.Tester()
-local TestQHash = {} --class
+local TestQHash = {}
 
 local env = {}
 function env.hash_s(s)

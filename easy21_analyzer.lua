@@ -15,4 +15,15 @@ function M.get_q_tensor(q)
     return tensor
 end
 
+function M.get_v_tensor(v)
+    local value = torch.zeros(N_DEALER_STATES, N_PLAYER_STATES)
+    for dealer = 1, N_DEALER_STATES do
+        for player = 1, N_PLAYER_STATES do
+            s = {dealer, player}
+            value[s] = v:get_value(s)
+        end
+    end
+    return value
+end
+
 return M
