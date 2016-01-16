@@ -123,8 +123,8 @@ local function deepcompare(t1, t2, ignore_mt)
     end
     for k2,v2 in pairs(t2) do
         local v1 = t1[k2]
-        if v1 == nil or not M.deepcompare(v1,v2) then return
-            false
+        if v1 == nil or not M.deepcompare(v1,v2) then
+            return false
         end
     end
     return true
