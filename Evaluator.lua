@@ -1,15 +1,16 @@
 require 'constants'
+require 'MdpSampler'
 
 local Evaluator = torch.class('Evaluator')
 
-function Evaluator.__init(self, agent)
-    self.agent = agent
+function Evaluator.__init(self, mdp)
+    self.sampler = MdpSampler(mdp)
 end
 
 function Evaluator:get_policy_avg_return(policy, n_iters)
     local total_r = 0
     for i = 1, n_iters do
-        total_r = total_r + self.agent:sample_reward(policy)
+        total_r = total_r + self.sampler:sample_reward(policy)
     end
     return total_r
 end
