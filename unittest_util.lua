@@ -93,6 +93,85 @@ local TestUtil = {} --class
         tester:asserteq(maxElem , -6)
         tester:asserteq(maxK , 'd')
     end
+
+    function TestUtil.test_deepcompare()
+        local t1 = {
+            a = 1,
+            b = {x=4, y=3, z=1},
+            c = {1, 2, 3},
+            d = -6
+        }
+        local t2 = {
+            b = {x=4, y=3, z=1},
+            a = 1,
+            d = -6,
+            c = {1, 2, 3}
+        }
+        tester:assert(util.deepcompare(t1, t2))
+    end
+
+    function TestUtil.test_deepcompare_int_keys()
+        local t1 = {
+            [4] = 1,
+            [-3] = 2,
+            [0] = {1, 2, 3},
+            [1] = -6
+        }
+        local t2 = {
+            [-3] = 2,
+            [4] = 1,
+            [1] = -6,
+            [0] = {1, 2, 3}
+        }
+        tester:assert(util.deepcompare(t1, t2))
+    end
+
+    function TestUtil.test_deepcompare_with_meta()
+        local t1 = {
+            a = 1,
+            b = {x=4, y=3, z=1},
+            c = {1, 2, 3},
+            d = -6
+        }
+        local t2 = {
+            b = {x=4, y=3, z=1},
+            a = 1,
+            d = -6,
+            c = {1, 2, 3}
+        }
+        local mt = {
+          __eq = function (lhs, rhs)
+            return true
+          end
+        }
+        setmetatable(t1, mt)
+        setmetatable(t2, mt)
+        tester:assert(util.deepcompare_with_meta(t1, t2))
+    end
+
+    function TestUtil.test_deepcompare_with_meta_false()
+        local t1 = {
+            a = 1,
+            b = {x=4, y=3, z=1},
+            c = {1, 2, 3},
+            d = -6
+        }
+        local t2 = {
+            b = {x=4, y=3, z=1},
+            a = 1,
+            d = -6,
+            c = {1, 2, 3}
+        }
+        local mt = {
+          __eq = function (lhs, rhs)
+            return false
+          end
+        }
+        setmetatable(t1, mt)
+        setmetatable(t2, mt)
+
+        tester:assert(not util.deepcompare_with_meta(t1, t2))
+    end
 -- class TestUtil
 
 local TestTensorUtil = {} --class
