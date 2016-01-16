@@ -12,10 +12,14 @@ local params = cmd:parse(arg)
 
 local a = Agent(easy21)
 local e = Evaluator(a)
+
+local mc = MonteCarloControl(easy21)
 for n = params.min, params.max do
-    local num_iters = 10^n
-    e:displayMetrics(
-        ql.get_policy(num_iters, mc_eval),
-        'MC, # iters = ' .. num_iters)
+    local n_iters = 10^n
+    mc.reset()
+    local policy = mc.improve_policy_for_n_iters(n_iters)
+
+    e:display_metrics(policy, 'MC, # iters = ' .. num_iters)
 end
+
 

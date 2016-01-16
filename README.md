@@ -54,14 +54,26 @@ these hash tables for small state/action spaces.
 ### Function Approximators
 
 ## Algorithms
-One major difference is that we use discounted reward
+These algorithms are used to improve policies and/or Q functions.
 ### Monte Carlo Control
-Monte Carlo estimates the value of a state-action pair with the sample mean
+Monte Carlo (MC) estimates the value of a state-action pair under a given
+policy by sampling and taking the average. MC Control alternates between this
+Q-function estimation and epsilon-greedy policy improvement.
+
+Example use:
+
+```
+mc = MonteCarloControl(env)
+policy = mc.improve_policy_for_n_iters(n_iters)
+
+learned_action = policy.get_action(state)
+```
 
 ### Sarsa(lambda)
 See [Sutton and
 Barto](https://webdocs.cs.ualberta.ca/~sutton/book/ebook/node77.html) for
-explanation of algorithm.
+explanation of algorithm. One major difference is that we used discounted
+reward.
 
 The main step that is abstracted away is how Q(s, a) is updated given the TD
 error. The underlying structure of Q (e.g. hash table vs. function approximator)
