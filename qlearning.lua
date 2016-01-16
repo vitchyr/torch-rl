@@ -2,8 +2,8 @@ local agent = require 'agent'
 local util = require 'util'
 local env = require 'easy21'
 local envutil = require 'envutil'
-local QHash = require 'qhash'
-local VHash = require 'vhash'
+local QHash = require 'QHash'
+local VHash = require 'VHash'
 
 local M = {}
 
