@@ -12,5 +12,5 @@ vhash_tester:run()
 fe_tester = require 'unittest_featureextraction'
 fe_tester:run()
 
-agent_tester = require 'unittest_agent'
-agent_tester:run()
+mdpsampler_tester = require 'unittest_mdpsampler'
+mdpsampler_tester:run()
