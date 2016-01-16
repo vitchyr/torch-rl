@@ -40,9 +40,6 @@ function TestEpisodeBuilder.test_gamma_one()
         }
     }
 
-    print(expected)
-    print(builder:get_episode())
-
     tester:assert(util.deepcompare(expected, builder:get_episode()))
 end
 
