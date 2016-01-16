@@ -137,4 +137,36 @@ end
 function M.deepcompare_with_meta(t1, t2)
     return deepcompare(t1, t2, false)
 end
+
+-- Get # of times elem is in list
+function M.get_count(elem, list)
+    local count = 0
+    for _, e in pairs(list) do
+        if e == elem then
+            count = count + 1
+        end
+    end
+    return count
+end
+
+-- check if Bernounilli trial results is reasonable
+function M.is_prob_good(n, p, N)
+    if p == 0 then
+        return n == 0
+    end
+    if p < 0 or p > 1 then
+        error('Invalid probability: ' .. p)
+    end
+    local std = math.sqrt(N * p * (1-p))
+    local mean = N * p
+    return (mean - 3*std < n and n < mean + 3*std)
+end
+
+-- Check if # times elem is in list is reasonable, assuming it had a fixed
+-- probability of being in that list
+function M.elem_has_good_freq(elem, list, expected_p)
+    local n = M.get_count(elem, list)
+    return M.is_prob_good(n, expected_p, #list)
+end
+
 return M

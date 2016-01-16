@@ -4,6 +4,35 @@ local tensorutil = require 'tensorutil'
 local tester = torch.Tester()
 
 local TestUtil = {} --class
+    function TestUtil.test_get_count()
+        local list = {1, 1, 1, 2}
+        tester:asserteq(util.get_count(1, list), 3)
+    end
+
+    function TestUtil.test_is_prob_good_good()
+        local n = 5
+        local p = 0.5
+        local N = 10
+        tester:assert(util.is_prob_good(n, p, N))
+        tester:assert(util.is_prob_good(0, 0, N))
+    end
+
+    function TestUtil.test_is_prob_good_bad()
+        local n = 1
+        local p = 0.5
+        local N = 100
+        tester:assert(not util.is_prob_good(n, p, N))
+        tester:assert(not util.is_prob_good(1, 0, N))
+    end
+
+    function TestUtil.test_elem_has_good_freq()
+        local list = {1, 1, 1, 2}
+        tester:assert(util.elem_has_good_freq(1, list, 0.75))
+        tester:assert(util.elem_has_good_freq(2, list, 0.25))
+        tester:assert(util.elem_has_good_freq(3, list, 0))
+        tester:assert(not util.elem_has_good_freq(2, list, 0))
+    end
+
     function TestUtil.test_fold()
         local t = {
             1,
@@ -37,26 +66,25 @@ local TestUtil = {} --class
             10)
     end
 
-    function TestUtil.test_weighted_random_choice()
+    function TestUtil.test_weighted_random_choice_only_one()
         local t = {
             a = 0,
             b = 0,
             c = 0,
             d = 1
         }
-        local result = nil
-        for i = 1, 100 do
-            result = util.weighted_random_choice(t)
-            tester:asserteq( result, 'd' )
+        local function choice_is_always_good()
+            for i = 1, 100 do
+                if util.weighted_random_choice(t) ~= 'd' then
+                    return false
+                end
+            end
+            return true
         end
+        tester:assert(choice_is_always_good())
+    end
 
-        local N = 100000
-        local function check_prob(n, p)
-            local std = math.sqrt(N * p * (1-p))
-            local mean = N * p
-            tester:assert(mean - 4*std < n and n < mean + 4*std)
-        end
-
+    function TestUtil.test_weighted_random_choice()
         t = {
             1,
             1,
@@ -67,15 +95,22 @@ local TestUtil = {} --class
             1,
             3
         }
+        local N = 100000
         local denom = util.sum(t)
         local nums = torch.zeros(8)
         for i = 1, N do
             result = util.weighted_random_choice(t)
             nums[result] = nums[result] + 1
         end
-        for i = 1, nums:numel() do
-            check_prob(nums[i], t[i] / denom)
+        local function prob_is_good()
+            for i = 1, nums:numel() do
+                if not util.is_prob_good(nums[i], t[i] / denom, N) then
+                    return false
+                end
+            end
+            return true
         end
+        tester:assert(prob_is_good())
     end
 
     function TestUtil.test_max()
