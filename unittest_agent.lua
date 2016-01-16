@@ -1,6 +1,7 @@
 require 'constants'
 require 'Agent'
 require 'ThresholdPolicy'
+
 local easy21 = require 'easy21'
 
 local tester = torch.Tester()

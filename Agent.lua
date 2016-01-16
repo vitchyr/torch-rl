@@ -1,5 +1,5 @@
+require 'vhash'
 local envutil = require 'envutil'
-local VHash = require 'vhash'
 
 local Agent = torch.class('Agent')
 function Agent:__init(env)
