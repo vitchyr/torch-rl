@@ -1,36 +1,43 @@
 require 'constants'
-require 'Agent'
-require 'ThresholdPolicy'
-
-local easy21 = require 'easy21'
+require 'MdpSampler'
+local tp = require 'TestPolicy'
+local test_mdp = require 'TestMdp'
 
 local tester = torch.Tester()
 
-local TestAgent = {}
+local TestMdpSampler = {}
 
-local function get_threshold_episode(policy)
-    local a = Agent(easy21)
-    return a:get_episode(policy)
+local function get_policy_episode(policy)
+    local sampler = MdpSampler(test_mdp)
+    return sampler:get_episode(policy)
 end
 
 local function is_discount_good(episode)
     local data = episode[1]
-    local _, _, last_Gt = table.unpack(data)
-    for t, data in pairs(episode) do
-        local s, a, Gt = table.unpack(data)
-        if GAMMA * Gt ~= last_Gt then
+    local last_Gt = data.discounted_return
+    local last_r = data.reward
+    for t = 2, #episode do
+        data = episode[t]
+
+        local s = data.state
+        local a = data.action
+        local Gt = data.discounted_return
+        local r = data.reward
+        if last_Gt ~= last_r + GAMMA * Gt then
             return false
         end
+
         last_Gt = Gt
+        last_r = r
     end
     return true
 end
 
-function TestAgent.test_get_episode_discounted_reward()
-    local episode = get_threshold_episode(ThresholdPolicy(12))
+function TestMdpSampler.test_get_episode_discounted_reward()
+    local episode = get_policy_episode(tp.always_one)
     tester:assert(is_discount_good(episode))
 end
 
-tester:add(TestAgent)
+tester:add(TestMdpSampler)
 
 return tester

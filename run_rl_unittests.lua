@@ -14,3 +14,6 @@ fe_tester:run()
 
 mdpsampler_tester = require 'unittest_mdpsampler'
 mdpsampler_tester:run()
+
+episodebuilder_tester =require 'unittest_episodebuilder'
+episodebuilder_tester:run()
