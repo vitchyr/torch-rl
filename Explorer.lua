@@ -1,4 +1,4 @@
-local Explorer = torch.class('rl.Explorer')
+local Explorer = torch.class('Explorer')
 
 function Explorer:__init()
 end
