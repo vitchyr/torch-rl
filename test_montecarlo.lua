@@ -11,7 +11,7 @@ cmd:option('-max', 5,'minimum log_10(# iterations)')
 local params = cmd:parse(arg)
 local e = Evaluator(easy21)
 
-local init_policy = AllActionsEqualPolicy()
+local init_policy = AllActionsEqualPolicy(easy21)
 local mc = MonteCarloControl(easy21, init_policy)
 for n = params.min, params.max do
     local n_iters = 10^n
