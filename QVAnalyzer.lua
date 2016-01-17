@@ -1,15 +1,23 @@
-local VHash = require 'vhash'
-local env = require 'easy21'
+require 'VHash'
+require 'constants'
 local gnuplot = require 'gnuplot'
 local tensorutil = require 'tensorutil'
 
-local M = {}
+local QVAnalyzer = torch.class('QVAnalyzer')
+
+function QVAnalyzer:__init(env)
+    self.env = env
+end
+
+function QVAnalyzer:get_v_tensor(v)
+    error('Must implement get_v_tensor.')
+end
 
 -- Plot the state value function
-function M.plot_v(V)
+function QVAnalyzer:plot_v(v)
     -- row = dealer, from 1 to N_DEALER_STATES
     -- col = player, from 1 to N_PLAYER_STATES
-    local value = V:get_v_tensor()
+    local value = self:get_v_tensor(v)
 
     local x = torch.Tensor(N_DEALER_STATES, N_PLAYER_STATES)
     x = tensorutil.apply_to_slices(x, 1, tensorutil.fill_range, 0)
@@ -22,12 +30,12 @@ function M.plot_v(V)
     gnuplot.title('Monte-Carlo State Value Function')
 end
 
-function M.plot_action(Q, method)
+function QVAnalyzer:plot_action(q, method)
     local action = torch.Tensor(N_DEALER_STATES, N_PLAYER_STATES)
     for dealer = 1, N_DEALER_STATES do
         for player = 1, N_PLAYER_STATES do
             local s = {dealer, player}
-            action[dealer][player] = Q:get_best_action(s)
+            action[dealer][player] = q:get_best_action(s)
         end
     end
     local x = torch.Tensor(N_DEALER_STATES, N_PLAYER_STATES)
@@ -39,27 +47,23 @@ function M.plot_action(Q, method)
     gnuplot.ylabel('Player Sum')
     gnuplot.zlabel('Action')
     if method == nil then
-        gnuplot.title('Best Action Based on Q')
+        gnuplot.title('Best Action Based on q')
     else
-        gnuplot.title('Best Action Based on Q, from ' .. method)
+        gnuplot.title('Best Action Based on q, from ' .. method)
     end
 end
 
-function M.v_from_q(Q)
-    local V = VHash:new()
-    for dealer = 1, N_DEALER_STATES do
-        for player = 1, N_PLAYER_STATES do
-            local s = {dealer, player}
-            local a = Q:get_best_action(s)
-            V:add(s, Q:get_value(s, a))
-        end
-    end
-    return V
+function QVAnalyzer:v_from_q(q)
+    error('Must implement v_from_q')
 end
 
-function M.q_rms(Q1, Q2)
-    local t1 = Q1:get_q_tensor()
-    local t2 = Q2:get_q_tensor()
+function QVAnalyzer:get_q_tensor(q)
+    error('Must implement get_q_tensor.')
+end
+
+function QVAnalyzer:q_rms(q1, q2)
+    local t1 = self:get_q_tensor(q1)
+    local t2 = self:get_q_tensor(q2)
     return torch.sum(torch.pow(t1 - t2, 2))
 end
 

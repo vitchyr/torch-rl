@@ -37,4 +37,6 @@ function MonteCarloControl:evaluate_policy()
     end
 end
 
-
+function MonteCarloControl:get_q()
+    return self.Q
+end
