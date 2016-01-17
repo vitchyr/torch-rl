@@ -12,7 +12,7 @@ function TestMdp:step(s, a)
         error('MDP is done.')
     end
     local reward = -1
-    if s + a > 4 then
+    if s + a >= 4 then
         reward = 1
     end
     return s + 1, reward
@@ -49,5 +49,3 @@ end
 function TestMdp:get_description()
     return 'Test MDP'
 end
-
-return M
