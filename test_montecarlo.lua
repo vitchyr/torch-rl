@@ -19,7 +19,7 @@ for n = params.min, params.max do
     mc:improve_policy_for_n_iters(n_iters)
     local policy = mc:get_policy()
 
-    e:display_metrics(policy, 'MC, # iters = ' .. num_iters)
+    e:display_metrics(policy, 'MC, # iters = ' .. n_iters)
 end
 
 

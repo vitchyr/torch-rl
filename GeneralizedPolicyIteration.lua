@@ -5,7 +5,6 @@ local GeneralizedPolicyIteration = torch.class("GeneralizedPolicyIteration")
 function GeneralizedPolicyIteration:__init(env, policy)
     self.env = env
     self:set_policy(policy)
-    self:initialize_params()
 end
 
 function GeneralizedPolicyIteration:improve_policy_for_n_iters(n_iters, policy)
@@ -21,9 +20,6 @@ end
 
 function GeneralizedPolicyIteration:get_policy()
     return self.policy
-end
-
-function GeneralizedPolicyIteration:initialize_params()
 end
 
 function GeneralizedPolicyIteration:improve_policy()
