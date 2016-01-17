@@ -16,10 +16,15 @@ function MonteCarloControl:__init(env, policy)
     self.Nsa = QHash(env)
     self.N0 = N0
     self.sampler = MdpSampler(env)
+    self.actions = env.get_all_actions()
 end
 
 function MonteCarloControl:improve_policy()
-    return GreedyPolicy(self.Q, DecayTableExplorer(self.N0, self.Ns))
+    self.policy = GreedyPolicy(
+        self.Q,
+        DecayTableExplorer(self.N0, self.Ns),
+        self.actions
+    )
 end
 
 function MonteCarloControl:evaluate_policy()
