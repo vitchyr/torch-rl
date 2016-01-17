@@ -3,12 +3,12 @@ require 'EpisodeBuilder'
 
 local MdpSampler = torch.class('MdpSampler')
 
-function MdpSampler:__init(env)
+function MdpSampler:__init(env, discount_factor)
     self.env = env
+    self.discount_factor = discount_factor
 end
 
--- policy: a function that takes in a state and returns an action
-function MdpSampler:sample_reward(policy)
+function MdpSampler:sample_total_reward(policy)
     local s = self.env:get_start_state()
     local total_r, r = 0, 0
     while not self.env:is_terminal(s) do
@@ -25,7 +25,7 @@ function MdpSampler:get_episode(policy)
     local r = 0
     local a = nil
     local next_s = nil
-    local episode_builder = EpisodeBuilder(GAMMA)
+    local episode_builder = EpisodeBuilder(self.discount_factor)
 
     while not self.env:is_terminal(s) do
         a = policy:get_action(s)
