@@ -1,6 +1,7 @@
 require 'Easy21'
 require 'TestMdp'
 require 'Evaluator'
+require 'MdpConfig'
 require 'MonteCarloControl'
 require 'AllActionsEqualPolicy'
 
@@ -14,10 +15,11 @@ local params = cmd:parse(arg)
 local discount_factor = 1
 
 local function test_montecarlo_for_mdp(mdp)
-    local e = Evaluator(mdp, discount_factor)
+    local mdp_config = MdpConfig(mdp, discount_factor)
+    local e = Evaluator(mdp_config)
 
     local init_policy = AllActionsEqualPolicy(mdp)
-    local mc = MonteCarloControl(mdp, init_policy, discount_factor)
+    local mc = MonteCarloControl(mdp_config, init_policy)
     for n = params.min, params.max do
         local n_iters = 10^n
         mc:set_policy(init_policy)

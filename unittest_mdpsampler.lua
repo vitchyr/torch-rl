@@ -55,10 +55,16 @@ end
 
 function TestMdpSampler.test_discounted_reward_error()
     local discount_factor = 2
-    tester:assertError(MdpConfig(TestMdp(), discount_factor))
+    local get_config = function ()
+        return MdpConfig(TestMdp, discount_factor)
+    end
+    tester:assertError(get_config)
 
-    local discount_factor = -1
-    tester:assertError(MdpSampler(TestMdp(), discount_factor))
+    discount_factor = -1
+    get_config = function ()
+        return MdpConfig(TestMdp, discount_factor)
+    end
+    tester:assertError(get_config)
 end
 
 function TestMdpSampler.test_sample_return_always_one()
