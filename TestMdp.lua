@@ -44,4 +44,8 @@ function M.is_terminal(s)
     return s == TERMINAL
 end
 
+function M.get_description()
+    return 'Test MDP'
+end
+
 return M

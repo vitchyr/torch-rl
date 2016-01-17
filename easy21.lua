@@ -94,4 +94,8 @@ function M.is_terminal(s)
     return s == TERMINAL
 end
 
+function M.get_description()
+    return 'Easy 21'
+end
+
 return M

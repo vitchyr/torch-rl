@@ -1,4 +1,5 @@
 local easy21 = require 'easy21'
+local testmdp = require 'TestMdp'
 require 'Evaluator'
 require 'MonteCarloControl'
 require 'AllActionsEqualPolicy'
@@ -9,17 +10,21 @@ local cmd = torch.CmdLine()
 cmd:option('-min', 1,'minimum log_10(# iterations)')
 cmd:option('-max', 5,'minimum log_10(# iterations)')
 local params = cmd:parse(arg)
-local e = Evaluator(easy21)
 
-local init_policy = AllActionsEqualPolicy(easy21)
-local mc = MonteCarloControl(easy21, init_policy)
-for n = params.min, params.max do
-    local n_iters = 10^n
-    mc:set_policy(init_policy)
-    mc:improve_policy_for_n_iters(n_iters)
-    local policy = mc:get_policy()
+local function test_montecarlo_for_env(env)
+    local e = Evaluator(env)
 
-    e:display_metrics(policy, 'MC, # iters = ' .. n_iters)
+    local init_policy = AllActionsEqualPolicy(env)
+    local mc = MonteCarloControl(env, init_policy)
+    for n = params.min, params.max do
+        local n_iters = 10^n
+        mc:set_policy(init_policy)
+        mc:improve_policy_for_n_iters(n_iters)
+        local policy = mc:get_policy()
+
+        e:display_metrics(policy, 'MC, # iters = ' .. n_iters)
+    end
 end
 
-
+test_montecarlo_for_env(easy21)
+test_montecarlo_for_env(testmdp)
