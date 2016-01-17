@@ -10,7 +10,7 @@ end
 function GreedyPolicy:get_action(s)
     local eps = self.exploration_strat.get_eps()
 
-    actions = env.get_all_actions()
+    actions = env:get_all_actions()
     n_actions = #actions
     pi = {}
     for k, a in pairs(actions) do

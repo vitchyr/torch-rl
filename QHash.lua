@@ -7,8 +7,8 @@ local QHash = torch.class('QHash')
 
 function QHash:__init(env)
     self.env = env
-    self.hs = env.hash_s
-    self.ha = env.hash_a
+    self.hs = function (s) return env:hash_s(s) end
+    self.ha = function (a) return env:hash_a(a) end
     self.q_table = envutil.get_all_states_action_map(env)
 end
 
@@ -25,7 +25,7 @@ function QHash:add(s, a, delta)
 end
 
 function QHash:get_best_action(s)
-    local actions = self.env.get_all_actions()
+    local actions = self.env:get_all_actions()
     local Qs = self.q_table[self.hs(s)]
     local best_a, best_i = util.max(
         actions,

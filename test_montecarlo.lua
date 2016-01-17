@@ -1,5 +1,5 @@
-local easy21 = require 'easy21'
-local testmdp = require 'TestMdp'
+require 'Easy21'
+require 'TestMdp'
 require 'Evaluator'
 require 'MonteCarloControl'
 require 'AllActionsEqualPolicy'
@@ -26,5 +26,5 @@ local function test_montecarlo_for_env(env)
     end
 end
 
-test_montecarlo_for_env(easy21)
-test_montecarlo_for_env(testmdp)
+test_montecarlo_for_env(Easy21())
+test_montecarlo_for_env(TestMdp())

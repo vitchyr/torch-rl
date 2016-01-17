@@ -36,7 +36,7 @@ do
     function Sarsa:run_episode(s, a)
         self:reset_eligibility()
         while s ~= TERMINAL do
-            local s_new, r = self.env.step(s, a)
+            local s_new, r = self.env:step(s, a)
             local td_error, a_new = nil, nil
             if s_new == nil then
                 td_error = r - self.Q:get_value(s, a)
@@ -58,7 +58,7 @@ do
     function Sarsa:improve(n_iters)
         n_iters = n_iters or 1
         for i = 1, n_iters do
-            local s = self.env.get_start_state()
+            local s = self.env:get_start_state()
             local a = self.policy(s)
             self:run_episode(s, a)
         end

@@ -36,7 +36,7 @@ do
         return value
     end
     function QA:get_best_action(s)
-        local actions = env.get_all_actions()
+        local actions = env:get_all_actions()
         local best_a, best_i = util.max(
             actions,
             function (a) return self:get_value(s, a) end)

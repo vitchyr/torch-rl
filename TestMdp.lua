@@ -1,12 +1,14 @@
+require 'Mdp'
+
 -- Dummy MDP for testing
 -- state = either 1, 2, or 3
 -- action = either 1, 2, or 3
-local M = {}
+local TestMdp, parent = torch.class('TestMdp', 'Mdp')
 
 local TERMINAL = 3
 
-function M.step(s, a)
-    if M.is_terminal(s) then
+function TestMdp:step(s, a)
+    if TestMdp:is_terminal(s) then
         error('MDP is done.')
     end
     local reward = -1
@@ -16,35 +18,35 @@ function M.step(s, a)
     return s + 1, reward
 end
 
-function M.get_start_state()
+function TestMdp:get_start_state()
     return 1
 end
 
-function M.get_all_states()
+function TestMdp:get_all_states()
     return {1, 2, 3}
 end
 
-function M.get_all_actions()
+function TestMdp:get_all_actions()
     return {1, 2, 3}
 end
 
-function M.hash_s(s)
+function TestMdp:hash_s(s)
     return s
 end
 
-function M.hash_a(a)
+function TestMdp:hash_a(a)
     return a
 end
 
-function M.copy_state(s)
+function TestMdp:copy_state(s)
     return s
 end
 
-function M.is_terminal(s)
+function TestMdp:is_terminal(s)
     return s == TERMINAL
 end
 
-function M.get_description()
+function TestMdp:get_description()
     return 'Test MDP'
 end
 

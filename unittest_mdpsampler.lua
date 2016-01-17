@@ -1,14 +1,14 @@
 require 'constants'
 require 'MdpSampler'
+require 'TestMdp'
 local tp = require 'TestPolicy'
-local test_mdp = require 'TestMdp'
 
 local tester = torch.Tester()
 
 local TestMdpSampler = {}
 
 local function get_policy_episode(policy)
-    local sampler = MdpSampler(test_mdp)
+    local sampler = MdpSampler(TestMdp())
     return sampler:get_episode(policy)
 end
 

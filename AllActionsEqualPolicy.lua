@@ -7,7 +7,7 @@ function AAEP:__init(env)
 end
 
 function AAEP:get_action(s)
-    actions = self.env.get_all_actions()
+    actions = self.env:get_all_actions()
     return actions[math.random(1, #actions)]
 end
 

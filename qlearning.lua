@@ -12,7 +12,7 @@ function M.eps_greedy_improve_policy(Q, Ns)
     return function (s)
         local eps = N0 / (N0 + Ns:get_value(s))
 
-        actions = env.get_all_actions()
+        actions = env:get_all_actions()
         n_actions = #actions
         pi = {}
         for k, a in pairs(actions) do
@@ -29,7 +29,7 @@ end
 
 function M.const_eps_greedy_improve_policy(Q, eps)
     return function (s)
-        actions = env.get_all_actions()
+        actions = env:get_all_actions()
         n_actions = #actions
         pi = {}
         for k, a in pairs(actions) do

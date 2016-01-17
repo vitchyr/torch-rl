@@ -1,7 +1,8 @@
+require 'Mdp'
 require 'constants'
 local util = require 'util'
 
-local M = {}
+local Easy21, parent = torch.class('Easy21', 'Mdp')
 
 local function draw()
     local v = math.random(1,10)
@@ -24,7 +25,7 @@ end
 --   s: state, a table of {dealer_sum, player_sum}
 --   a: action
 --]]
-function M.step(s, a)
+function Easy21:step(s, a)
     if s == TERMINAL then 
         print('Game is already over')
         return TERMINAL, 0
@@ -58,11 +59,11 @@ function M.step(s, a)
     return TERMINAL, r
 end
 
-function M.get_start_state()
+function Easy21:get_start_state()
     return {draw_black(), draw_black()}
 end
 
-function M.get_all_states()
+function Easy21:get_all_states()
     states = {}
     for dealer = 1, 10 do
         for player = 1, 21 do
@@ -71,30 +72,30 @@ function M.get_all_states()
     end
     return states
 end
---M.get_all_states = util.memoize(_get_all_states) <-- this doesn't really help
+--Easy21:get_all_states = util.memoize(_get_all_states) <-- this doesn't really help
 
-function M.get_all_actions()
+function Easy21:get_all_actions()
     return {HIT, STICK}
 end
 
-function M.hash_s(s)
+function Easy21:hash_s(s)
     local dealer_sum, player_sum = table.unpack(s)
     return (9+dealer_sum) + 41*(9+player_sum)
 end
 
-function M.hash_a(a)
+function Easy21:hash_a(a)
     return a -- use the fact that actions are numbers right now
 end
 
-function M.copy_state(s)
+function Easy21:copy_state(s)
     return util.copy_simply(s)
 end
 
-function M.is_terminal(s)
+function Easy21:is_terminal(s)
     return s == TERMINAL
 end
 
-function M.get_description()
+function Easy21:get_description()
     return 'Easy 21'
 end
 

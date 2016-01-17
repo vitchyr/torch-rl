@@ -6,7 +6,7 @@ local VHash = torch.class('VHash')
 
 function VHash:__init(env)
     self.v_table = envutil.get_all_states_map(env)
-    self.hs = env.hash_s
+    self.hs = function (s) return env:hash_s(s) end
 end
 
 function VHash:get_value(s)

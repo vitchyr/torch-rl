@@ -1,17 +1,18 @@
 require 'constants'
 local tp = require 'ThresholdPolicy'
-local easy21 = require 'easy21'
+require 'Easy21'
 
 local tester = torch.Tester()
-
 local TestThresholdPolicy = {}
+
+local easy21 = Easy21()
 
 local function get_random_state()
     return {torch.random(-5, 30), torch.random(-5, 30)}
 end
 
 local function check_all_states(policy, pass_condition)
-    for _, state in pairs(easy21.get_all_states()) do
+    for _, state in pairs(easy21:get_all_states()) do
         local action = policy:get_action(state)
         if not pass_condition(state, action) then
             return false
