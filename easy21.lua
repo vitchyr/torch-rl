@@ -90,7 +90,7 @@ function M.copy_state(s)
     return util.copy_simply(s)
 end
 
-function is_terminal(s)
+function M.is_terminal(s)
     return s == TERMINAL
 end
 
