@@ -3,9 +3,9 @@ require 'MdpSampler'
 
 local Evaluator = torch.class('Evaluator')
 
-function Evaluator.__init(self, mdp)
-    self.sampler = MdpSampler(mdp)
-    self.mdp_description = mdp.get_description()
+function Evaluator.__init(self, mdp_config)
+    self.sampler = MdpSampler(mdp_config)
+    self.mdp_description = mdp_config:get_description()
 end
 
 function Evaluator:get_policy_avg_return(policy, n_iters)

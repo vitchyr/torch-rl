@@ -2,9 +2,10 @@ local GeneralizedPolicyIteration = torch.class("GeneralizedPolicyIteration")
 
 -- GeneralizedPolicyIteration captures an algorithm that optimizes a policy by alternating between
 -- policy evaluation and policy iteration
-function GeneralizedPolicyIteration:__init(env, policy)
-    self.env = env
+function GeneralizedPolicyIteration:__init(mdp_config, policy)
+    self.mdp = mdp_config:get_mdp()
     self:set_policy(policy)
+    self.sampler = MdpSampler(mdp_config)
 end
 
 function GeneralizedPolicyIteration:improve_policy_for_n_iters(n_iters, policy)

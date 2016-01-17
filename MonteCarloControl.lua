@@ -9,14 +9,13 @@ require 'VHash'
 local MonteControl, parent =
     torch.class('MonteCarloControl', 'GeneralizedPolicyIteration')
 
-function MonteCarloControl:__init(env, policy)
-    parent.__init(self, env, policy)
-    self.Q = QHash(env)
-    self.Ns = VHash(env)
-    self.Nsa = QHash(env)
+function MonteCarloControl:__init(mdp_config, policy)
+    parent.__init(self, mdp_config, policy)
+    self.Q = QHash(self.mdp)
+    self.Ns = VHash(self.mdp)
+    self.Nsa = QHash(self.mdp)
     self.N0 = N0
-    self.sampler = MdpSampler(env)
-    self.actions = env.get_all_actions()
+    self.actions = self.mdp.get_all_actions()
 end
 
 function MonteCarloControl:improve_policy()

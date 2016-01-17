@@ -3,6 +3,7 @@ require 'Easy21QVAnalyzer'
 require 'TestMdp'
 require 'TestMdpQVAnalyzer'
 require 'AllActionsEqualPolicy'
+require 'MdpConfig'
 require 'MonteCarloControl'
 local plot = require 'gnuplot'
 
@@ -15,10 +16,12 @@ cmd:option('-show', false, 'show plots')
 local params = cmd:parse(arg)
 
 local n_iters = 10^params.ni
+local discount_factor = 1
 
-local function show_mc_plots(env, analyzer)
-    local init_policy = AllActionsEqualPolicy(env)
-    local mc = MonteCarloControl(env, init_policy)
+local function show_mc_plots(mdp, analyzer)
+    local init_policy = AllActionsEqualPolicy(mdp)
+    local mdp_config = MdpConfig(mdp, discount_factor)
+    local mc = MonteCarloControl(mdp_config, init_policy)
     mc:improve_policy_for_n_iters(n_iters)
 
     local q = mc:get_q()

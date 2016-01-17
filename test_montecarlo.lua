@@ -11,11 +11,13 @@ cmd:option('-min', 1,'minimum log_10(# iterations)')
 cmd:option('-max', 5,'minimum log_10(# iterations)')
 local params = cmd:parse(arg)
 
-local function test_montecarlo_for_env(env)
-    local e = Evaluator(env)
+local discount_factor = 1
 
-    local init_policy = AllActionsEqualPolicy(env)
-    local mc = MonteCarloControl(env, init_policy)
+local function test_montecarlo_for_mdp(mdp)
+    local e = Evaluator(mdp, discount_factor)
+
+    local init_policy = AllActionsEqualPolicy(mdp)
+    local mc = MonteCarloControl(mdp, init_policy, discount_factor)
     for n = params.min, params.max do
         local n_iters = 10^n
         mc:set_policy(init_policy)
@@ -26,5 +28,5 @@ local function test_montecarlo_for_env(env)
     end
 end
 
-test_montecarlo_for_env(Easy21())
-test_montecarlo_for_env(TestMdp())
+test_montecarlo_for_mdp(Easy21())
+test_montecarlo_for_mdp(TestMdp())
