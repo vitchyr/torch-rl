@@ -1,3 +1,4 @@
+require 'Policy'
 local AAEP, parent = torch.class('AllActionsEqualPolicy', 'Policy')
 
 function AAEP:__init(env)
