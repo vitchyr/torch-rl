@@ -79,3 +79,10 @@ The main step that is abstracted away is how Q(s, a) is updated given the TD
 error. The underlying structure of Q (e.g. hash table vs. function approximator)
 will determine how it is handled. The eligibility update will also change base
 on the structure.
+
+## TODOs
+ - Refactor code to visualize Q
+ - Fix MC, because it's clearly getting something wrong since it can't even do
+   the TestMdp correctly.
+ - Move mdp implementations to classes.
+ - Move TD implementations to classes.
