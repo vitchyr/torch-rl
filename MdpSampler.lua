@@ -11,7 +11,7 @@ end
 function MdpSampler:sample_reward(policy)
     local s = self.env.get_start_state()
     local total_r, r = 0, 0
-    while s ~= TERMINAL do
+    while not self.env.is_terminal(s) do
         s, r = self.env.step(s, policy:get_action(s))
         total_r = total_r + r
     end
