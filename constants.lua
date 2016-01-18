@@ -1,4 +1,3 @@
--- Game Constants
 -- Custom Player/General Constants
 N_ITERS = 1000
 
