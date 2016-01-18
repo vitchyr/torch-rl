@@ -1,5 +1,5 @@
 require 'Mdp'
-require 'constants'
+require 'easy21_constants'
 local util = require 'util'
 
 local Easy21, parent = torch.class('Easy21', 'Mdp')
@@ -18,6 +18,11 @@ end
 
 local function is_bust(sum)
     return sum < 1 or sum > 21
+end
+
+function Easy21:__init(dealer_limit)
+    parent.__init(self)
+    self.dealer_limit = dealer_limit or DEFAULT_DEALER_LIMIT
 end
 
 --[[
@@ -42,7 +47,7 @@ function Easy21:step(s, a)
     end
 
     -- At this point, the player hit
-    while dealer_sum < 17 do
+    while dealer_sum < self.dealer_limit do
         dealer_sum = dealer_sum + draw()
         if is_bust(dealer_sum) then
             return TERMINAL, 1

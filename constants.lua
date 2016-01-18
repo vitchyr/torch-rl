@@ -1,14 +1,4 @@
 -- Game Constants
-HIT = 1
-STICK = 2
-
-TERMINAL = nil
-RED_PROB = 1.0/3.0
-
-N_DEALER_STATES = 10 -- 1 to 10
-N_PLAYER_STATES = 21 -- 1 to 21
-N_ACTIONS = 2
-
 -- Custom Player/General Constants
 N_ITERS = 1000
 
