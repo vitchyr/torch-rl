@@ -81,8 +81,4 @@ will determine how it is handled. The eligibility update will also change base
 on the structure.
 
 ## TODOs
- - Refactor code to visualize Q
- - Fix MC, because it's clearly getting something wrong since it can't even do
-   the TestMdp correctly.
- - Move mdp implementations to classes.
  - Move TD implementations to classes.
