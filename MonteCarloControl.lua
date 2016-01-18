@@ -18,7 +18,7 @@ function MonteCarloControl:__init(mdp_config, policy)
     self.actions = self.mdp.get_all_actions()
 end
 
-function MonteCarloControl:improve_policy()
+function MonteCarloControl:optimize_policy()
     self.policy = GreedyPolicy(
         self.Q,
         DecayTableExplorer(self.N0, self.Ns),
