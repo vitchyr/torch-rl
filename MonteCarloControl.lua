@@ -1,4 +1,4 @@
-require 'GeneralizedPolicyIteration'
+require 'ValueIteration'
 require 'MdpSampler'
 require 'constants'
 require 'GreedyPolicy'
@@ -7,7 +7,7 @@ require 'QHash' -- TODO: consider making these parameters
 require 'VHash'
 
 local MonteControl, parent =
-    torch.class('MonteCarloControl', 'GeneralizedPolicyIteration')
+    torch.class('MonteCarloControl', 'ValueIteration')
 
 function MonteCarloControl:__init(mdp_config, policy)
     parent.__init(self, mdp_config, policy)
