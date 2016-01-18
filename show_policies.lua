@@ -1,8 +1,8 @@
 require 'constants'
 local aa = require 'algoanalyzer'
 local qva = require 'qvanalyzer'
-local sarsa = require 'sarsa'
-local la = require 'linsarsa'
+require 'Sarsa'
+require 'LinSarsa'
 local gnuplot = require 'gnuplot'
 
 local cmd = torch.CmdLine()

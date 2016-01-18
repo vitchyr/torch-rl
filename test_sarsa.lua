@@ -1,5 +1,5 @@
 local eval = require 'evaluation'
-local sarsa = require 'sarsa'
+require 'Sarsa'
 
 math.randomseed(os.time())
 
