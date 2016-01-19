@@ -9,8 +9,8 @@ local dpnn = require 'dpnn'
 -- Implementation of a state-action value function approx using a neural network
 local QNN, parent = torch.class('QNN', 'QApprox')
 
-function QNN:__init()
-    parent.__init(self)
+function QNN:__init(mdp)
+    parent.__init(self, mdp)
     self.n_features = N_DEALER_STATES * N_PLAYER_STATES * N_ACTIONS
     self.module = self:get_module()
 end

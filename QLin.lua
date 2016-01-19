@@ -7,8 +7,8 @@ local fe = require 'featureextraction'
 -- of features
 local QLin, parent = torch.class('QLin', 'QApprox')
 
-function QLin:__init()
-    parent.__init(self)
+function QLin:__init(mdp)
+    parent.__init(self, mdp)
     self.weights = torch.rand(N_FEATURES)
 end
 
