@@ -1,26 +1,25 @@
-local mdp = require 'easy21'
 local util = require 'util'
 
 -- Abstract class for a Q function approximation class
-local QA = torch.class('QApprox')
+local QApprox = torch.class('QApprox')
 
-function QA:__init() end
-function QA:clear()
+function QApprox:__init() end
+function QApprox:clear()
     error('Must implement clear method')
 end
-function QA:get_value(s, a)
+function QApprox:get_value(s, a)
     error('Must implement get_Value method')
 end
-function QA:add(d_weights)
+function QApprox:add(d_weights)
     error('Must implement add method')
 end
-function QA:mult_all(factor)
+function QApprox:mult_all(factor)
     error('Must implement mult_all method')
 end
-function QA:get_weight_vector()
+function QApprox:get_weight_vector()
     error('Must implement get_weight_vector method')
 end
-function QA:get_q_tensor()
+function QApprox:get_q_tensor()
     local value = torch.zeros(N_DEALER_STATES, N_PLAYER_STATES, N_ACTIONS)
     for dealer = 1, N_DEALER_STATES do
         for player = 1, N_PLAYER_STATES do
@@ -32,7 +31,7 @@ function QA:get_q_tensor()
     end
     return value
 end
-function QA:get_best_action(s)
+function QApprox:get_best_action(s)
     local actions = mdp:get_all_actions()
     local best_a, best_i = util.max(
         actions,

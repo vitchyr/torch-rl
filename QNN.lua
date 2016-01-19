@@ -7,16 +7,16 @@ local nngraph = require 'nngraph'
 local dpnn = require 'dpnn'
 
 -- Implementation of a state-action value function approx using a neural network
-local Q, parent = torch.class('QNN', 'QApprox')
+local QNN, parent = torch.class('QNN', 'QApprox')
 
-function Q:__init()
+function QNN:__init()
     parent.__init(self)
     self.n_features = N_DEALER_STATES * N_PLAYER_STATES * N_ACTIONS
     self.module = self:get_module()
 end
 
 -- Get the NN module
-function Q:get_module()
+function QNN:get_module()
     local x = nn.Identity()() -- use nngraph for practice
     local l1 = nn.Linear(self.n_features, 1)(x)
     --[[
@@ -28,16 +28,16 @@ function Q:get_module()
     return nn.gModule({x}, {l1})
 end
 
-function Q:clear()
+function QNN:clear()
     self.module = self:get_module()
 end
 
-function Q:get_value(s, a)
+function QNN:get_value(s, a)
     local input = fe.get_onehot_features(s, a)
     return self.module:forward(input)[1]
 end
 
-function Q:backward(td_error, s, a, alpha, lambda)
+function QNN:backward(td_error, s, a, alpha, lambda)
     -- forward to make sure input is set correctly
     local input = fe.get_onehot_features(s, a)
     local output = self.module:forward(input)
@@ -50,14 +50,14 @@ function Q:backward(td_error, s, a, alpha, lambda)
     self.module:updateParameters(-alpha) -- W = W - alpha * dL/dW
 end
 
-function Q:add(d_weights)
+function QNN:add(d_weights)
     self.weights = self.weights + d_weights
 end
 
-function Q:mult(factor)
+function QNN:mult(factor)
     self.weights = self.weights * factor
 end
 
-function Q:get_weight_vector()
+function QNN:get_weight_vector()
     return self.weights
 end
