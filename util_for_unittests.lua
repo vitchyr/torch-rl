@@ -20,4 +20,16 @@ function M.are_testmdp_policy_probabilities_good(policy, expected_probabilities)
     return true
 end
 
+function M.are_tensors_same_shape(t1, t2)
+    if t1:dim() ~= t2:dim() then
+        return false
+    end
+    for d = 1, t1:dim() do
+        if (#t1)[d] ~= (#t2)[d] then
+            return false
+        end
+    end
+    return true
+end
+
 return M

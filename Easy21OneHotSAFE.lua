@@ -11,3 +11,7 @@ function Easy21OneHotSAFE:get_sa_features(s, a)
 
     return x:resize(N_DEALER_STATES * N_PLAYER_STATES * N_ACTIONS)
 end
+
+function Easy21OneHotSAFE:get_sa_features_dim()
+    return N_DEALER_STATES * N_PLAYER_STATES * N_ACTIONS
+end

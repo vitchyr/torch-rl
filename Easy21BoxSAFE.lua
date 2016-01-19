@@ -24,3 +24,7 @@ function Easy21BoxSAFE:get_sa_features(s, a)
 
     return x:resize(36)
 end
+
+function Easy21BoxSAFE:get_sa_features_dim()
+    return 36
+end
