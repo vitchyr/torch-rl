@@ -61,3 +61,5 @@ end
 function QNN:get_weight_vector()
     return self.weights
 end
+
+QHash.__eq = parent.__eq -- force inheritance of this
