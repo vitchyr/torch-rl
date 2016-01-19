@@ -1,7 +1,6 @@
 require 'Easy21'
 require 'MdpConfig'
 require 'TableSarsa'
-require 'AllActionsEqualPolicy'
 require 'Evaluator'
 
 math.randomseed(os.time())
@@ -17,11 +16,8 @@ local function test_sarsa_diff_lambda(mdp)
     local mdp_config = MdpConfig(mdp, discount_factor)
     local e = Evaluator(mdp_config)
 
-    local init_policy = AllActionsEqualPolicy(mdp)
-
     for lambda = 0, 1, 0.1 do
         local control = TableSarsa(mdp_config, lambda)
-        control:set_policy(init_policy)
         control:improve_policy_for_n_iters(n_iters)
 
         local policy = control:get_policy()

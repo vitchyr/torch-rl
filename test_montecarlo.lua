@@ -3,7 +3,6 @@ require 'TestMdp'
 require 'Evaluator'
 require 'MdpConfig'
 require 'MonteCarloControl'
-require 'AllActionsEqualPolicy'
 
 math.randomseed(os.time())
 
@@ -18,11 +17,9 @@ local function test_montecarlo_for_mdp(mdp)
     local mdp_config = MdpConfig(mdp, discount_factor)
     local e = Evaluator(mdp_config)
 
-    local init_policy = AllActionsEqualPolicy(mdp)
-    local mc = MonteCarloControl(mdp_config)
     for n = params.min, params.max do
         local n_iters = 10^n
-        mc:set_policy(init_policy)
+        local mc = MonteCarloControl(mdp_config)
         mc:improve_policy_for_n_iters(n_iters)
         local policy = mc:get_policy()
 

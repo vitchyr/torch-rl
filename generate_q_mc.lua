@@ -4,7 +4,6 @@ require 'Easy21'
 require 'Easy21QVAnalyzer'
 require 'TestMdp'
 require 'TestMdpQVAnalyzer'
-require 'AllActionsEqualPolicy'
 require 'MdpConfig'
 require 'MonteCarloControl'
 

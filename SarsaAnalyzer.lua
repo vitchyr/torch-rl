@@ -1,7 +1,6 @@
 -- Analyze different control algorithms.
 local io_util = require 'io_util'
 require 'constants'
-require 'AllActionsEqualPolicy'
 require 'MonteCarloControl'
 local gnuplot = require 'gnuplot'
 
