@@ -18,11 +18,9 @@ opt.save = not opt.nosave
 local discount_factor = 1
 local mdp_config = MdpConfig(Easy21(), discount_factor)
 local qvanalyzer = Easy21QVAnalyzer()
-local analyzer = SarsaAnalyzer(opt, mdp_config, qvanalyzer)
+local analyzer = SarsaAnalyzer(opt, mdp_config, qvanalyzer, TableSarsa)
 
 analyzer:eval_lambdas(
-    TableSarsa,
     'q3a.eps')
 analyzer:eval_l0_l1_rms(
-    TableSarsa,
     'q3b.eps')
