@@ -115,6 +115,48 @@ function TestMdpSampler.test_sample_return_always_three()
     tester:asserteq(sampler:sample_total_reward(policy), 2)
 end
 
+local function is_action_good(episode, expected)
+    local policy = TestPolicy(expected)
+    local discount_factor = 1
+
+    local episode = get_policy_episode(policy, discount_factor)
+    for t, data in pairs(episode) do
+        if data.action ~= expected then
+            return false
+        end
+    end
+    return true
+end
+
+function TestMdpSampler.test_action_is_good()
+    tester:assert(is_action_good(episode, 1))
+end
+
+function TestMdpSampler.test_action_is_good2()
+    tester:assert(is_action_good(episode, 2))
+end
+
+function TestMdpSampler.test_action_is_good3()
+    tester:assert(is_action_good(episode, 3))
+end
+
+
+function TestMdpSampler.test_episode()
+    local policy = tp.always_one
+    local discount_factor = 1
+    local episode = get_policy_episode(policy, discount_factor)
+
+    tester:assert(#episode == 2)
+    tester:assert(episode[1].state == 1)
+    tester:assert(episode[1].action == 1)
+    tester:assert(episode[1].discounted_return == -2)
+    tester:assert(episode[1].reward == -1)
+    tester:assert(episode[2].state == 2)
+    tester:assert(episode[2].action == 1)
+    tester:assert(episode[2].discounted_return == -1)
+    tester:assert(episode[2].reward == -1)
+end
+
 tester:add(TestMdpSampler)
 
-return tester
+tester:run()
