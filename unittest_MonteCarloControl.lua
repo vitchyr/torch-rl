@@ -3,6 +3,7 @@ require 'constants'
 require 'TestMdp'
 require 'MdpConfig'
 local tp = require 'TestPolicy'
+local ufu = require 'util_for_unittests'
 
 math.randomseed(os.time())
 local tester = torch.Tester()
@@ -48,26 +49,6 @@ function TestMonteCarloControl.test_evalute_policy()
     tester:assert(mcc == expected)
 end
 
-local function are_policy_probabilities_good(policy, expected_probabilities)
-    local n_times_action = {0, 0, 0}
-    local n_iters = 10000
-    for i = 1, n_iters do
-        local state = math.random(1, 2)
-        local a = policy:get_action(state)
-        n_times_action[a] = n_times_action[a] + 1
-    end
-
-    for action = 1, 3 do
-        if not util.is_prob_good(
-                n_times_action[action],
-                expected_probabilities[action],
-                n_iters) then
-            return false
-        end
-    end
-    return true
-end
-
 function TestMonteCarloControl.test_optimize_policy()
     local mdp = TestMdp()
     local discount_factor = 1
@@ -96,7 +77,9 @@ function TestMonteCarloControl.test_optimize_policy()
         expected_eps / 3
     }
 
-    tester:assert(are_policy_probabilities_good(policy, expected_probabilities))
+    tester:assert(ufu.are_testmdp_policy_probabilities_good(
+        policy,
+        expected_probabilities))
 end
 
 tester:add(TestMonteCarloControl)
