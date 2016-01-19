@@ -1,9 +1,10 @@
+require 'SAFeatureExtractor'
 require 'easy21_constants'
 
-local M = {}
-
 -- Features are a coarse coding.
-function M.get_features(s, a)
+local Easy21BoxSAFE, parent = torch.class('Easy21BoxSAFE', 'SAFeatureExtractor')
+
+function Easy21BoxSAFE:get_sa_features(s, a)
     local dealer, player = table.unpack(s)
     local x = torch.zeros(3, 6, 2)
     local dealer_i, player_i = 0, 0
@@ -23,13 +24,3 @@ function M.get_features(s, a)
 
     return x:resize(36)
 end
-
-function M.get_onehot_features(s, a)
-    local x = torch.zeros(N_DEALER_STATES, N_PLAYER_STATES, N_ACTIONS)
-    local dealer, player = table.unpack(s)
-    x[dealer][player][a] = 1
-
-    return x:resize(N_DEALER_STATES * N_PLAYER_STATES * N_ACTIONS)
-end
-
-return M

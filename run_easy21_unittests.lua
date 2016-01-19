@@ -1,4 +1,5 @@
 math.randomseed(os.time())
 
 require 'unittest_ThresholdPolicy'
-require 'unittest_easy21_featureextraction'
+require 'unittest_Easy21BoxSAFE'
+require 'unittest_Easy21OneHotSAFE'
