@@ -16,11 +16,11 @@ function LinSarsa:__init(mdp_config, policy, lambda, eps)
 end
 
 function LinSarsa:get_new_q()
-    return q.QLin:new()
+    return QLin()
 end
 
 function LinSarsa:reset_eligibility()
-    self.eligibility = q.QLin:new()
+    self.eligibility = QLin()
 end
 
 function LinSarsa:update_eligibility(s, a)
@@ -30,7 +30,7 @@ function LinSarsa:update_eligibility(s, a)
 end
 
 function LinSarsa:td_update(td_error)
-    self.Q:add(self.eligibility:get_weight_vector() * self.alpha * td_error)
+    self.q:add(self.eligibility:get_weight_vector() * self.alpha * td_error)
 end
 
 function LinSarsa:update_policy()

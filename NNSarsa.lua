@@ -5,7 +5,7 @@ local fe = require 'featureextraction'
 
 -- Implement SARSA algorithm using a neural network function approximator for
 -- on-line policy control
-local NNSarsa = torch.class('NNSarsa', 'Sarsa')
+local NNSarsa, parent = torch.class('NNSarsa', 'Sarsa')
 
 function NNSarsa:__init(mdp_config, policy, lambda, eps)
     parent.__init(self, mdp_config, policy, lambda)
