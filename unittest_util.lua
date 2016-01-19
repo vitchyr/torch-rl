@@ -1,5 +1,8 @@
 local util = require 'util'
 local tensorutil = require 'tensorutil'
+local io_util = require 'io_util'
+require 'QHash'
+require 'TestMdp'
 
 local tester = torch.Tester()
 
@@ -249,8 +252,18 @@ local TestTensorUtil = {} --class
             0)
     end
 -- class TestTensorUtil
+--
+local TestIOUtil = {} --class
+    function TestIOUtil.test_save_load()
+        local q = QHash(TestMdp())
+        io_util.save_q('/tmp/q', q)
+        local q2 = io_util.load_q('/tmp/q')
+        tester:asserteq(q, q2)
+    end
+-- class TestIOUtil
 
 tester:add(TestUtil)
 tester:add(TestTensorUtil)
+tester:add(TestIOUtil)
 
 return tester
