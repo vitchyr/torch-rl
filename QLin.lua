@@ -1,15 +1,14 @@
 require 'constants'
 require 'QApprox'
 local util = require 'util'
-local fe = require 'easy21_featureextraction'
 
 -- Implementation of a state-action value function approx using linear function
 -- of features
 local QLin, parent = torch.class('QLin', 'QApprox')
 
-function QLin:__init(mdp)
-    parent.__init(self, mdp)
-    self.weights = torch.rand(N_FEATURES)
+function QLin:__init(mdp, feature_extractor)
+    parent.__init(self, mdp, feature_extractor)
+    self.weights = torch.rand(feature_extractor:get_sa_features_dim())
 end
 
 function QLin:clear()
@@ -17,7 +16,7 @@ function QLin:clear()
 end
 
 function QLin:get_value(s, a)
-    return self.weights:dot(fe.get_features(s, a))
+    return self.weights:dot(self.feature_extractor:get_sa_features(s, a))
 end
 
 function QLin:add(d_weights)
@@ -32,4 +31,4 @@ function QLin:get_weight_vector()
     return self.weights
 end
 
-QHash.__eq = parent.__eq -- force inheritance of this
+QLin.__eq = parent.__eq -- force inheritance of this

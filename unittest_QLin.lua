@@ -1,33 +1,45 @@
 require 'QLin'
-require 'Easy21'
-require 'easy21_constants'
+require 'TestSAFE'
+require 'TestMdp'
+require 'TestMdpQVAnalyzer'
 local tester = torch.Tester()
 
 local TestQLin = {}
-function TestQLin.test_add_once()
-    local mdp = Easy21()
-    local q = QLin()
-    q.weights = torch.zeros(N_FEATURES)
-    local d_weights = torch.zeros(N_FEATURES)
-    d_weights[1] = 1
-    q:add(d_weights)
 
-    local a = 1
-    local expected = torch.zeros(N_DEALER_STATES, N_PLAYER_STATES, N_ACTIONS)
-    for dealer = 1, 4 do
-        for player = 1, 6 do
-            local s = {dealer, player}
-            expected[s][a] = 1
+local mdp = TestMdp()
+local function get_expected_q_tensor()
+    local expected_q_tensor = torch.zeros(
+        #(mdp:get_all_actions()),
+        #(mdp:get_all_actions()))
+    for s = 1, #mdp:get_all_states() do
+        for a = 1, #(mdp:get_all_actions()) do
+            expected_q_tensor[s][a] = s+a
         end
     end
 
-    local s = {2, 3}
-    tester:asserteq(q:get_value(s, a), 1)
+    return expected_q_tensor
+end
+function TestQLin.test_add_once()
+    local fe = TestSAFE()
+
+    local q = QLin(mdp, fe)
+    local feature_dim = fe:get_sa_features_dim()
+    q.weights = torch.zeros(feature_dim)
+    local d_weights = torch.zeros(feature_dim)
+    d_weights[1] = 1
+    q:add(d_weights)
+
+    local s = 1
+    local a = 1
+    tester:asserteq(q:get_value(s, a), 2, "Wrong state-action value.")
+    tester:asserteq(q:get_best_action(s), 3, "Wrong best action.")
+
+    local analyzer = TestMdpQVAnalyzer()
+    local expected_q_tensor = get_expected_q_tensor()
     tester:assertTensorEq(
-        q:get_q_tensor(),
-        expected,
+        analyzer:get_q_tensor(q),
+        expected_q_tensor,
         0)
-    tester:asserteq(q:get_best_action(s), 1)
 end
 
 tester:add(TestQLin)

@@ -53,6 +53,13 @@ these hash tables for small state/action spaces.
 
 ### Function Approximators
 
+#### SAFE (State-Action Feature Extractors)
+SAFeatureExtractor defined an interface for these classes. They just have to
+implement:
+
+    `[feature] get_sa_features(s, a)` - return a feature given a state and
+    action
+
 ## Algorithms
 These algorithms are used to improve policies and/or Q functions.
 ### Monte Carlo Control
