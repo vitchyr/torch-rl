@@ -81,4 +81,4 @@ will determine how it is handled. The eligibility update will also change base
 on the structure.
 
 ## TODOs
- - Move TD implementations to classes.
+ - Move approx sarsa implementations to classes.

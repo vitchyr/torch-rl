@@ -36,13 +36,13 @@ end
 function TableSarsa:td_update(td_error)
     for _, ss in pairs(self.mdp:get_all_states()) do
         for _, aa in pairs(self.mdp:get_all_actions()) do
-            self.Q:add(ss, aa, self.alpha * td_error * self.eligibility:get_value(ss, aa))
+            self.q:add(ss, aa, self.alpha * td_error * self.eligibility:get_value(ss, aa))
         end
     end
 end
 function TableSarsa:update_policy()
     self.policy = GreedyPolicy(
-        self.Q,
+        self.q,
         self.explorer,
         self.actions
     )

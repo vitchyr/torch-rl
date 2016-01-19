@@ -1,6 +1,4 @@
 require 'constants'
-local envutil = require 'envutil'
-local env = require 'easy21'
 local util = require 'util'
 local fe = require 'featureextraction'
 local qa = require 'qapprox'

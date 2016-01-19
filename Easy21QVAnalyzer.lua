@@ -69,7 +69,7 @@ function Easy21QVAnalyzer:get_q_tensor(q)
 end
 
 function Easy21QVAnalyzer:v_from_q(q)
-    local v = VHash(self.env)
+    local v = VHash(self.mdp)
     for dealer = 1, N_DEALER_STATES do
         for player = 1, N_PLAYER_STATES do
             local s = {dealer, player}

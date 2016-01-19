@@ -11,7 +11,7 @@ local MonteControl, parent =
 
 function MonteCarloControl:__init(mdp_config, policy)
     parent.__init(self, mdp_config, policy)
-    self.Q = QHash(self.mdp)
+    self.q = QHash(self.mdp)
     self.Ns = VHash(self.mdp)
     self.Nsa = QHash(self.mdp)
     self.N0 = N0
@@ -20,7 +20,7 @@ end
 
 function MonteCarloControl:optimize_policy()
     self.policy = GreedyPolicy(
-        self.Q,
+        self.q,
         DecayTableExplorer(self.N0, self.Ns),
         self.actions
     )
@@ -37,10 +37,10 @@ function MonteCarloControl:evaluate_policy()
         self.Nsa:add(s, a, 1)
 
         local alpha = 1. / self.Nsa:get_value(s, a)
-        self.Q:add(s, a, alpha * (Gt - self.Q:get_value(s, a)))
+        self.q:add(s, a, alpha * (Gt - self.q:get_value(s, a)))
     end
 end
 
 function MonteCarloControl:get_q()
-    return self.Q
+    return self.q
 end

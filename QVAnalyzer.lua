@@ -5,8 +5,8 @@ local tensorutil = require 'tensorutil'
 
 local QVAnalyzer = torch.class('QVAnalyzer')
 
-function QVAnalyzer:__init(env)
-    self.env = env
+function QVAnalyzer:__init(mdp)
+    self.mdp = mdp
 end
 function QVAnalyzer:get_v_tensor(v)
     error('Must implement get_v_tensor.')
@@ -40,5 +40,3 @@ function QVAnalyzer:v_rms(v1, v2)
     local t2 = self:get_v_tensor(v2)
     return torch.sum(torch.pow(t1 - t2, 2))
 end
-
-return M

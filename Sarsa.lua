@@ -7,7 +7,7 @@ local Sarsa, parent = torch.class('Sarsa', 'Control')
 function Sarsa:__init(mdp_config, policy, lambda)
     parent.__init(self, mdp_config, policy)
     self.lambda = lambda
-    self.Q = self:get_new_q()
+    self.q = self:get_new_q()
     self.actions = self.mdp:get_all_actions()
 end
 
@@ -18,11 +18,11 @@ function Sarsa:run_episode(s, a)
         local s_new, r = self.mdp:step(s, a)
         local td_error, a_new = nil, nil
         if s_new == nil then
-            td_error = r - self.Q:get_value(s, a)
+            td_error = r - self.q:get_value(s, a)
         else
             a_new = self.policy:get_action(s_new)
-            td_error = r + GAMMA*self.Q:get_value(s_new, a_new)
-                         - self.Q:get_value(s, a)
+            td_error = r + GAMMA*self.q:get_value(s_new, a_new)
+                         - self.q:get_value(s, a)
         end
         self:update_eligibility(s, a)
         self:td_update(td_error)
@@ -39,8 +39,8 @@ function Sarsa:improve_policy()
     self:run_episode(s, a)
 end
 
-function Sarsa:get_Q()
-    return self.Q
+function Sarsa:get_q()
+    return self.q
 end
 
 -- Return an instance of a Q class.

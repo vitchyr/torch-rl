@@ -6,8 +6,8 @@ local TestMdpQVAnalyzer, parent = torch.class('TestMdpQVAnalyzer', 'QVAnalyzer')
 
 function TestMdpQVAnalyzer:__init()
     parent.__init(self, TestMdp())
-    self.n_states = #self.env.get_all_states()
-    self.n_actions = #self.env.get_all_actions()
+    self.n_states = #self.mdp.get_all_states()
+    self.n_actions = #self.mdp.get_all_actions()
 end
 
 function TestMdpQVAnalyzer:get_v_tensor(v)
@@ -52,7 +52,7 @@ function TestMdpQVAnalyzer:plot_best_action(q)
 end
 
 function TestMdpQVAnalyzer:v_from_q(q)
-    local v = VHash(self.env)
+    local v = VHash(self.mdp)
     for s = 1, self.n_states do
         local a = q:get_best_action(s)
         v:add(s, q:get_value(s, a))

@@ -1,4 +1,4 @@
-local envutil = require 'envutil'
+local mdputil = require 'mdputil'
 require 'EpisodeBuilder'
 
 local MdpSampler = torch.class('MdpSampler')
