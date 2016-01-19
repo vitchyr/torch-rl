@@ -56,4 +56,4 @@ end
 
 tester:add(TestThresholdPolicy)
 
-return tester
+tester:run()
