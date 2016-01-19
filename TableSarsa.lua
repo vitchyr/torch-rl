@@ -2,8 +2,8 @@ require 'constants'
 require 'Sarsa'
 require 'QHash'
 require 'VHash'
-require 'ConstExplorer'
 require 'GreedyPolicy'
+require 'DecayTableExplorer'
 
 -- Implement SARSA algorithm using a linear function approximator for on-line
 -- policy control
@@ -12,8 +12,6 @@ function TableSarsa:__init(mdp_config, policy, lambda, eps)
     parent.__init(self, mdp_config, policy, lambda)
     self.Ns = VHash(self.mdp)
     self.Nsa = QHash(self.mdp)
-    eps = eps or EPS
-    self.explorer = ConstExplorer(eps)
 end
 
 function TableSarsa:get_new_q()
@@ -41,6 +39,7 @@ function TableSarsa:td_update(td_error)
     end
 end
 function TableSarsa:update_policy()
+    self.explorer = DecayTableExplorer(N0, self.Ns)
     self.policy = GreedyPolicy(
         self.q,
         self.explorer,
