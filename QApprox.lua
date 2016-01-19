@@ -1,9 +1,9 @@
+require 'QFunc'
 local util = require 'util'
 
 -- Abstract class for a Q function approximation class
-local QApprox = torch.class('QApprox')
+local QApprox, parent = torch.class('QApprox', 'QFunc')
 
-function QApprox:__init() end
 function QApprox:clear()
     error('Must implement clear method')
 end
