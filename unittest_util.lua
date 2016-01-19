@@ -266,4 +266,4 @@ tester:add(TestUtil)
 tester:add(TestTensorUtil)
 tester:add(TestIOUtil)
 
-return tester
+tester:run()

@@ -28,5 +28,4 @@ local TestFeatureExtraction = {} --class
 -- class TestFeatureExtraction
 
 tester:add(TestFeatureExtraction)
-
-return tester
+tester:run()

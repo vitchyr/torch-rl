@@ -34,4 +34,4 @@ end
 
 tester:add(TestAllActionsEqualPolicy)
 
-return tester
+tester:run()

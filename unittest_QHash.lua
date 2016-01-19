@@ -29,4 +29,4 @@ end
 
 tester:add(TestQHash)
 
-return tester
+tester:run()

@@ -60,4 +60,4 @@ end
 
 tester:add(TestEpisodeBuilder)
 
-return tester
+tester:run()

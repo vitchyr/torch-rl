@@ -26,4 +26,4 @@ end
 
 tester:add(TestVHash)
 
-return tester
+tester:run()
