@@ -1,7 +1,7 @@
 require 'constants'
 require 'Sarsa'
 local q = require 'qnn'
-local fe = require 'featureextraction'
+local fe = require 'easy21_featureextraction'
 
 -- Implement SARSA algorithm using a neural network function approximator for
 -- on-line policy control

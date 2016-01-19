@@ -1,4 +1,4 @@
-local fe = require 'featureextraction'
+local fe = require 'easy21_featureextraction'
 
 local tester = torch.Tester()
 

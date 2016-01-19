@@ -1,4 +1,4 @@
 math.randomseed(os.time())
 
-thresholdpolicy_tester = require 'unittest_thresholdpolicy'
-thresholdpolicy_tester:run()
+require 'unittest_ThresholdPolicy'
+require 'unittest_easy21_featureextraction'

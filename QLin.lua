@@ -1,7 +1,7 @@
 require 'constants'
 require 'QApprox'
 local util = require 'util'
-local fe = require 'featureextraction'
+local fe = require 'easy21_featureextraction'
 
 -- Implementation of a state-action value function approx using linear function
 -- of features

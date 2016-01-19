@@ -9,7 +9,6 @@ N_MC_ITERS = 10^6
 GAMMA = 1
 
 -- Lin approx Constants
-N_FEATURES = 36
 STEP_SIZE = 0.01
 EPS = 0.05
 

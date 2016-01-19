@@ -1,7 +1,6 @@
 require 'unittest_util'
 require 'unittest_QHash'
 require 'unittest_VHash'
-require 'unittest_featureextraction'
 require 'unittest_MdpSampler'
 require 'unittest_EpisodeBuilder'
 require 'unittest_AllActionsEqualPolicy'

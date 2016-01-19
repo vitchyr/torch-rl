@@ -3,7 +3,7 @@ require 'Sarsa'
 require 'ConstExplorer'
 require 'GreedyPolicy'
 require 'QLin'
-local fe = require 'featureextraction'
+local fe = require 'easy21_featureextraction'
 
 -- Implement SARSA algorithm using a linear function approximator for on-line
 -- policy control
