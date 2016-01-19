@@ -16,7 +16,6 @@ function SarsaAnalyzer:__init(opt, mdp_config, qvanalyzer, Sarsa)
 
     self.mdp_config = mdp_config
     self.qvanalyzer = qvanalyzer
-    self.init_policy = AllActionsEqualPolicy(mdp_config:get_mdp())
     self.Sarsa = Sarsa
 
     self.q_mc = nil
@@ -29,7 +28,7 @@ function SarsaAnalyzer:get_true_q(n_iters)
     end
 
     self.n_iters = n_iters or self.n_iters
-    local mc = MonteCarloControl(self.mdp_config, self.init_policy)
+    local mc = MonteCarloControl(self.mdp_config)
     print('Computing Q from Monte Carlo. # iters = ' .. self.n_iters)
     mc:improve_policy_for_n_iters(self.n_iters)
 
@@ -64,7 +63,7 @@ local function get_lambda_data(self)
     print('Generating data/plot for varying lambdas.')
     for lambda = 0, 1, 0.1 do
         print('Processing SARSA for lambda = ' .. lambda)
-        local sarsa = self.Sarsa(self.mdp_config, self.init_policy, lambda)
+        local sarsa = self.Sarsa(self.mdp_config, lambda)
         sarsa:improve_policy(self.n_iters)
         local q = sarsa:get_q()
         rms_lambda_data[i][1] = lambda
@@ -86,7 +85,7 @@ function SarsaAnalyzer:eval_lambdas(
     print('Generating data/plot for varying lambdas.')
     for lambda = 0, 1, 0.1 do
         print('Processing SARSA for lambda = ' .. lambda)
-        local sarsa = self.Sarsa(self.mdp_config, self.init_policy, lambda)
+        local sarsa = self.Sarsa(self.mdp_config, lambda)
         sarsa:improve_policy(self.n_iters)
         local q = sarsa:get_q()
         rms_lambda_data[i][1] = lambda
@@ -116,7 +115,7 @@ end
 -- hack to get around that torch doesn't seem to allow private class methods
 local function get_rms_episode_data(self, lambda)
     local rms_episode_data = torch.Tensor(self.n_iters/self.rms_plot_freq, 2)
-    local sarsa = self.Sarsa(self.mdp_config, self.init_policy, lambda)
+    local sarsa = self.Sarsa(self.mdp_config, lambda)
     sarsa:improve_policy()
     local q = sarsa:get_q()
     rms_episode_data[1][1] = 1

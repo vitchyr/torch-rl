@@ -19,9 +19,8 @@ local mdp = Easy21()
 local discount_factor = 1
 local n_iters = 10^params.ni
 
-local init_policy = AllActionsEqualPolicy(mdp)
 local mdp_config = MdpConfig(mdp, discount_factor)
-local mc = MonteCarloControl(mdp_config, init_policy)
+local mc = MonteCarloControl(mdp_config)
 mc:improve_policy_for_n_iters(n_iters)
 
 local q = mc:get_q()

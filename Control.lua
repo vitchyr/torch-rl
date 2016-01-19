@@ -1,11 +1,12 @@
 require 'MdpSampler'
+require 'AllActionsEqualPolicy'
 
 local Control = torch.class("Control")
 
 -- Control captures an algorithm that optimizes a policy for a given MDP.
-function Control:__init(mdp_config, policy)
+function Control:__init(mdp_config)
     self.mdp = mdp_config:get_mdp()
-    self:set_policy(policy)
+    self.policy = AllActionsEqualPolicy(self.mdp)
     self.sampler = MdpSampler(mdp_config)
 end
 

@@ -14,4 +14,4 @@ STEP_SIZE = 0.01
 EPS = 0.05
 
 -- Constants set that should be set by command line interfaces
-DEFAULT_Q_MC_SAVE = 'last_q_mc'
+DEFAULT_Q_MC_SAVE = 'last_q_mc.dat'

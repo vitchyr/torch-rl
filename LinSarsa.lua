@@ -9,18 +9,18 @@ local fe = require 'featureextraction'
 -- policy control
 local LinSarsa, parent = torch.class('LinSarsa', 'Sarsa')
 
-function LinSarsa:__init(mdp_config, policy, lambda, eps)
-    parent.__init(self, mdp_config, policy, lambda)
+function LinSarsa:__init(mdp_config, lambda, eps)
+    parent.__init(self, mdp_config, lambda)
     eps = eps or EPS
     self.explorer = ConstExplorer(eps)
 end
 
 function LinSarsa:get_new_q()
-    return QLin()
+    return QLin(self.mdp)
 end
 
 function LinSarsa:reset_eligibility()
-    self.eligibility = QLin()
+    self.eligibility = QLin(self.mdp)
 end
 
 function LinSarsa:update_eligibility(s, a)
@@ -30,6 +30,8 @@ function LinSarsa:update_eligibility(s, a)
 end
 
 function LinSarsa:td_update(td_error)
+    print(self.alpha)
+    print(self.td_error)
     self.q:add(self.eligibility:get_weight_vector() * self.alpha * td_error)
 end
 

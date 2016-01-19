@@ -20,7 +20,7 @@ local function test_sarsa_diff_lambda(mdp)
     local init_policy = AllActionsEqualPolicy(mdp)
 
     for lambda = 0, 1, 0.1 do
-        local control = TableSarsa(mdp_config, init_policy, lambda)
+        local control = TableSarsa(mdp_config, lambda)
         control:set_policy(init_policy)
         control:improve_policy_for_n_iters(n_iters)
 

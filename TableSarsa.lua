@@ -8,8 +8,8 @@ require 'DecayTableExplorer'
 -- Implement SARSA algorithm using a linear function approximator for on-line
 -- policy control
 local TableSarsa, parent = torch.class('TableSarsa', 'Sarsa')
-function TableSarsa:__init(mdp_config, policy, lambda, eps)
-    parent.__init(self, mdp_config, policy, lambda)
+function TableSarsa:__init(mdp_config, lambda, eps)
+    parent.__init(self, mdp_config, lambda)
     self.Ns = VHash(self.mdp)
     self.Nsa = QHash(self.mdp)
 end

@@ -9,8 +9,8 @@ require 'VHash'
 local MonteControl, parent =
     torch.class('MonteCarloControl', 'ValueIteration')
 
-function MonteCarloControl:__init(mdp_config, policy)
-    parent.__init(self, mdp_config, policy)
+function MonteCarloControl:__init(mdp_config)
+    parent.__init(self, mdp_config)
     self.q = QHash(self.mdp)
     self.Ns = VHash(self.mdp)
     self.Nsa = QHash(self.mdp)

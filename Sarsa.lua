@@ -4,8 +4,8 @@ require 'Control'
 -- See end of file for functions that must be implemented.
 local Sarsa, parent = torch.class('Sarsa', 'Control')
 
-function Sarsa:__init(mdp_config, policy, lambda)
-    parent.__init(self, mdp_config, policy)
+function Sarsa:__init(mdp_config, lambda)
+    parent.__init(self, mdp_config)
     self.lambda = lambda
     self.q = self:get_new_q()
     self.actions = self.mdp:get_all_actions()

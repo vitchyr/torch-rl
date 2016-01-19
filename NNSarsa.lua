@@ -7,8 +7,8 @@ local fe = require 'featureextraction'
 -- on-line policy control
 local NNSarsa, parent = torch.class('NNSarsa', 'Sarsa')
 
-function NNSarsa:__init(mdp_config, policy, lambda, eps)
-    parent.__init(self, mdp_config, policy, lambda)
+function NNSarsa:__init(mdp_config, lambda, eps)
+    parent.__init(self, mdp_config, lambda)
     eps = eps or EPS
     self.explorer = ConstExplorer(eps)
 end
