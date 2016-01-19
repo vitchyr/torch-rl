@@ -3,7 +3,7 @@ require 'MdpSampler'
 require 'constants'
 require 'GreedyPolicy'
 require 'DecayTableExplorer'
-require 'QHash' -- TODO: consider making these parameters
+require 'QHash'
 require 'VHash'
 
 local MonteControl, parent =
@@ -43,4 +43,11 @@ end
 
 function MonteCarloControl:get_q()
     return self.q
+end
+
+function MonteCarloControl:__eq(other)
+    return self.q == other.q
+        and self.Ns == other.Ns
+        and self.Nsa == other.Nsa
+        and self.N0 == other.N0
 end
