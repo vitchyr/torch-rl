@@ -1,4 +1,5 @@
 -- Implement Q4 of the Easy 21 assignment
+require 'constants'
 require 'SarsaAnalyzer'
 require 'LinSarsa'
 require 'MdpConfig'
@@ -7,7 +8,7 @@ require 'Easy21QVAnalyzer'
 
 math.randomseed(os.time())
 local cmd = torch.CmdLine()
-cmd:option('-loadqfrom', '', 'load monte carlo Q from this file if provided')
+cmd:option('-loadqfrom', DEFAULT_Q_MC_SAVE, 'load monte carlo Q from this file if provided')
 cmd:option('-nosave', false, 'save plots')
 cmd:option('-show', false, 'show plots')
 cmd:option('-n_iters', N_ITERS, '# of iterations for evaluation')

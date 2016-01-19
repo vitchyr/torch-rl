@@ -1,4 +1,5 @@
 -- Analyze different control algorithms.
+local io_util = require 'io_util'
 require 'constants'
 require 'AllActionsEqualPolicy'
 require 'MonteCarloControl'
@@ -24,9 +25,7 @@ end
 function SarsaAnalyzer:get_true_q(n_iters)
     if self.loadqfrom ~= nil and self.loadqfrom ~= '' then
         print('Loading q_mc from ' .. self.loadqfrom)
-        local q, mt = table.unpack(torch.load(self.loadqfrom))
-        setmetatable(q, mt)
-        return q
+        return io_util.load_q(self.loadqfrom)
     end
 
     self.n_iters = n_iters or self.n_iters
