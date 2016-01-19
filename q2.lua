@@ -9,7 +9,7 @@ local plot = require 'gnuplot'
 
 math.randomseed(os.time())
 local cmd = torch.CmdLine()
-cmd:option('-ni', 6, 'log_10(# of iterations)')
+cmd:option('-ni', 4, 'log_10(# of iterations)')
 cmd:option('-saveqto', '', 'save Q to this file if provided')
 cmd:option('-nosave', false, 'do not save plots')
 cmd:option('-show', false, 'show plots')
