@@ -10,7 +10,7 @@ function SarsaAnalyzer:__init(opt, mdp_config, qvanalyzer, sarsa_factory)
     self.loadqfrom = opt.loadqfrom
     self.save = opt.save
     self.show = opt.show
-    self.rms_plot_freq = opt.rms_plot_freq
+    self.rms_num_points = opt.rms_num_points
     self.n_iters = opt.n_iters or N_ITERS
 
     self.mdp_config = mdp_config
@@ -89,7 +89,7 @@ function SarsaAnalyzer:eval_lambdas(
     for lambda = 0, 1, 0.1 do
         print('Processing SARSA for lambda = ' .. lambda)
         local sarsa = get_sarsa(self, lambda)
-        sarsa:improve_policy(self.n_iters)
+        sarsa:improve_policy_for_n_iters(self.n_iters)
         local q = sarsa:get_q()
         rms_lambda_data[i][1] = lambda
         rms_lambda_data[i][2] = self.qvanalyzer:q_rms(q, self.q_mc)
@@ -118,19 +118,20 @@ end
 
 -- hack to get around that torch doesn't seem to allow private class methods
 local function get_rms_episode_data(self, lambda)
-    local rms_episode_data = torch.Tensor(self.n_iters/self.rms_plot_freq, 2)
+    local rms_episode_data = torch.Tensor(self.rms_num_points, 2)
     local sarsa = get_sarsa(self, lambda)
     sarsa:improve_policy()
     local q = sarsa:get_q()
     rms_episode_data[1][1] = 1
     rms_episode_data[1][2] = self.qvanalyzer:q_rms(q, self.q_mc)
-    for i = 2, (#rms_episode_data)[1] do
-        for j = 1, self.rms_plot_freq do
-            sarsa:improve_policy()
-        end
+    local n_iters_per_data_point = self.n_iters / self.rms_num_points
+    local i = n_iters_per_data_point
+    for j = 2, self.rms_num_points do
+        sarsa:improve_policy_for_n_iters(n_iters_per_data_point)
         q = sarsa:get_q()
-        rms_episode_data[i][1] = i
-        rms_episode_data[i][2] = self.qvanalyzer:q_rms(q, self.q_mc)
+        rms_episode_data[j][1] = i
+        rms_episode_data[j][2] = self.qvanalyzer:q_rms(q, self.q_mc)
+        i = i + n_iters_per_data_point
     end
     return rms_episode_data
 end
@@ -143,13 +144,14 @@ function SarsaAnalyzer:eval_l0_l1_rms(
     self.q_mc = self.q_mc or self:get_true_q()
     n_iters = n_iters or self.n_iters
 
-    print('Generating data/plots for RMS vs episode')
+    print('Generating data for RMS vs episode')
     local l0_data = get_rms_episode_data(self, 0)
     local l1_data = get_rms_episode_data(self, 1)
     data = {}
     data[0] = l0_data
     data[1] = l1_data
 
+    print('Generating plots for RMS vs episode')
     plot_results(self,
                  function ()
                      plot_rms_episode_data(data)

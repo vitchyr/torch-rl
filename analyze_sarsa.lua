@@ -9,7 +9,7 @@ cmd:option('-loadqfrom', '', 'load monte carlo Q from this file if provided')
 cmd:option('-nosave', false, 'save plots')
 cmd:option('-show', false, 'show plots')
 cmd:option('-ni', 4, 'log_10(# of iterations)')
-cmd:option('-rms_plot_freq', N_ITERS/100, '# of iterations per data point for RMS plot')
+cmd:option('-rms_num_points', 100, '# of data point for RMS plot')
 local opt = cmd:parse(arg)
 opt.save = not opt.nosave
 opt.n_iters = 10^opt.ni
