@@ -8,7 +8,7 @@ function LinSarsaFactory:__init(
         eps,
         feature_extractor,
         step_size)
-    parent:__init(self, mdp_config, lambda)
+    parent.__init(self, mdp_config, lambda)
     self.eps = eps
     self.feature_extractor = feature_extractor
     self.step_size = step_size

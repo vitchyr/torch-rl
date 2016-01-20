@@ -8,7 +8,7 @@ local QLin, parent = torch.class('QLin', 'QApprox')
 
 function QLin:__init(mdp, feature_extractor)
     parent.__init(self, mdp, feature_extractor)
-    self.weights = torch.rand(feature_extractor:get_sa_features_dim())
+    self.weights = torch.zeros(feature_extractor:get_sa_features_dim())
 end
 
 function QLin:clear()

@@ -42,3 +42,11 @@ function LinSarsa:update_policy()
         self.actions
     )
 end
+
+function LinSarsa:__eq(other)
+    return torch.typename(self) == torch.typename(other)
+        and self.explorer == other.explorer
+        and self.feature_extractor == other.feature_extractor
+        and self.step_size == other.step_size
+        and self.q == other.q
+end

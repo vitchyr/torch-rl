@@ -9,3 +9,8 @@ end
 function ConstExplorer:get_eps(s)
     return self.p
 end
+
+function ConstExplorer:__eq(other)
+    return torch.typename(self) == torch.typename(other)
+        and self.p == other.p
+end
