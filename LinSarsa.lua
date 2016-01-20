@@ -27,7 +27,7 @@ end
 
 function LinSarsa:update_eligibility(s, a)
     local features = self.feature_extractor:get_sa_features(s, a)
-    self.eligibility:mult(GAMMA*self.lambda)
+    self.eligibility:mult(self.discount_factor*self.lambda)
     self.eligibility:add(features)
 end
 

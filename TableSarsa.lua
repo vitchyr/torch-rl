@@ -13,18 +13,22 @@ function TableSarsa:__init(mdp_config, lambda)
     self.Ns = VHash(self.mdp)
     self.Nsa = QHash(self.mdp)
     self.q = QHash(self.mdp)
+    self.eligibility = QHash(self.mdp)
+    self.discount_factor = mdp_config:get_discount_factor()
 end
 
 function TableSarsa:get_new_q()
     return QHash(self.mdp)
 end
+
 function TableSarsa:reset_eligibility()
     self.eligibility = QHash(self.mdp)
 end
+
 function TableSarsa:update_eligibility(s, a)
     for _, ss in pairs(self.mdp:get_all_states()) do
         for _, aa in pairs(self.mdp:get_all_actions()) do
-            self.eligibility:mult(ss, aa, GAMMA*self.lambda)
+            self.eligibility:mult(ss, aa, self.discount_factor*self.lambda)
         end
     end
     self.eligibility:add(s, a, 1)
@@ -32,6 +36,7 @@ function TableSarsa:update_eligibility(s, a)
     self.Nsa:add(s, a, 1)
     self.alpha = 1. / self.Nsa:get_value(s, a)
 end
+
 function TableSarsa:td_update(td_error)
     for _, ss in pairs(self.mdp:get_all_states()) do
         for _, aa in pairs(self.mdp:get_all_actions()) do
@@ -39,6 +44,7 @@ function TableSarsa:td_update(td_error)
         end
     end
 end
+
 function TableSarsa:update_policy()
     self.explorer = DecayTableExplorer(N0, self.Ns)
     self.policy = GreedyPolicy(

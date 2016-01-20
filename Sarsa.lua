@@ -9,6 +9,7 @@ function Sarsa:__init(mdp_config, lambda)
     self.lambda = lambda
     self.q = nil
     self.actions = self.mdp:get_all_actions()
+    self.discount_factor = mdp_config:get_discount_factor()
 end
 
 function Sarsa:run_episode(s, a)
@@ -21,7 +22,7 @@ function Sarsa:run_episode(s, a)
             td_error = r - self.q:get_value(s, a)
         else
             a_new = self.policy:get_action(s_new)
-            td_error = r + GAMMA*self.q:get_value(s_new, a_new)
+            td_error = r + self.discount_factor*self.q:get_value(s_new, a_new)
                          - self.q:get_value(s, a)
         end
         self:update_eligibility(s, a)
