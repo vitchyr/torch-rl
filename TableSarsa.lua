@@ -14,7 +14,6 @@ function TableSarsa:__init(mdp_config, lambda)
     self.Nsa = QHash(self.mdp)
     self.q = QHash(self.mdp)
     self.eligibility = QHash(self.mdp)
-    self.discount_factor = mdp_config:get_discount_factor()
 end
 
 function TableSarsa:get_new_q()
@@ -26,21 +25,36 @@ function TableSarsa:reset_eligibility()
 end
 
 function TableSarsa:update_eligibility(s, a)
-    for _, ss in pairs(self.mdp:get_all_states()) do
-        for _, aa in pairs(self.mdp:get_all_actions()) do
-            self.eligibility:mult(ss, aa, self.discount_factor*self.lambda)
+    for _, state in pairs(self.mdp:get_all_states()) do
+        for _, action in pairs(self.mdp:get_all_actions()) do
+            self.eligibility:mult(
+                state,
+                action,
+                self.discount_factor*self.lambda)
         end
     end
     self.eligibility:add(s, a, 1)
     self.Ns:add(s, 1)
     self.Nsa:add(s, a, 1)
-    self.alpha = 1. / self.Nsa:get_value(s, a)
+end
+
+local function get_step_size(self, state, action)
+    local value = self.Nsa:get_value(state, action)
+    if value == 0 then
+        return value
+    end
+    return 1. / value
 end
 
 function TableSarsa:td_update(td_error)
-    for _, ss in pairs(self.mdp:get_all_states()) do
-        for _, aa in pairs(self.mdp:get_all_actions()) do
-            self.q:add(ss, aa, self.alpha * td_error * self.eligibility:get_value(ss, aa))
+    for _, state in pairs(self.mdp:get_all_states()) do
+        for _, action in pairs(self.mdp:get_all_actions()) do
+            local step_size = get_step_size(self, state, action)
+            local eligibility = self.eligibility:get_value(state, action)
+            self.q:add(
+                state,
+                action,
+                step_size * td_error * eligibility)
         end
     end
 end
