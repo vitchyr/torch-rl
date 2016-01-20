@@ -7,7 +7,7 @@ local Sarsa, parent = torch.class('Sarsa', 'Control')
 function Sarsa:__init(mdp_config, lambda)
     parent.__init(self, mdp_config)
     self.lambda = lambda
-    self.q = self:get_new_q()
+    self.q = nil
     self.actions = self.mdp:get_all_actions()
 end
 

@@ -150,9 +150,9 @@ function SarsaAnalyzer:eval_l0_l1_rms(
     data[0] = l0_data
     data[1] = l1_data
 
-    self:plot_results(self,
-                      function ()
-                          plot_rms_episode_data(data)
-                      end,
-                      image_fname)
+    plot_results(self,
+                 function ()
+                     plot_rms_episode_data(data)
+                 end,
+                 image_fname)
 end
