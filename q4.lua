@@ -7,5 +7,4 @@ local as = require 'analyze_sarsa'
 local fe = Easy21BoxSAFE()
 local factory = LinSarsaFactory(nil, nil, EPS, fe, STEP_SIZE)
 factory:set_feature_extractor(fe)
-as.analyze_sarsa(factory, 'q3')
-as.analyze_sarsa(LinSarsa, 'q4')
+as.analyze_sarsa(factory, 'q4')
