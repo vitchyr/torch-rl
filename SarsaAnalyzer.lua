@@ -6,7 +6,7 @@ local gnuplot = require 'gnuplot'
 
 local SarsaAnalyzer = torch.class('SarsaAnalyzer')
 
-function SarsaAnalyzer:__init(opt, mdp_config, qvanalyzer, Sarsa)
+function SarsaAnalyzer:__init(opt, mdp_config, qvanalyzer, sarsa_factory)
     self.loadqfrom = opt.loadqfrom
     self.save = opt.save
     self.show = opt.show
@@ -15,7 +15,7 @@ function SarsaAnalyzer:__init(opt, mdp_config, qvanalyzer, Sarsa)
 
     self.mdp_config = mdp_config
     self.qvanalyzer = qvanalyzer
-    self.Sarsa = Sarsa
+    self.sarsa_factory = sarsa_factory
 
     self.q_mc = nil
 end
@@ -42,7 +42,12 @@ local function plot_rms_lambda_data(data)
     gnuplot.title('Q RMS after 1000 episodes vs lambda')
 end
 
-function SarsaAnalyzer:plot_results(plot_function, image_fname)
+local function get_sarsa(self, lambda)
+    self.sarsa_factory:set_lambda(lambda)
+    return self.sarsa_factory:get_control()
+end
+
+local function plot_results(self, plot_function, image_fname)
     if self.show then
         gnuplot.figure()
         plot_function()
@@ -53,7 +58,6 @@ function SarsaAnalyzer:plot_results(plot_function, image_fname)
         plot_function()
         gnuplot.plotflush()
     end
-
 end
 
 local function get_lambda_data(self)
@@ -62,7 +66,7 @@ local function get_lambda_data(self)
     print('Generating data/plot for varying lambdas.')
     for lambda = 0, 1, 0.1 do
         print('Processing SARSA for lambda = ' .. lambda)
-        local sarsa = self.Sarsa(self.mdp_config, lambda)
+        local sarsa = get_sarsa(self, lambda)
         sarsa:improve_policy(self.n_iters)
         local q = sarsa:get_q()
         rms_lambda_data[i][1] = lambda
@@ -84,7 +88,7 @@ function SarsaAnalyzer:eval_lambdas(
     print('Generating data/plot for varying lambdas.')
     for lambda = 0, 1, 0.1 do
         print('Processing SARSA for lambda = ' .. lambda)
-        local sarsa = self.Sarsa(self.mdp_config, lambda)
+        local sarsa = get_sarsa(self, lambda)
         sarsa:improve_policy(self.n_iters)
         local q = sarsa:get_q()
         rms_lambda_data[i][1] = lambda
@@ -92,10 +96,11 @@ function SarsaAnalyzer:eval_lambdas(
         i = i + 1
     end
 
-    self:plot_results(function ()
-            plot_rms_lambda_data(rms_lambda_data)
-        end,
-        image_fname)
+    plot_results(self,
+                 function ()
+                     plot_rms_lambda_data(rms_lambda_data)
+                 end,
+                 image_fname)
 end
 
 local function plot_rms_episode_data(data_table)
@@ -114,7 +119,7 @@ end
 -- hack to get around that torch doesn't seem to allow private class methods
 local function get_rms_episode_data(self, lambda)
     local rms_episode_data = torch.Tensor(self.n_iters/self.rms_plot_freq, 2)
-    local sarsa = self.Sarsa(self.mdp_config, lambda)
+    local sarsa = get_sarsa(self, lambda)
     sarsa:improve_policy()
     local q = sarsa:get_q()
     rms_episode_data[1][1] = 1
@@ -145,8 +150,9 @@ function SarsaAnalyzer:eval_l0_l1_rms(
     data[0] = l0_data
     data[1] = l1_data
 
-    self:plot_results(function ()
-            plot_rms_episode_data(data)
-        end,
-        image_fname)
+    self:plot_results(self,
+                      function ()
+                          plot_rms_episode_data(data)
+                      end,
+                      image_fname)
 end
