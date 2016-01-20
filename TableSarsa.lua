@@ -67,3 +67,10 @@ function TableSarsa:update_policy()
         self.actions
     )
 end
+
+function TableSarsa:__eq(other)
+    return self.Ns == other.Ns
+        and self.Nsa == other.Nsa
+        and self.q == other.q
+        and self.eligibility == other.eligibility
+end

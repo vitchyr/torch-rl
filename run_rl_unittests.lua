@@ -14,3 +14,5 @@ require 'unittest_GreedyPolicy'
 
 require 'unittest_MonteCarloControl'
 require 'unittest_TableSarsa'
+require 'unittest_TableSarsaFactory'
+require 'unittest_LinSarsaFactory'
