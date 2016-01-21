@@ -108,7 +108,7 @@ Specifically, it gives the probablity of exploring. So, it implements
 which returns epsilon for the epsilon greedy policy.
 
 ### DecayTableExplorer
-This type of explorer chooses epislon to be
+This type of explorer chooses epsilon to be
 
 `N0 / (N0 + N(s))`
 
