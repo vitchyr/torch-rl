@@ -1,31 +1,67 @@
 require 'LinSarsa'
 require 'MdpConfig'
 require 'TestMdp'
+require 'TestSAFE'
+require 'QLin'
 local ufu = require 'util_for_unittests'
 local tester = torch.Tester()
 
 local discount_factor = 0.95
 local mdp = TestMdp()
 local mdp_config = MdpConfig(mdp, discount_factor)
+local fe = TestSAFE()
 
 local TestLinSarsa = {}
 
 function TestLinSarsa.test_update_eligibility_one_step()
     local lambda = 1
-    local sarsa = TableSarsa(mdp_config, lambda)
+    local eps = 0.032
+    local step_size = 0.05
+    local sarsa = LinSarsa(mdp_config, lambda, eps, fe, step_size)
 
     local s = 2
     local a = 1
     sarsa:update_eligibility(s, a)
-    local eligibility_expected = { -- row = state, colm = action
-        [1] = {0, 1, 0},
-        [2] = {1, 0, 1},
-        [3] = {0, 1, 0}
-    }
-    tester:assert(ufu.do_qtable_qfunc_match(
-        mdp,
-        eligibility_expected,
-        sarsa.eligibility))
+
+    local eligibility_expected = QLin(mdp, fe)
+    eligibility_expected.weights[1] = s + a
+    eligibility_expected.weights[2] = s - a
+
+    tester:assert(sarsa.eligibility == eligibility_expected)
+end
+
+function TestLinSarsa.test_update_eligibility_many_steps()
+    local lambda = 0.5
+    local eps = 0.032
+    local step_size = 0.05
+    local sarsa = LinSarsa(mdp_config, lambda, eps, fe, step_size)
+
+    local s = 2
+    local a = 1
+    sarsa:update_eligibility(s, a)
+
+    local eligibility_expected = QLin(mdp, fe)
+    eligibility_expected.weights = eligibility_expected.weights 
+        + torch.Tensor{s+a, s-a}
+
+    local decay_factor = discount_factor * lambda
+    eligibility_expected.weights = eligibility_expected.weights * decay_factor
+
+    s = 2
+    a = 2
+    sarsa:update_eligibility(s, a)
+    eligibility_expected.weights =
+        eligibility_expected.weights + torch.Tensor{s+a, s-a}
+
+    eligibility_expected.weights = eligibility_expected.weights * decay_factor
+
+    s = 2
+    a = 1
+    sarsa:update_eligibility(s, a)
+    eligibility_expected.weights =
+        eligibility_expected.weights + torch.Tensor{s+a, s-a}
+
+    tester:assert(sarsa.eligibility == eligibility_expected)
 end
 
 tester:add(TestLinSarsa)
