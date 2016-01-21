@@ -12,7 +12,7 @@ function QLin:__init(mdp, feature_extractor)
 end
 
 function QLin:clear()
-    self.weights = torch.zeros(N_FEATURES)
+    self.weights = torch.zeros(self.feature_extractor:get_sa_features_dim())
 end
 
 function QLin:get_value(s, a)
