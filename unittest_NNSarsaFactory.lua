@@ -29,7 +29,11 @@ function TestNNSarsaFactory.test_get_control()
         explorer,
         feature_extractor,
         step_size)
-    tester:assert(factory:get_control() == nn_sarsa)
+    local nn_sarsa2 = factory:get_control()
+    -- Not a clean way to prevent the q's from being initialized to different
+    -- (random) parameters since they're neural network weights
+    nn_sarsa2.q = nn_sarsa.q
+    tester:assert(nn_sarsa2 == nn_sarsa)
 end
 
 tester:add(TestNNSarsaFactory)
