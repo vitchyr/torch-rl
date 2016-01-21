@@ -2,34 +2,68 @@
 This is a Torch 7 package the implements a few reinforcement learning
 algorithms. So far, we've only implemented Q-learning.
 
+This documentation is intended to mostly to give a high-level idea of what each
+abstract class does. We start with a summary of the important files, and then
+give a slightly more detailed description afterwards. For more detail, see the
+source code. For examples on how to use the functions, see the unit tests.
+
+## Summary of files
+### Interfaces/abstract classes
+* `Control.lua` - Represents an algorithm that improves a policy.
+* `Mdp.lua` - A Markov Decision Proccess that represents an environemtn.
+* `Policy.lua` - A way of deciding what action to do given a state.
+* `Sarsa.lua` - A specific Control algorithm. Technically, it's Sarsa(lambda)
+* `SAFeatureExtractor.lua` - Represents a way of extracting features from a given
+  [S]tate-[A]ction pair.
+* `ControlFactory.lua` - Used to create new Control instances
+* `Explorer.lua` - Used to get the epsilon value for EpsilonGreedy
+
+### Concrete classes
+* `Evaluator.lua` - Used to measure the performance of a policy
+* `MdpConfig.lua` - A way of configuring an Mdp.
+* `MdpSampler.lua` - A useful wrapper around an Mdp.
+* `QVAnalyzer.lua` - Used to get measurements out of Control algorithms
+
+### Specific implementations
+* `EpsilonGreedyPolicy.lua` - Implements epsilon greedy policy.
+* `DecayTableExplorer.lua` - A way of decaying epsilon for epsilon greedy policy
+  to ensure convergence.
+* `NNSarsa.lua` - Implements Sarsa(lambda) using neural networks as a function
+  approximator
+* `LinSarsa.lua` - Implements Sarsa(lambda) using linear weighting as a function
+  approximator
+* `TableSarsa.lua` - Implements Sarsa(lambda) using a lookup table.
+* `MonteCarloControl.lua` - Implements Monte Carlo control.
+
+### Test Files
+* `unittest\_\*.lua` - Unit tests. Can be run directly with `th
+unittest\_\*.lua`.
+* `run\_rl\_unittests.lua` - Run all unit tests related to this package.
+* `run\_easy21\_unittests.lua` - Run all unit tests related to the Easy21 MDP.
+* `run\_all\_unittests.lua` - Run all unit tests in this package.
+* `TestMdp.lua` - An MDP used for testing.
+* `TestPolicy.lua` - A policy for TestMdp used for testing.
+* `TestSAFE.lua` - A feature extractor used for testing.
+
+### Easy 21
+Easy21 is an example MDP that gives you an idea of how to implement a non-trival
+MDP, and corresponding files.
+
 ## A note on Abstract Classes/Interfaces
 Torch doesn't implement interfaces nor abstract classes natively, but this
 packages tries to implement them by defining functions and raising an error if
 you try to implement it. (We'll call everything an abstract class
 just for simplicity.)
 
-This documentation is intended to mostly to give a high-level idea of what each
-abstract class does. For details on what functions are exported, see the source
-code. For better examples on how to use the functions, see the unit tests.
-
 ## Markov Decision Proccess (MDP)
 Markov Decision Proccesses (MDPs) are at the heard of the RL algorithms
-implemented. Here, they are represented as a class.  The definition of the MDP
+implemented. Here, they are represented as a class. The definition of the MDP
 class will depend on the particular problem.
 
-The MDP must implement two methods:
-
-`[next_state, reward] step(s, a)`
-    given a state and action, returns the next state and reward for taking
-    that action.
-
-`[boolean] is_terminal(s)`
-    returns if a state is terminal
-
 ### MDP Config
-Most other classes will require a `MdpConfig` instance. `MdpConfig` is a data
-structure that contains an MDP and configuration, such as the discount factor. A
-common pattern is the following:
+Most other classes will require a `MdpConfig` instance instead of a `Mdp`
+instance. `MdpConfig` is a wrapper data structure that contains an MDP and
+configuration, such as the discount factor. A common pattern is the following:
 
 ```
 local mdp = TestMdp()
@@ -40,8 +74,8 @@ local mdp_config = MdpConfig(mdp, discount_factor)
 ```
 
 ### MdpSampler
-The MdpSampler is responsible for 'playing' out an episode of the MDP. It must
-be given an MDP and implements two methods:
+The MdpSampler is a wrapper around an Mdp that out provides some convenience
+methods for sampling the MDP, namely:
 
 `[number] sample_reward(policy)`
     Samples the reward of a given policy.
@@ -57,7 +91,7 @@ A Policy implements one method:
 
 `[action] get_action(state)`
 
-### EpsilonGreedy Policy - Concrete class
+### EpsilonGreedyPolicy
 The EpsilonGreedy policy is a simply policy that balances exploration and
 exploitation. The idea of epsilon greedy policies is to choose a random action
 with some small probability (epsilon). This encourages exploration. Otherwise,
@@ -72,6 +106,18 @@ Specifically, it gives the probablity of exploring. So, it implements
 `[number from 0 to 1] get_eps(s)`
 
 which returns epsilon for the epsilon greedy policy.
+
+### DecayTableExplorer
+This type of explorer chooses epislon to be
+
+`N0 / (N0 + N(s)`
+
+where `N0` is some constant, and `N(s)` is the number of times state `s` has
+been visited. This type of exploration strategy with EpsilonGreedyPolicy is
+guaranteed to converge to the optimal policy since each state is explored, but
+eventually the best action is exploited. This is because as the number of times
+states has been visited explored (i.e. the more exploration we've done) the
+smaller epsilon because (i.e. don't bother exploring as much).
 
 ## Value Functions
 All Q value functions implement:
@@ -141,7 +187,8 @@ Three versions are implemented:
 * NnSarsa - Use a neural network to approximate Q
 
 ### Linear Approximation
-Documentation is TODO - see LinSarsa for now.
+Documentation is a TODO - see LinSarsa.lua for now.
 
 ### Neural Network Approximation
-TODO - see NNSarsa for now.
+Documentation is a TODO - see NNSarsa.lua for now.
+
