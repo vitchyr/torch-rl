@@ -39,7 +39,7 @@ end
 -- For now, we're ignoring eligibility. This means that the update rule to the
 -- parameters W of the network is:
 --
---      W <- W + alpha * td_error * dQ(s,a)/dW
+--      W <- W + step_size * td_error * dQ(s,a)/dW
 --
 -- We can force the network to update this way by recognizing that the "loss"
 -- is literally just the output of the network. This makes it so that
@@ -56,7 +56,7 @@ end
 -- https://github.com/torch/nn/blob/master/doc/module.md
 --
 -- TODO: include eligibility traces
-function QNN:backward(td_error, s, a, alpha, lambda)
+function QNN:backward(td_error, s, a, step_size, lambda)
     -- forward to make sure input is set correctly
     local input = self.feature_extractor:get_sa_features(s, a)
     local output = self.module:forward(input)
@@ -68,7 +68,7 @@ function QNN:backward(td_error, s, a, alpha, lambda)
     --self.module:updateGradParameters(1 - lambda) -- momentum (dpnn)
     -- ^ momentum MIGHT effectively implement eligibilty traces. It'd be
     -- interesting to look into this.
-    self.module:updateParameters(-alpha*td_error) -- W = W - rate * dL/dW
+    self.module:updateParameters(-step_size*td_error) -- W = W - rate * dL/dW
 end
 
 function QNN:add(d_weights)

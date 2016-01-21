@@ -6,7 +6,7 @@ require 'QNN'
 -- on-line policy control
 local NNSarsa, parent = torch.class('NNSarsa', 'Sarsa')
 
-function NNSarsa:__init(mdp_config, lambda, explorer, feature_extractor)
+function NNSarsa:__init(mdp_config, lambda, explorer, feature_extractor, step_size)
     parent.__init(self, mdp_config, lambda)
     self.explorer = explorer
     self.feature_extractor = feature_extractor
@@ -31,11 +31,11 @@ function NNSarsa:update_eligibility(s, a)
 end
 
 function NNSarsa:td_update(td_error)
-    self.Q:backward(
+    self.q:backward(
         td_error,
         self.last_state,
         self.last_action,
-        self.alpha,
+        self.step_size,
         self.lambda)
 end
 
