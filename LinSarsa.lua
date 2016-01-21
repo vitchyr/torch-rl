@@ -1,6 +1,5 @@
 require 'constants'
 require 'Sarsa'
-require 'ConstExplorer'
 require 'GreedyPolicy'
 require 'QLin'
 
@@ -8,10 +7,9 @@ require 'QLin'
 -- policy control
 local LinSarsa, parent = torch.class('LinSarsa', 'Sarsa')
 
-function LinSarsa:__init(mdp_config, lambda, eps, feature_extractor, step_size)
+function LinSarsa:__init(mdp_config, lambda, explorer, feature_extractor, step_size)
     parent.__init(self, mdp_config, lambda)
-    eps = eps or EPS
-    self.explorer = ConstExplorer(eps)
+    self.explorer = explorer
     self.feature_extractor = feature_extractor
     self.step_size = step_size
     self.q = QLin(self.mdp, self.feature_extractor)

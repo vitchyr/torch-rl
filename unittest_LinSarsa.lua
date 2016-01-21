@@ -3,6 +3,7 @@ require 'MdpConfig'
 require 'TestMdp'
 require 'TestSAFE'
 require 'QLin'
+require 'ConstExplorer'
 local ufu = require 'util_for_unittests'
 local tester = torch.Tester()
 
@@ -16,8 +17,9 @@ local TestLinSarsa = {}
 function TestLinSarsa.test_update_eligibility_one_step()
     local lambda = 1
     local eps = 0.032
+    local explorer = ConstExplorer(eps)
     local step_size = 0.05
-    local sarsa = LinSarsa(mdp_config, lambda, eps, fe, step_size)
+    local sarsa = LinSarsa(mdp_config, lambda, explorer, fe, step_size)
 
     local s = 2
     local a = 1
@@ -33,8 +35,9 @@ end
 function TestLinSarsa.test_update_eligibility_many_steps()
     local lambda = 0.5
     local eps = 0.032
+    local explorer = ConstExplorer(eps)
     local step_size = 0.05
-    local sarsa = LinSarsa(mdp_config, lambda, eps, fe, step_size)
+    local sarsa = LinSarsa(mdp_config, lambda, explorer, fe, step_size)
 
     local s = 2
     local a = 1
