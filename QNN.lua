@@ -1,7 +1,6 @@
 require 'constants'
 require 'QApprox'
 local util = require 'util'
-local fe = require 'easy21_featureextraction'
 local nn = require 'nn'
 local nngraph = require 'nngraph'
 local dpnn = require 'dpnn'
@@ -9,9 +8,9 @@ local dpnn = require 'dpnn'
 -- Implementation of a state-action value function approx using a neural network
 local QNN, parent = torch.class('QNN', 'QApprox')
 
-function QNN:__init(mdp)
-    parent.__init(self, mdp)
-    self.n_features = N_DEALER_STATES * N_PLAYER_STATES * N_ACTIONS
+function QNN:__init(mdp, feature_extractor)
+    parent.__init(self, mdp, feature_extractor)
+    self.n_features = feature_extractor:get_sa_num_features()
     self.module = self:get_module()
 end
 
@@ -33,21 +32,22 @@ function QNN:clear()
 end
 
 function QNN:get_value(s, a)
-    local input = fe.get_onehot_features(s, a)
+    local input = self.feature_extractor:get_sa_features(s, a)
     return self.module:forward(input)[1]
 end
 
 function QNN:backward(td_error, s, a, alpha, lambda)
     -- forward to make sure input is set correctly
-    local input = fe.get_onehot_features(s, a)
+    local input = self.feature_extractor:get_sa_features(s, a)
     local output = self.module:forward(input)
     -- backward
-    local gradOutput = torch.Tensor{td_error}
+    -- The output of interest is the output of this layer. So grad_out = 1
+    local grad_out = torch.ones(#output)
     self.module:zeroGradParameters()
-    local gradInput = self.module:backward(input, gradOutput)
+    self.module:backward(input, grad_out)
     -- update
     --self.module:updateGradParameters(1 - lambda) -- momentum (dpnn)
-    self.module:updateParameters(-alpha) -- W = W - alpha * dL/dW
+    self.module:updateParameters(-alpha*td_error) -- W = W - rate * dL/dW
 end
 
 function QNN:add(d_weights)
@@ -62,4 +62,4 @@ function QNN:get_weight_vector()
     return self.weights
 end
 
-QHash.__eq = parent.__eq -- force inheritance of this
+QNN.__eq = parent.__eq -- force inheritance of this
