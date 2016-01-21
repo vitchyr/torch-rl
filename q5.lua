@@ -1,5 +1,5 @@
 -- Implement Q4 of the Easy 21 assignment but for neural network approximation
-require 'LinSarsaFactory'
+require 'NNSarsaFactory'
 require 'Easy21OneHotSAFE'
 require 'ConstExplorer'
 require 'constants'
