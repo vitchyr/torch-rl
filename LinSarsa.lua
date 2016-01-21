@@ -15,6 +15,7 @@ function LinSarsa:__init(mdp_config, lambda, eps, feature_extractor, step_size)
     self.feature_extractor = feature_extractor
     self.step_size = step_size
     self.q = QLin(self.mdp, self.feature_extractor)
+    self.eligibility = QLin(self.mdp, self.feature_extractor)
 end
 
 function LinSarsa:get_new_q()
