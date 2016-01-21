@@ -11,7 +11,7 @@ function NNSarsa:__init(mdp_config, lambda, explorer, feature_extractor)
     self.explorer = explorer
     self.feature_extractor = feature_extractor
     self.step_size = step_size
-    self.q = QNN(mdp_config:get_mdp())
+    self.q = QNN(mdp_config:get_mdp(), feature_extractor)
     self.last_state = nil
     self.last_action = nil
 end
@@ -53,6 +53,6 @@ function NNSarsa:__eq(other)
         and self.feature_extractor == other.feature_extractor
         and self.step_size == other.step_size
         and self.q == other.q
-        and self.state == other.state
+        and self.last_state == other.last_state
         and self.last_action == other.last_action
 end
