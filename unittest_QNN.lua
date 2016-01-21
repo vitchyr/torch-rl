@@ -62,14 +62,6 @@ function TestQNN.test_backward_no_momentum()
     local new_value2 = q:get_value(s, a)
     local d_value_2 = new_value2 - new_value1
 
-    print("\n")
-    print("Without momentum:")
-    print(old_value)
-    print(new_value1)
-    print(new_value2)
-    print(d_value_1)
-    print(d_value_2)
-
     tester:assert(math.abs(d_value_1 - d_value_2) < FLOAT_EPS)
 end
 
@@ -96,16 +88,7 @@ function TestQNN.test_backward_with_momentum()
     local new_value2 = q:get_value(s, a)
     local d_value_2 = new_value2 - new_value1
 
-    print("\n")
-    print("With momentum:")
-    print(old_value)
-    print(new_value1)
-    print(new_value2)
-    print(d_value_1)
-    print(d_value_2)
-    print(momentum)
-
-    tester:assert(math.abs((1+momentum)*learning_rate*d_value_1 - d_value_2) < FLOAT_EPS)
+    tester:assert(math.abs((1+momentum)*d_value_1 - d_value_2) < FLOAT_EPS)
 end
 
 tester:add(TestQNN)

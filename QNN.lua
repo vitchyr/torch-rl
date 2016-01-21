@@ -24,10 +24,12 @@ function QNN:__init(mdp, feature_extractor)
     parent.__init(self, mdp, feature_extractor)
     self.n_features = feature_extractor:get_sa_num_features()
     self.module = get_module(self)
+    self.is_first_update = true
 end
 
 function QNN:clear()
     self.module = get_module(self)
+    self.is_first_update = true
 end
 
 function QNN:get_value(s, a)
@@ -64,7 +66,18 @@ function QNN:backward(s, a, learning_rate, momentum)
     self.module:zeroGradParameters()
     self.module:backward(input, grad_out)
     -- update
-    self.module:updateGradParameters(momentum, 0, false) -- momentum (dpnn)
+    -- This check is necessary because of the way updateGradParameters is
+    -- implemented this. This makes sure that the first update doesn't give
+    -- momentum itself. However, future updates should rely on the momentum of
+    -- previous calls.
+    --
+    -- Also, we can't just put the call to updateGradParameters() before the
+    -- call to backward() because the zeroGradParameters() call messes it up.
+    if self.is_first_update then
+        self.is_first_update = false
+    else
+        self.module:updateGradParameters(momentum, 0, false) -- momentum (dpnn)
+    end
     -- ^ momentum MIGHT effectively implement eligibilty traces. It'd be
     -- interesting to look into this.
     self.module:updateParameters(-learning_rate) -- W = W - rate * dL/dW
