@@ -32,4 +32,27 @@ function M.are_tensors_same_shape(t1, t2)
     return true
 end
 
+function M.do_qtable_qfunc_match(mdp, q_table, qfunc)
+    for _, state in pairs(mdp:get_all_states()) do
+        for _, action in pairs(mdp:get_all_actions()) do
+            local sa_value = qfunc:get_value(state, action)
+            if q_table[state][action] ~= sa_value then
+                return false
+            end
+        end
+    end
+    return true
+end
+
+function M.do_vtable_vfunc_match(mdp, v_table, vfunc)
+    for _, state in pairs(mdp:get_all_states()) do
+        local state_value = vfunc:get_value(state)
+        if v_table[state] ~= state_value then
+            return false
+        end
+    end
+    return true
+end
+
+
 return M

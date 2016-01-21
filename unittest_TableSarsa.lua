@@ -1,6 +1,8 @@
 require 'TableSarsa'
 require 'MdpConfig'
 require 'TestMdp'
+local ufu = require 'util_for_unittests'
+
 local tester = torch.Tester()
 
 local TestTableSarsa = {}
@@ -8,29 +10,7 @@ local discount_factor = 0.9
 local mdp = TestMdp()
 local mdp_config = MdpConfig(mdp, discount_factor)
 
-local function do_qtable_qhash_match(q_table, qhash)
-    for _, state in pairs(mdp:get_all_states()) do
-        for _, action in pairs(mdp:get_all_actions()) do
-            local sa_value = qhash:get_value(state, action)
-            if q_table[state][action] ~= sa_value then
-                return false
-            end
-        end
-    end
-    return true
-end
-
-local function do_vtable_vhash_match(v_table, vhash)
-    for _, state in pairs(mdp:get_all_states()) do
-        local state_value = vhash:get_value(state)
-        if v_table[state] ~= state_value then
-            return false
-        end
-    end
-    return true
-end
-
-local function eligibilities_are_correct_for_one_step(
+local function non_q_params_match(
         sarsa,
         Ns_expected,
         Nsa_expected,
@@ -39,9 +19,9 @@ local function eligibilities_are_correct_for_one_step(
     local Nsa = sarsa.Nsa
     local elig = sarsa.eligibility
 
-    return do_vtable_vhash_match(Ns_expected, Ns)
-        and do_qtable_qhash_match(Nsa_expected, Nsa)
-        and do_qtable_qhash_match(eligibility_expected, elig)
+    return ufu.do_vtable_vfunc_match(mdp, Ns_expected, Ns)
+        and ufu.do_qtable_qfunc_match(mdp, Nsa_expected, Nsa)
+        and ufu.do_qtable_qfunc_match(mdp, eligibility_expected, elig)
 end
 
 function TestTableSarsa.test_update_eligibility_one_step()
@@ -59,7 +39,7 @@ function TestTableSarsa.test_update_eligibility_one_step()
         [3] = {0, 0, 0}
     }
     local eligibility_expected = Nsa_expected
-    local correct = eligibilities_are_correct_for_one_step(
+    local correct = non_q_params_match(
         sarsa,
         Ns_expected,
         Nsa_expected,
@@ -86,7 +66,7 @@ function TestTableSarsa.test_update_eligibility_lambda1()
         [3] = {0, 0, 0}
     }
     local eligibility_expected = Nsa_expected
-    local correct = eligibilities_are_correct_for_one_step(
+    local correct = non_q_params_match(
         sarsa,
         Ns_expected,
         Nsa_expected,
@@ -117,7 +97,7 @@ function TestTableSarsa:test_update_eligibility_lambda_frac()
         [2] = {1 + decay_factor * (1 + decay_factor*1), 0, 0},
         [3] = {0, 0, 0}
     }
-    local correct = eligibilities_are_correct_for_one_step(
+    local correct = non_q_params_match(
         sarsa,
         Ns_expected,
         Nsa_expected,
@@ -148,7 +128,7 @@ function TestTableSarsa:test_update_eligibility_lambda0()
         [2] = {1 + decay_factor * (1 + decay_factor*1), 0, 0},
         [3] = {0, 0, 0}
     }
-    local correct = eligibilities_are_correct_for_one_step(
+    local correct = non_q_params_match(
         sarsa,
         Ns_expected,
         Nsa_expected,
@@ -183,7 +163,7 @@ function TestTableSarsa:test_update_eligibility_mixed_updates()
         [2] = {decay_factor^2, 0, 1},
         [3] = {0, 0, 0}
     }
-    local correct = eligibilities_are_correct_for_one_step(
+    local correct = non_q_params_match(
         sarsa,
         Ns_expected,
         Nsa_expected,
@@ -205,7 +185,7 @@ function TestTableSarsa:test_td_update_one_update()
         [2] = {5, 0, 0},
         [3] = {0, 0, 0}
     }
-    tester:assert(do_qtable_qhash_match(q_expected, sarsa.q))
+    tester:assert(ufu.do_qtable_qfunc_match(mdp, q_expected, sarsa.q))
 end
 
 function TestTableSarsa:test_td_update_many_updates()
@@ -232,7 +212,7 @@ function TestTableSarsa:test_td_update_many_updates()
         [2] = {5+5*(1+decay_factor)/2-10*decay_factor*(1+decay_factor)/2, 0, 0},
         [3] = {0, 0, -10}
     }
-    tester:assert(do_qtable_qhash_match(q_expected, sarsa.q))
+    tester:assert(ufu.do_qtable_qfunc_match(mdp, q_expected, sarsa.q))
 end
 
 tester:add(TestTableSarsa)
