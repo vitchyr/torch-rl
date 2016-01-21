@@ -12,6 +12,15 @@ function TestEasy21OneHotSAFE.test_dim()
     local expected = torch.zeros(fe:get_sa_features_dim())
     tester:assert(ufu.are_tensors_same_shape(f, expected))
 end
+
+function TestEasy21OneHotSAFE.test_num_features()
+    local s = {1, 1}
+    local a = {1}
+    local fe = Easy21OneHotSAFE()
+    local f = fe:get_sa_features(s, a)
+    tester:asserteq(f:numel(), fe:get_sa_num_features())
+end
+
 function TestEasy21OneHotSAFE.test_onehot_fe()
     local dealer = 1
     local player = 2

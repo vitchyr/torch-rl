@@ -11,3 +11,7 @@ end
 function TestSAFE:get_sa_features_dim()
     return 2
 end
+
+function TestSAFE:get_sa_num_features()
+    return 2
+end

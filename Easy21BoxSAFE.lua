@@ -4,9 +4,10 @@ require 'easy21_constants'
 -- Features are a coarse coding.
 local Easy21BoxSAFE, parent = torch.class('Easy21BoxSAFE', 'SAFeatureExtractor')
 
+local N_FEATURES = #DEALER_VALUES * #PLAYER_VALUES * N_ACTIONS
 function Easy21BoxSAFE:get_sa_features(s, a)
     local dealer, player = table.unpack(s)
-    local x = torch.zeros(3, 6, 2)
+    local x = torch.zeros(#DEALER_VALUES, #PLAYER_VALUES, N_ACTIONS)
     local dealer_i, player_i = 0, 0
 
     local function is_in(v, range)
@@ -22,9 +23,13 @@ function Easy21BoxSAFE:get_sa_features(s, a)
         end
     end
 
-    return x:resize(36)
+    return x:resize(N_FEATURES)
 end
 
 function Easy21BoxSAFE:get_sa_features_dim()
-    return 36
+    return N_FEATURES
+end
+
+function Easy21BoxSAFE:get_sa_num_features()
+    return N_FEATURES
 end

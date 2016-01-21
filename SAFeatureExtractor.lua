@@ -13,3 +13,8 @@ end
 function SAFeatureExtractor:get_sa_features_dim()
     error('Must implement get_sa_features_dim')
 end
+
+-- returns the num of elements in the tensor returned by get_sa_features
+function SAFeatureExtractor:get_sa_num_features()
+    error('Must implement get_sa_num_features')
+end
