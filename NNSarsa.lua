@@ -14,6 +14,7 @@ function NNSarsa:__init(mdp_config, lambda, explorer, feature_extractor, step_si
     self.q = QNN(mdp_config:get_mdp(), feature_extractor)
     self.last_state = nil
     self.last_action = nil
+    self.momentum = self.lambda * self.discount_factor
 end
 
 function NNSarsa:get_new_q()
@@ -31,12 +32,12 @@ function NNSarsa:update_eligibility(s, a)
 end
 
 function NNSarsa:td_update(td_error)
+    local learning_rate = td_error * self.step_size
     self.q:backward(
-        td_error,
         self.last_state,
         self.last_action,
-        self.step_size,
-        self.lambda)
+        learning_rate,
+        self.momentum)
 end
 
 function NNSarsa:update_policy()

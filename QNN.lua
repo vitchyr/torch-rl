@@ -8,14 +8,7 @@ local dpnn = require 'dpnn'
 -- Implementation of a state-action value function approx using a neural network
 local QNN, parent = torch.class('QNN', 'QApprox')
 
-function QNN:__init(mdp, feature_extractor)
-    parent.__init(self, mdp, feature_extractor)
-    self.n_features = feature_extractor:get_sa_num_features()
-    self.module = self:get_module()
-end
-
--- Get the NN module
-function QNN:get_module()
+local function get_module(self)
     local x = nn.Identity()() -- use nngraph for practice
     local l1 = nn.Linear(self.n_features, 1)(x)
     --[[
@@ -27,8 +20,14 @@ function QNN:get_module()
     return nn.gModule({x}, {l1})
 end
 
+function QNN:__init(mdp, feature_extractor)
+    parent.__init(self, mdp, feature_extractor)
+    self.n_features = feature_extractor:get_sa_num_features()
+    self.module = get_module(self)
+end
+
 function QNN:clear()
-    self.module = self:get_module()
+    self.module = get_module(self)
 end
 
 function QNN:get_value(s, a)
@@ -56,7 +55,7 @@ end
 -- https://github.com/torch/nn/blob/master/doc/module.md
 --
 -- TODO: include eligibility traces
-function QNN:backward(td_error, s, a, step_size, lambda)
+function QNN:backward(s, a, learning_rate, momentum)
     -- forward to make sure input is set correctly
     local input = self.feature_extractor:get_sa_features(s, a)
     local output = self.module:forward(input)
@@ -65,22 +64,10 @@ function QNN:backward(td_error, s, a, step_size, lambda)
     self.module:zeroGradParameters()
     self.module:backward(input, grad_out)
     -- update
-    --self.module:updateGradParameters(1 - lambda) -- momentum (dpnn)
+    self.module:updateGradParameters(momentum, 0, false) -- momentum (dpnn)
     -- ^ momentum MIGHT effectively implement eligibilty traces. It'd be
     -- interesting to look into this.
-    self.module:updateParameters(-step_size*td_error) -- W = W - rate * dL/dW
-end
-
-function QNN:add(d_weights)
-    self.weights = self.weights + d_weights
-end
-
-function QNN:mult(factor)
-    self.weights = self.weights * factor
-end
-
-function QNN:get_weight_vector()
-    return self.weights
+    self.module:updateParameters(-learning_rate) -- W = W - rate * dL/dW
 end
 
 QNN.__eq = parent.__eq -- force inheritance of this
