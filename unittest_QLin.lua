@@ -42,6 +42,8 @@ function TestQLin.test_add_once()
         0)
 end
 
+-- TODO: add more tests
+
 tester:add(TestQLin)
 
 tester:run()
