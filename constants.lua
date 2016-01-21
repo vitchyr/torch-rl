@@ -14,3 +14,6 @@ EPS = 0.05
 
 -- Constants set that should be set by command line interfaces
 DEFAULT_Q_MC_SAVE = 'last_q_mc.dat'
+
+-- Tolerance for floating point comparison
+FLOAT_EPS = 1e-10
