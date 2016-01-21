@@ -55,8 +55,6 @@ end
 --
 -- For more detail on how nn works, see
 -- https://github.com/torch/nn/blob/master/doc/module.md
---
--- TODO: include eligibility traces
 function QNN:backward(s, a, learning_rate, momentum)
     -- forward to make sure input is set correctly
     local input = self.feature_extractor:get_sa_features(s, a)
