@@ -1,5 +1,5 @@
 # torch-rl
-This is a Torch 7 package the implements a few reinforcement learning
+This is a Torch 7 package that implements a few reinforcement learning
 algorithms. So far, we've only implemented Q-learning.
 
 This documentation is intended to mostly to give a high-level idea of what each
@@ -110,7 +110,7 @@ which returns epsilon for the epsilon greedy policy.
 ### DecayTableExplorer
 This type of explorer chooses epislon to be
 
-`N0 / (N0 + N(s)`
+`N0 / (N0 + N(s))`
 
 where `N0` is some constant, and `N(s)` is the number of times state `s` has
 been visited. This type of exploration strategy with EpsilonGreedyPolicy is
