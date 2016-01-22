@@ -1,4 +1,5 @@
 require 'BlackJack'
+require 'TestMdp'
 require 'MdpConfig'
 require 'TableSarsa'
 require 'Evaluator'
@@ -26,3 +27,4 @@ local function test_sarsa_diff_lambda(mdp)
     end
 end
 test_sarsa_diff_lambda(BlackJack())
+test_sarsa_diff_lambda(TestMdp())
