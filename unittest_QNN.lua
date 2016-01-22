@@ -31,7 +31,7 @@ function TestQNN.test_backward()
     local grad_out = torch.Tensor{1}
     local _ = module:forward(input)
     module:backward(input, grad_out)
-    module:updateGradParameters(momentum, 0, false) -- momentum (dpnn)
+    module:updateGradParameters(momentum, 0, false)
     module:updateParameters(-step_size*td_error)
     local expected_params = module:parameters()
 
