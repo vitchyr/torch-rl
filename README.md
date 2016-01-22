@@ -8,11 +8,14 @@ give a slightly more detailed description afterwards. For more detail, see the
 source code. For examples on how to use the functions, see the unit tests.
 
 ## Summary of files
+Files that start with upper cases are classes. Every other file is a script,
+except for the constants and util file.
+
 ### Interfaces/abstract classes
 * `Control.lua` - Represents an algorithm that improves a policy.
 * `Mdp.lua` - A Markov Decision Proccess that represents an environemtn.
 * `Policy.lua` - A way of deciding what action to do given a state.
-* `Sarsa.lua` - A specific Control algorithm. Technically, it's Sarsa(lambda)
+* `Sarsa.lua` - A specific Control algorithm. Technically, it's Sarsa-lambda
 * `SAFeatureExtractor.lua` - Represents a way of extracting features from a given
   [S]tate-[A]ction pair.
 * `ControlFactory.lua` - Used to create new Control instances
@@ -28,26 +31,57 @@ source code. For examples on how to use the functions, see the unit tests.
 * `EpsilonGreedyPolicy.lua` - Implements epsilon greedy policy.
 * `DecayTableExplorer.lua` - A way of decaying epsilon for epsilon greedy policy
   to ensure convergence.
-* `NNSarsa.lua` - Implements Sarsa(lambda) using neural networks as a function
+* `NNSarsa.lua` - Implements Sarsa-lambda using neural networks as a function
   approximator
-* `LinSarsa.lua` - Implements Sarsa(lambda) using linear weighting as a function
+* `LinSarsa.lua` - Implements Sarsa-lambda using linear weighting as a function
   approximator
-* `TableSarsa.lua` - Implements Sarsa(lambda) using a lookup table.
+* `TableSarsa.lua` - Implements Sarsa-lambda using a lookup table.
 * `MonteCarloControl.lua` - Implements Monte Carlo control.
 
 ### Test Files
-* `unittest\_\*.lua` - Unit tests. Can be run directly with `th
-unittest\_\*.lua`.
-* `run\_rl\_unittests.lua` - Run all unit tests related to this package.
-* `run\_easy21\_unittests.lua` - Run all unit tests related to the Easy21 MDP.
-* `run\_all\_unittests.lua` - Run all unit tests in this package.
+* `unittest_*.lua` - Unit tests. Can be run directly with `th
+unittest_*.lua`.
+* `run_rl_unittests.lua` - Run all unit tests related to this package.
+* `run_BlackJack_unittests.lua` - Run all unit tests related to Black Jack.
+* `run_all_unittests.lua` - Run all unit tests in this package.
 * `TestMdp.lua` - An MDP used for testing.
 * `TestPolicy.lua` - A policy for TestMdp used for testing.
 * `TestSAFE.lua` - A feature extractor used for testing.
 
-### Easy 21
-Easy21 is an example MDP that gives you an idea of how to implement a non-trival
-MDP, and corresponding files.
+## Black Jack
+BlackJack is an example MDP that gives you an idea of how to implement a
+non-trival MDP.
+
+Some simple scripts you can run:
+* `test_montecarlo.lua` - See how Monte Carlo Control does on BlackJack and
+  TestMdp.
+* `test_tablesarsa.lua` - See how Table-Lookup Sarsa Lambda does on BlackJack
+  and TestMdp.
+* `test_thresholdpolicy.lua` - See how a super simple policy does on BlackJack.
+
+### Sarsa-lambda Analysis
+Below are more intesting scripts that compare Sarsa-lambda algorithms perform
+relative to Monte Carlo (MC) Control.
+* `analyze_table_sarsa.lua`
+* `analyze_lin_sarsa.lua`
+* `analyze_nn_sarsa.lua`
+
+MC Control is used as a baseline because it gives an unbiased estimate of the
+true Q (state-action value) function. In each of the scripts, two plots get
+generated: (1) root mean square (RMS) error of the estimated Q function vs
+lambda. (2) RMS error of the estimated Q function vs # iterations for lambda = 0
+and lambda = 1.
+
+To save time, you can generated the Q function from MC Control, save
+it, and then load it back up in the above scripts. Generate a MC Q file with
+
+`$ th generate_q_mc.lua -saveqto <FILE_NAME>.dat`
+
+and use this file when running the above scripts with the following.
+
+`$ th analyze_table_sarsa.lua -loadqfrom <FILE_NAME>.dat`
+
+Run these scripts with the -h option for more help.
 
 ## A note on Abstract Classes/Interfaces
 Torch doesn't implement interfaces nor abstract classes natively, but this
@@ -170,7 +204,7 @@ local policy = mc:get_policy()
 local learned_action = policy.get_action(state)
 ```
 
-### Sarsa(lambda)
+### Sarsa-lambda
 See [Sutton and
 Barto](https://webdocs.cs.ualberta.ca/~sutton/book/ebook/node77.html) for
 explanation of algorithm. One major difference is that we used discounted
