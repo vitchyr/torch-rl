@@ -73,10 +73,8 @@ faked with the following:
 ```lua
 
 local function private_method(self, arg1, ...)
-
+    ...
 end
-
--- ...
 
 function Foo:bar()
     self:public_method(arg1, ...)   -- Call public methods normally
