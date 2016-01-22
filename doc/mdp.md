@@ -33,7 +33,7 @@ time. Time starts at 1 (going along with Lua conventions).
 ### Creating Your Own MDP
 To create a MDP, extend the base MDP class using torch:
 
-```
+```lua
 require 'Mdp'
 local MyMdp, parent = torch.class('MyMdp', 'Mdp')
 
