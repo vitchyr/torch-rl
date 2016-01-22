@@ -31,5 +31,24 @@ time. Time starts at 1 (going along with Lua conventions).
 
 <a name="create_mdp"></a>
 ### Creating Your Own MDP
-Check out [Mdp.lua](../Mdp.lua) for all the functions that you need to
-implement. See [Blackjack.lua](../BlackJack.lua) for an example.
+To create a MDP, extend the base MDP class using torch:
+
+```
+require 'Mdp'
+local MyMdp, parent = torch.class('MyMdp', 'Mdp')
+
+function MyMdp:__init(arg1)
+    parent.__init(self)
+end
+```
+
+The main functions that an MDP needs to be implemented are
+
+* `[next_state, reward] step(state, action)` Note that state should capture
+everything needed to compute the next state and reward, given an action.
+* `[state] get_start_state()`
+* `[boolean] is_terminal(state)`
+
+Check out [Mdp.lua](../Mdp.lua) for detail on other the functions that you may
+want to implement. See [Blackjack.lua](../BlackJack.lua) for an example.
+
