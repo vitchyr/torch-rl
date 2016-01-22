@@ -1,4 +1,4 @@
--- Implement Q3 of the Easy 21 assignment
+-- Analyze how TableSarsa does on BlackJack
 require 'TableSarsaFactory'
 require 'BlackJackBoxSAFE'
 require 'constants'

@@ -101,7 +101,7 @@ function BlackJack:is_terminal(s)
 end
 
 function BlackJack:get_description()
-    return 'Easy 21'
+    return 'Simplified Black Jack'
 end
 
 return M

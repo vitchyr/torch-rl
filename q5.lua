@@ -1,4 +1,4 @@
--- Implement Q4 of the Easy 21 assignment but for neural network approximation
+-- Analyze how NNSarsa does on BlackJack
 require 'NNSarsaFactory'
 require 'BlackJackOneHotSAFE'
 require 'ConstExplorer'

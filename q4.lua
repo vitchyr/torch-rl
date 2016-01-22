@@ -1,4 +1,4 @@
--- Implement Q4 of the Easy 21 assignment
+-- Analyze how LinSarsa does on BlackJack
 require 'LinSarsaFactory'
 require 'BlackJackBoxSAFE'
 require 'ConstExplorer'
