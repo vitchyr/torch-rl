@@ -9,14 +9,18 @@ local discount_factor = 0.95
 local mdp = TestMdp()
 local mdp_config = MdpConfig(mdp, discount_factor)
 local fe = TestSAFE()
+local lambda = 1
+local eps = 0.032
+local explorer = ConstExplorer(eps)
+local step_size = 0.05
+
+local function get_sarsa()
+    return NNSarsa(mdp_config, lambda, explorer, fe, step_size)
+end
 
 local TestNNSarsa = {}
 function TestNNSarsa.test_update_eligibility_one_step()
-    local lambda = 1
-    local eps = 0.032
-    local explorer = ConstExplorer(eps)
-    local step_size = 0.05
-    local sarsa = NNSarsa(mdp_config, lambda, explorer, fe, step_size)
+    local sarsa = get_sarsa()
 
     local s = 2
     local a = 1
@@ -26,11 +30,7 @@ function TestNNSarsa.test_update_eligibility_one_step()
 end
 
 function TestNNSarsa.test_td_update_once()
-    local lambda = 1
-    local eps = 0.032
-    local explorer = ConstExplorer(eps)
-    local step_size = 0.05
-    local sarsa = NNSarsa(mdp_config, lambda, explorer, fe, step_size)
+    local sarsa = get_sarsa()
     local expected_module = sarsa.q.module:clone()
 
     local s = 2
@@ -44,7 +44,6 @@ function TestNNSarsa.test_td_update_once()
     local grad_out = torch.Tensor{1}
     expected_module:backward(input, grad_out)
     local momentum = lambda * discount_factor
-    --expected_module:updateGradParameters(momentum, 0, false)
     local learning_rate = step_size * td_error
     expected_module:updateParameters(-learning_rate)
 
@@ -57,11 +56,7 @@ function TestNNSarsa.test_td_update_once()
 end
 
 function TestNNSarsa.test_td_update_many_times()
-    local lambda = 1
-    local eps = 0.032
-    local explorer = ConstExplorer(eps)
-    local step_size = 0.05
-    local sarsa = NNSarsa(mdp_config, lambda, explorer, fe, step_size)
+    local sarsa = get_sarsa()
     local expected_module = sarsa.q.module:clone()
 
     local s = 2
@@ -75,7 +70,6 @@ function TestNNSarsa.test_td_update_many_times()
     local grad_out = torch.Tensor{1}
     expected_module:backward(input, grad_out)
     local momentum = lambda * discount_factor
-    --expected_module:updateGradParameters(momentum, 0, false)
     local learning_rate = step_size * td_error
     expected_module:updateParameters(-learning_rate)
 
@@ -103,14 +97,13 @@ function TestNNSarsa.test_td_update_many_times()
     tester:assert(sarsa == expected_sarsa)
 end
 
--- This test only applies if the network is linear
 function TestNNSarsa.test_reset_eligibility()
-    local lambda = 1
-    local eps = 0.032
-    local explorer = ConstExplorer(eps)
-    local step_size = 0.05
-    local sarsa = NNSarsa(mdp_config, lambda, explorer, fe, step_size)
+    local sarsa = get_sarsa()
     local expected_module = sarsa.q.module:clone()
+
+    if not sarsa.q:is_linear() then
+        return
+    end
 
     local s = 2
     local a = 1

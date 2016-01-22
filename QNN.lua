@@ -10,14 +10,20 @@ local QNN, parent = torch.class('QNN', 'QApprox')
 
 local function get_module(self)
     local x = nn.Identity()() -- use nngraph for practice
-    local l1 = nn.Linear(self.n_features, 1)(x)
     --[[
+    local l1 = nn.Linear(self.n_features, self.n_features)(x)
     local l2 = nn.Sigmoid()(l1)
-    local l3 = nn.Linear(self.n_features, self.n_features)(l2)
+    local l3 = nn.Linear(self.n_features, 1)(l1)
     local l4 = nn.Sigmoid()(l3)
     local l5 = nn.Linear(self.n_features, 1)(l4)
-    --]]
+    return nn.gModule({x}, {l3})
+    ]]--
+    local l1 = nn.Linear(self.n_features, 1)(x)
     return nn.gModule({x}, {l1})
+end
+
+function QNN:is_linear()
+    return true
 end
 
 function QNN:__init(mdp, feature_extractor)
@@ -39,7 +45,7 @@ local function reset_momentum(net)
     end
 end
 
-function QNN:clear()
+function QNN:reset_momentum()
     self.is_first_update = true
     self.module:zeroGradParameters()
     reset_momentum(self.module)

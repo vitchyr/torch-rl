@@ -39,9 +39,12 @@ function TestQNN.test_backward()
     tester:assertTensorEq(expected_params[2], new_params[2], 0)
 end
 
--- This test only applies if the network is linear
 function TestQNN.test_backward_no_momentum()
     local q = QNN(mdp, fe)
+    if not q:is_linear() then
+        return
+    end
+
     local module = q.module:clone()
 
     local s = 2
@@ -64,9 +67,11 @@ function TestQNN.test_backward_no_momentum()
     tester:assert(math.abs(d_value_1 - d_value_2) < FLOAT_EPS)
 end
 
--- This test only applies if the network is linear
 function TestQNN.test_backward_with_momentum()
     local q = QNN(mdp, fe)
+    if not q:is_linear() then
+        return
+    end
     local module = q.module:clone()
 
     local s = 2
@@ -93,6 +98,11 @@ end
 
 function TestQNN.test_momentum_exists()
     local q = QNN(mdp, fe)
+    -- If q is non-linear, then all bets are off on whether or not the momentum
+    -- will change things.
+    if not q:is_linear() then
+        return
+    end
     local module = q.module:clone()
 
     local s = 2
@@ -117,8 +127,11 @@ function TestQNN.test_momentum_exists()
     tester:assert(math.abs(d_value_1 - d_value_2) > FLOAT_EPS)
 end
 
-function TestQNN.test_backward_no_momentum()
+function TestQNN.test_backward_reset_momentum()
     local q = QNN(mdp, fe)
+    if not q:is_linear() then
+        return
+    end
     local module = q.module:clone()
 
     local s = 2
@@ -134,7 +147,7 @@ function TestQNN.test_backward_no_momentum()
     local new_value1 = q:get_value(s, a)
     local d_value_1 = new_value1 - old_value
 
-    q:clear()
+    q:reset_momentum()
 
     q:backward(s, a, learning_rate, momentum)
     local new_value2 = q:get_value(s, a)
