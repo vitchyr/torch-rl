@@ -1,6 +1,5 @@
 require 'constants'
 require 'Sarsa'
-require 'GreedyPolicy'
 require 'QLin'
 
 -- Implement SARSA algorithm using a linear function approximator for on-line
@@ -35,7 +34,7 @@ function LinSarsa:td_update(td_error)
 end
 
 function LinSarsa:update_policy()
-    self.policy = GreedyPolicy(
+    self.policy = rl.GreedyPolicy(
         self.q,
         self.explorer,
         self.actions

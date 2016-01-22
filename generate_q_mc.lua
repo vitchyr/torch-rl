@@ -1,3 +1,4 @@
+require 'rl'
 local io_util = require 'io_util'
 require 'constants'
 require 'BlackJack'

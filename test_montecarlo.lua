@@ -1,3 +1,4 @@
+require 'rl'
 require 'BlackJack'
 require 'TestMdp'
 require 'Evaluator'

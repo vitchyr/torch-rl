@@ -2,7 +2,6 @@ require 'constants'
 require 'Sarsa'
 require 'QHash'
 require 'VHash'
-require 'GreedyPolicy'
 require 'DecayTableExplorer'
 
 -- Implement SARSA algorithm using a linear function approximator for on-line
@@ -61,7 +60,7 @@ end
 
 function TableSarsa:update_policy()
     self.explorer = DecayTableExplorer(N0, self.Ns)
-    self.policy = GreedyPolicy(
+    self.policy = rl.GreedyPolicy(
         self.q,
         self.explorer,
         self.actions

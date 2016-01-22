@@ -1,3 +1,4 @@
+require 'rl'
 require 'SarsaAnalyzer'
 require 'MdpConfig'
 require 'BlackJack'

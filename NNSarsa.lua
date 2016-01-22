@@ -42,7 +42,7 @@ function NNSarsa:td_update(td_error)
 end
 
 function NNSarsa:update_policy()
-    self.policy = GreedyPolicy(
+    self.policy = rl.GreedyPolicy(
         self.q,
         self.explorer,
         self.actions
