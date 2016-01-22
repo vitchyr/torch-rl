@@ -49,9 +49,9 @@ Run these scripts with the -h option for more help.
 For `analyze_table_sarsa` with the number of iterations set to 10^5, you get the
 following plots
 
-![RMS vs Lambda for TableSarsa](../images/table_sarsa_rms_vs_lambda.jpg "RMS vs
+![RMS vs Lambda for TableSarsa](../images/table_sarsa_rms_vs_lambda.png "RMS vs
 Lambda for TableSarsa")
 
 ![RMS vs Episode for TableSarsa, lambda = 0 and
-1](../images/table_sarsa_rms_vs_iteation.jpg "RMS vs Iteration for TableSarsa,
+1](../images/table_sarsa_rms_vs_iteation.png "RMS vs Iteration for TableSarsa,
 lambda = 1 and 1")
