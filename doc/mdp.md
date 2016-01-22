@@ -3,6 +3,9 @@ Markov Decision Proccesses (MDPs) are at the heard of the RL algorithms
 implemented. Here, they are represented as a class. The definition of the MDP
 class will depend on the particular problem.
 
+The biggest idea of MDPs is that they are memoryless. The state of an MDP should
+be enough to determine what happens next.
+
 ### MDP Config
 Most other classes will require a `MdpConfig` instance instead of a `Mdp`
 instance. `MdpConfig` is a wrapper data structure that contains an MDP and
@@ -20,11 +23,13 @@ local mdp_config = MdpConfig(mdp, discount_factor)
 The MdpSampler is a wrapper around an Mdp that out provides some convenience
 methods for sampling the MDP, namely:
 
-`[number] sample_reward(policy)`
-    Samples the reward of a given policy.
-
-`[episode] get_episode(policy)`
-    Return an episode by following the trajectory of a given policy.
+* `[number] sample_reward(policy)`
+* `[episode] get_episode(policy)`
 
 An episode is a table of {state, action, discounted return, reward}, indexed by
 time. Time starts at 1 (going along with Lua conventions).
+
+<a name="create_mdp"></a>
+### Creating Your Own MDP
+Check out [Mdp.lua](../Mdp.lua) for all the functions that you need to
+implement. See [Blackjack.lua](../BlackJack.lua) for an example.

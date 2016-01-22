@@ -30,15 +30,15 @@ end
 --   s: state, a table of {dealer_sum, player_sum}
 --   a: action
 --]]
-function BlackJack:step(s, a)
-    if s == TERMINAL then 
+function BlackJack:step(state, action)
+    if state == TERMINAL then 
         print('Game is already over')
         return TERMINAL, 0
     end
 
-    local dealer_sum, player_sum = table.unpack(s)
+    local dealer_sum, player_sum = table.unpack(state)
 
-    if a == HIT then
+    if action == HIT then
         player_sum = player_sum + draw()
         if is_bust(player_sum) then
             return TERMINAL, -1
@@ -60,12 +60,16 @@ function BlackJack:step(s, a)
     elseif player_sum < dealer_sum then
         r = -1
     end
-    
+
     return TERMINAL, r
 end
 
 function BlackJack:get_start_state()
     return {draw_black(), draw_black()}
+end
+
+function BlackJack:is_terminal(s)
+    return s == TERMINAL
 end
 
 function BlackJack:get_all_states()
@@ -90,14 +94,6 @@ end
 
 function BlackJack:hash_a(a)
     return a -- use the fact that actions are numbers right now
-end
-
-function BlackJack:copy_state(s)
-    return util.copy_simply(s)
-end
-
-function BlackJack:is_terminal(s)
-    return s == TERMINAL
 end
 
 function BlackJack:get_description()
