@@ -53,5 +53,5 @@ following plots
 Lambda for TableSarsa")
 
 ![RMS vs Episode for TableSarsa, lambda = 0 and
-1](../images/table_sarsa_rms_vs_iteation.png "RMS vs Iteration for TableSarsa,
+1](../images/table_sarsa_rms_vs_iteration.png "RMS vs Iteration for TableSarsa,
 lambda = 1 and 1")

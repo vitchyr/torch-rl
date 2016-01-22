@@ -113,7 +113,7 @@ local function plot_rms_episode_data(data_table)
     gnuplot.grid(true)
     gnuplot.xlabel('Episode')
     gnuplot.ylabel('RMS between Q-MC and Q-SARSA')
-    gnuplot.title('Q RMS vs Episode, lambda = 0 & 1')
+    gnuplot.title('Q RMS vs Episode, lambda = 0 and 1')
 end
 
 -- hack to get around that torch doesn't seem to allow private class methods
