@@ -48,181 +48,21 @@ unittest_*.lua`.
 * `TestPolicy.lua` - A policy for TestMdp used for testing.
 * `TestSAFE.lua` - A feature extractor used for testing.
 
-## Black Jack
-BlackJack is an example MDP that gives you an idea of how to implement a
-non-trival MDP.
-
-Some simple scripts you can run:
-* `test_montecarlo.lua` - See how Monte Carlo Control does on BlackJack and
-  TestMdp.
-* `test_tablesarsa.lua` - See how Table-Lookup Sarsa Lambda does on BlackJack
-  and TestMdp.
-* `test_thresholdpolicy.lua` - See how a super simple policy does on BlackJack.
-
-### Sarsa-lambda Analysis
-Below are more intesting scripts that compare Sarsa-lambda algorithms perform
-relative to Monte Carlo (MC) Control.
-* `analyze_table_sarsa.lua`
-* `analyze_lin_sarsa.lua`
-* `analyze_nn_sarsa.lua`
-
-MC Control is used as a baseline because it gives an unbiased estimate of the
-true Q (state-action value) function. In each of the scripts, two plots get
-generated: (1) root mean square (RMS) error of the estimated Q function vs
-lambda. (2) RMS error of the estimated Q function vs # iterations for lambda = 0
-and lambda = 1.
-
-To save time, you can generated the Q function from MC Control, save
-it, and then load it back up in the above scripts. Generate a MC Q file with
-
-`$ th generate_q_mc.lua -saveqto <FILE_NAME>.dat`
-
-and use this file when running the above scripts with the following.
-
-`$ th analyze_table_sarsa.lua -loadqfrom <FILE_NAME>.dat`
-
-Run these scripts with the -h option for more help.
+## Read More
+* [MDP](doc/mdp.md) - Read about Markov Decision Processes, which are the
+  foundation of how reinforcement learning models the world.
+* [Policy](doc/policy.md) - Policies are mappings from state to action.
+* [Black Jack](doc/blackjack.md) - An example MDP that is a simplified version
+  of black jack.
+* [Sarsa](doc/sarsa.md) - Read about the Sarsa-lambda algorithm and scripts that
+  test them.
+* [Monte Carlo Control](doc/montecarlo.md) - Read about Monte Carlo Control and
+  how to use it.
+* [Value Functions](doc/valuefunctions.md) - Value functions represent how
+  valuable certains states and/or actions are.
 
 ## A note on Abstract Classes/Interfaces
 Torch doesn't implement interfaces nor abstract classes natively, but this
 packages tries to implement them by defining functions and raising an error if
 you try to implement it. (We'll call everything an abstract class
 just for simplicity.)
-
-## Markov Decision Proccess (MDP)
-Markov Decision Proccesses (MDPs) are at the heard of the RL algorithms
-implemented. Here, they are represented as a class. The definition of the MDP
-class will depend on the particular problem.
-
-### MDP Config
-Most other classes will require a `MdpConfig` instance instead of a `Mdp`
-instance. `MdpConfig` is a wrapper data structure that contains an MDP and
-configuration, such as the discount factor. A common pattern is the following:
-
-```
-local mdp = TestMdp()
-local discount_factor = 0.9
-
-local mdp_config = MdpConfig(mdp, discount_factor)
---- use mdp_config for future calls
-```
-
-### MdpSampler
-The MdpSampler is a wrapper around an Mdp that out provides some convenience
-methods for sampling the MDP, namely:
-
-`[number] sample_reward(policy)`
-    Samples the reward of a given policy.
-
-`[episode] get_episode(policy)`
-    Return an episode by following the trajectory of a given policy.
-
-An episode is a table of {state, action, discounted return, reward}, indexed by
-time. Time starts at 1 (going along with Lua conventions).
-
-## Policy
-A Policy implements one method:
-
-`[action] get_action(state)`
-
-### EpsilonGreedyPolicy
-The EpsilonGreedy policy is a simply policy that balances exploration and
-exploitation. The idea of epsilon greedy policies is to choose a random action
-with some small probability (epsilon). This encourages exploration. Otherwise,
-choose the best action, to exploit our knowledge so far.
-
-This is currently the only non-trivial policy implemented.
-
-### Explorer
-This is used to choose how to balance exploration vs. exploitation.
-Specifically, it gives the probablity of exploring. So, it implements
-
-`[number from 0 to 1] get_eps(s)`
-
-which returns epsilon for the epsilon greedy policy.
-
-### DecayTableExplorer
-This type of explorer chooses epsilon to be
-
-`N0 / (N0 + N(s))`
-
-where `N0` is some constant, and `N(s)` is the number of times state `s` has
-been visited. This type of exploration strategy with EpsilonGreedyPolicy is
-guaranteed to converge to the optimal policy since each state is explored, but
-eventually the best action is exploited. This is because as the number of times
-states has been visited explored (i.e. the more exploration we've done) the
-smaller epsilon because (i.e. don't bother exploring as much).
-
-## Value Functions
-All Q value functions implement:
-    `get_value(s, a)`
-
-    `get_best_action(s)`
-
-All V value functions implement:
-    `get_value(s)`
-
-### (Hash)Tables
-These are the simplest types of data structures. SHash and SAHash implement hash
-tables over the state and state-action states space, respectively. Only use
-these hash tables for small state/action spaces.
-
-### Function Approximation
-For large state/action spaces, using a look-up table becomes intractable. An
-alternative is to approximate the value of a state or state-action pair by using
-a function approximator. See below for how features are extracted.
-
-## State-Action Feature Extractors (SAFE)
-SAFeatureExtractor defines an interface for classes that extract features out of
-a given state-action pair. SAFEs have to implement:
-
-`[Tensor] get_sa_features(s, a)`
-`[number of tuple of numbers] get_sa_features_dim()`
-which returns the dimensions of the tensor returned by `get_sa_features`.
-
-## Control Algorithms
-The `Control` interface captures algorithms are used to improve policies/Q
-functions.
-
-### Monte Carlo Control
-Monte Carlo (MC) estimates the value of a state-action pair under a given
-policy by sampling and taking the average. MC Control alternates between this
-Q-function estimation and epsilon-greedy policy improvement.
-
-Example use:
-
-```
-local mdp = TestMdp()
-local discount_factor = 0.9
-local n_iters = 1000
-
-local mdp_config = MdpConfig(mdp, discount_factor)
-local mc = MonteCarloControl(mdp_config)
-mc:improve_policy_for_n_iters(n_iters)
-
-local policy = mc:get_policy()
-local learned_action = policy.get_action(state)
-```
-
-### Sarsa-lambda
-See [Sutton and
-Barto](https://webdocs.cs.ualberta.ca/~sutton/book/ebook/node77.html) for
-explanation of algorithm. One major difference is that we used discounted
-reward.
-
-The main step that is abstracted away is how Q(s, a) is updated given the TD
-error. The underlying structure of Q (e.g. hash table vs. function approximator)
-will determine how it is handled. The eligibility update will also change base
-on the structure.
-
-Three versions are implemented:
-* TableSarsa - Use lookup tables to store Q
-* LinSarsa - Use a linear dot product of features to approximate Q
-* NnSarsa - Use a neural network to approximate Q
-
-### Linear Approximation
-Documentation is a TODO - see LinSarsa.lua for now.
-
-### Neural Network Approximation
-Documentation is a TODO - see NNSarsa.lua for now.
-
