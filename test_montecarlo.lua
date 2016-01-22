@@ -1,4 +1,4 @@
-require 'Easy21'
+require 'BlackJack'
 require 'TestMdp'
 require 'Evaluator'
 require 'MdpConfig'
@@ -27,5 +27,5 @@ local function test_montecarlo_for_mdp(mdp)
     end
 end
 
-test_montecarlo_for_mdp(Easy21())
+test_montecarlo_for_mdp(BlackJack())
 test_montecarlo_for_mdp(TestMdp())

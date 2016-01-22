@@ -1,6 +1,6 @@
 -- Implement Q3 of the Easy 21 assignment
 require 'TableSarsaFactory'
-require 'Easy21BoxSAFE'
+require 'BlackJackBoxSAFE'
 require 'constants'
 local as = require 'analyze_sarsa'
 

@@ -1,14 +1,14 @@
-require 'Easy21QVAnalyzer'
-require 'Easy21'
+require 'BlackJackQVAnalyzer'
+require 'BlackJack'
 require 'QHash'
 require 'VHash'
 
 local tester = torch.Tester()
 
-local mdp = Easy21()
-local qva = Easy21QVAnalyzer()
-TestEasy21QVAnalyzer = {}
-function TestEasy21QVAnalyzer.test_v_from_q()
+local mdp = BlackJack()
+local qva = BlackJackQVAnalyzer()
+TestBlackJackQVAnalyzer = {}
+function TestBlackJackQVAnalyzer.test_v_from_q()
     local q = QHash(mdp)
     local v = VHash(mdp)
     local s = {1, 1}
@@ -32,7 +32,7 @@ function TestEasy21QVAnalyzer.test_v_from_q()
     tester:assertTensorEq(qva:get_v_tensor(v), qva:get_v_tensor(v2), 0)
 end
 
-function TestEasy21QVAnalyzer.test_q_rms()
+function TestBlackJackQVAnalyzer.test_q_rms()
     local q1 = QHash(mdp)
     local q2 = QHash(mdp)
     local s = {1, 1}
@@ -53,6 +53,6 @@ function TestEasy21QVAnalyzer.test_q_rms()
 
     tester:asserteq(qva:q_rms(q1, q2), 5)
 end
-tester:add(TestEasy21QVAnalyzer)
+tester:add(TestBlackJackQVAnalyzer)
 
 tester:run()

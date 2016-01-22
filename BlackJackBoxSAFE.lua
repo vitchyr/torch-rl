@@ -1,11 +1,11 @@
 require 'SAFeatureExtractor'
-require 'easy21_constants'
+require 'BlackJack_constants'
 
 -- Features are a coarse coding.
-local Easy21BoxSAFE, parent = torch.class('Easy21BoxSAFE', 'SAFeatureExtractor')
+local BlackJackBoxSAFE, parent = torch.class('BlackJackBoxSAFE', 'SAFeatureExtractor')
 
 local N_FEATURES = #DEALER_VALUES * #PLAYER_VALUES * N_ACTIONS
-function Easy21BoxSAFE:get_sa_features(s, a)
+function BlackJackBoxSAFE:get_sa_features(s, a)
     local dealer, player = table.unpack(s)
     local x = torch.zeros(#DEALER_VALUES, #PLAYER_VALUES, N_ACTIONS)
     local dealer_i, player_i = 0, 0
@@ -26,10 +26,10 @@ function Easy21BoxSAFE:get_sa_features(s, a)
     return x:resize(N_FEATURES)
 end
 
-function Easy21BoxSAFE:get_sa_features_dim()
+function BlackJackBoxSAFE:get_sa_features_dim()
     return N_FEATURES
 end
 
-function Easy21BoxSAFE:get_sa_num_features()
+function BlackJackBoxSAFE:get_sa_num_features()
     return N_FEATURES
 end

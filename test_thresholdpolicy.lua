@@ -1,12 +1,12 @@
 require 'MdpConfig'
-require 'Easy21'
+require 'BlackJack'
 require 'Evaluator'
 
 local tp = require 'ThresholdPolicy'
 
 math.randomseed(os.time())
 
-local config = MdpConfig(Easy21(), 1)
+local config = MdpConfig(BlackJack(), 1)
 local e = Evaluator(config)
 for t = -1, 22 do
     e:display_metrics(ThresholdPolicy(t), 'thresh, t = ' .. t)

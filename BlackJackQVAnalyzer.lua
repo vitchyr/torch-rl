@@ -1,15 +1,15 @@
 require 'constants'
-require 'Easy21'
+require 'BlackJack'
 require 'QVAnalyzer'
 local tensorutil = require 'tensorutil'
 
-local Easy21QVAnalyzer, parent = torch.class('Easy21QVAnalyzer', 'QVAnalyzer')
+local BlackJackQVAnalyzer, parent = torch.class('BlackJackQVAnalyzer', 'QVAnalyzer')
 
-function Easy21QVAnalyzer:__init()
-    parent.__init(self, Easy21())
+function BlackJackQVAnalyzer:__init()
+    parent.__init(self, BlackJack())
 end
 
-function Easy21QVAnalyzer:get_v_tensor(v)
+function BlackJackQVAnalyzer:get_v_tensor(v)
     local tensor = torch.zeros(N_DEALER_STATES, N_PLAYER_STATES)
     for dealer = 1, N_DEALER_STATES do
         for player = 1, N_PLAYER_STATES do
@@ -20,7 +20,7 @@ function Easy21QVAnalyzer:get_v_tensor(v)
     return tensor
 end
 
-function Easy21QVAnalyzer:plot_v(v)
+function BlackJackQVAnalyzer:plot_v(v)
     -- row = dealer, from 1 to N_DEALER_STATES
     -- col = player, from 1 to N_PLAYER_STATES
     local tensor = self:get_v_tensor(v)
@@ -36,7 +36,7 @@ function Easy21QVAnalyzer:plot_v(v)
     gnuplot.title('Monte-Carlo State Value Function')
 end
 
-function Easy21QVAnalyzer:plot_best_action(q)
+function BlackJackQVAnalyzer:plot_best_action(q)
     local best_action_at_state = torch.Tensor(N_DEALER_STATES, N_PLAYER_STATES)
     for dealer = 1, N_DEALER_STATES do
         for player = 1, N_PLAYER_STATES do
@@ -55,7 +55,7 @@ function Easy21QVAnalyzer:plot_best_action(q)
     gnuplot.title('Learned Best Action Based on q')
 end
 
-function Easy21QVAnalyzer:get_q_tensor(q)
+function BlackJackQVAnalyzer:get_q_tensor(q)
     local tensor = torch.zeros(N_DEALER_STATES, N_PLAYER_STATES, N_ACTIONS)
     for dealer = 1, N_DEALER_STATES do
         for player = 1, N_PLAYER_STATES do
@@ -68,7 +68,7 @@ function Easy21QVAnalyzer:get_q_tensor(q)
     return tensor
 end
 
-function Easy21QVAnalyzer:v_from_q(q)
+function BlackJackQVAnalyzer:v_from_q(q)
     local v = VHash(self.mdp)
     for dealer = 1, N_DEALER_STATES do
         for player = 1, N_PLAYER_STATES do

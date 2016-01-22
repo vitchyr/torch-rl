@@ -1,7 +1,7 @@
 require 'SarsaAnalyzer'
 require 'MdpConfig'
-require 'Easy21'
-require 'Easy21QVAnalyzer'
+require 'BlackJack'
+require 'BlackJackQVAnalyzer'
 
 math.randomseed(os.time())
 local cmd = torch.CmdLine()
@@ -18,8 +18,8 @@ local M = {}
 
 function M.analyze_sarsa(sarsa_factory, fname_base)
     local discount_factor = 1
-    local mdp_config = MdpConfig(Easy21(), discount_factor)
-    local qvanalyzer = Easy21QVAnalyzer()
+    local mdp_config = MdpConfig(BlackJack(), discount_factor)
+    local qvanalyzer = BlackJackQVAnalyzer()
     sarsa_factory:set_mdp_config(mdp_config)
     local analyzer = SarsaAnalyzer(opt, mdp_config, qvanalyzer, sarsa_factory)
 

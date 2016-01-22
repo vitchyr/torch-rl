@@ -1,8 +1,8 @@
 require 'Mdp'
-require 'easy21_constants'
+require 'BlackJack_constants'
 local util = require 'util'
 
-local Easy21, parent = torch.class('Easy21', 'Mdp')
+local BlackJack, parent = torch.class('BlackJack', 'Mdp')
 
 local function draw()
     local v = math.random(1,10)
@@ -20,7 +20,7 @@ local function is_bust(sum)
     return sum < 1 or sum > 21
 end
 
-function Easy21:__init(dealer_limit)
+function BlackJack:__init(dealer_limit)
     parent.__init(self)
     self.dealer_limit = dealer_limit or DEFAULT_DEALER_LIMIT
 end
@@ -30,7 +30,7 @@ end
 --   s: state, a table of {dealer_sum, player_sum}
 --   a: action
 --]]
-function Easy21:step(s, a)
+function BlackJack:step(s, a)
     if s == TERMINAL then 
         print('Game is already over')
         return TERMINAL, 0
@@ -64,11 +64,11 @@ function Easy21:step(s, a)
     return TERMINAL, r
 end
 
-function Easy21:get_start_state()
+function BlackJack:get_start_state()
     return {draw_black(), draw_black()}
 end
 
-function Easy21:get_all_states()
+function BlackJack:get_all_states()
     states = {}
     for dealer = 1, 10 do
         for player = 1, 21 do
@@ -77,30 +77,30 @@ function Easy21:get_all_states()
     end
     return states
 end
---Easy21:get_all_states = util.memoize(_get_all_states) <-- this doesn't really help
+--BlackJack:get_all_states = util.memoize(_get_all_states) <-- this doesn't really help
 
-function Easy21:get_all_actions()
+function BlackJack:get_all_actions()
     return {HIT, STICK}
 end
 
-function Easy21:hash_s(s)
+function BlackJack:hash_s(s)
     local dealer_sum, player_sum = table.unpack(s)
     return (9+dealer_sum) + 41*(9+player_sum)
 end
 
-function Easy21:hash_a(a)
+function BlackJack:hash_a(a)
     return a -- use the fact that actions are numbers right now
 end
 
-function Easy21:copy_state(s)
+function BlackJack:copy_state(s)
     return util.copy_simply(s)
 end
 
-function Easy21:is_terminal(s)
+function BlackJack:is_terminal(s)
     return s == TERMINAL
 end
 
-function Easy21:get_description()
+function BlackJack:get_description()
     return 'Easy 21'
 end
 

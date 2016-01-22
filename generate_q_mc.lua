@@ -1,7 +1,7 @@
 local io_util = require 'io_util'
 require 'constants'
-require 'Easy21'
-require 'Easy21QVAnalyzer'
+require 'BlackJack'
+require 'BlackJackQVAnalyzer'
 require 'TestMdp'
 require 'TestMdpQVAnalyzer'
 require 'MdpConfig'
@@ -14,7 +14,7 @@ cmd:option('-saveqto', DEFAULT_Q_MC_SAVE, 'save Q to this file if provided')
 local params = cmd:parse(arg)
 
 
-local mdp = Easy21()
+local mdp = BlackJack()
 local discount_factor = 1
 local n_iters = 10^params.ni
 

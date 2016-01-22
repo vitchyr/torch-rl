@@ -1,4 +1,4 @@
-require 'Easy21'
+require 'BlackJack'
 require 'MdpConfig'
 require 'TableSarsa'
 require 'Evaluator'
@@ -25,4 +25,4 @@ local function test_sarsa_diff_lambda(mdp)
                           ', lambda = ' .. lambda)
     end
 end
-test_sarsa_diff_lambda(Easy21())
+test_sarsa_diff_lambda(BlackJack())

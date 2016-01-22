@@ -1,5 +1,5 @@
-require 'Easy21'
-require 'Easy21QVAnalyzer'
+require 'BlackJack'
+require 'BlackJackQVAnalyzer'
 require 'TestMdp'
 require 'TestMdpQVAnalyzer'
 require 'MdpConfig'
@@ -45,4 +45,4 @@ local function show_mc_plots(mdp, analyzer)
 end
 
 show_mc_plots(TestMdp(), TestMdpQVAnalyzer())
-show_mc_plots(Easy21(), Easy21QVAnalyzer())
+show_mc_plots(BlackJack(), BlackJackQVAnalyzer())
