@@ -43,3 +43,15 @@ and use this file when running the above scripts with the following.
 `$ th analyze_table_sarsa.lua -loadqfrom <FILE_NAME>.dat`
 
 Run these scripts with the -h option for more help.
+
+### Example Plots
+
+For `analyze_table_sarsa` with the number of iterations set to 10^5, you get the
+following plots
+
+![RMS vs Lambda for TableSarsa](../images/table_sarsa_rms_vs_lambda.jpg "RMS vs
+Lambda for TableSarsa")
+
+![RMS vs Episode for TableSarsa, lambda = 0 and
+1](../images/table_sarsa_rms_vs_iteation.jpg "RMS vs Iteration for TableSarsa,
+lambda = 1 and 1")
