@@ -69,7 +69,8 @@ function TableSarsa:update_policy()
 end
 
 function TableSarsa:__eq(other)
-    return self.Ns == other.Ns
+    return torch.typename(self) == torch.typename(other)
+        and self.Ns == other.Ns
         and self.Nsa == other.Nsa
         and self.q == other.q
         and self.eligibility == other.eligibility

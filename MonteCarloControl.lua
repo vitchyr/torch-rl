@@ -46,7 +46,8 @@ function MonteCarloControl:get_q()
 end
 
 function MonteCarloControl:__eq(other)
-    return self.q == other.q
+    return torch.typename(self) == torch.typename(other)
+        and self.q == other.q
         and self.Ns == other.Ns
         and self.Nsa == other.Nsa
         and self.N0 == other.N0
