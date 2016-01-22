@@ -51,7 +51,7 @@ important files.
 ## Read More
 * [MDP](doc/mdp.md) - A Markov Decision Process (MDP) models the world. Read
   about useful MDP functions and [how to create your own
-  MDP](doc/mdp.d#create_mdp).
+  MDP](doc/mdp.md#create_mdp).
 * [Policy](doc/policy.md) - Policies are mappings from state to action.
 * [Sarsa](doc/sarsa.md) - Read about the Sarsa-lambda algorithm and scripts that
   test them.

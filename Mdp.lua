@@ -15,7 +15,10 @@ function Mdp:is_terminal(state)
     error('Must implement is_terminal')
 end
 
--- Should return all states in a list (i.e. a Table with numbers as keys)
+-- The next two functions shoul return all states/actions in a list (i.e. a
+-- Table with numbers as keys). These two methods might be really expensive to
+-- compute. It's the responsibility of the caller to take that into
+-- consideration.
 function Mdp:get_all_states()
     error('Must implement get_all_states')
 end
@@ -24,12 +27,14 @@ function Mdp:get_all_actions()
     error('Must implement get_all_actions')
 end
 
--- A hash function for the state.
+-- These hash functions for the state and action are used if you plan on using
+-- TableSarsa. Otherwise, use feature extractors.
+--
+-- TODO: Move this to its own class, like SAFeatureExtractor.
 function Mdp:hash_s(state)
     error('Must implement hash_s')
 end
 
--- A hash function for the action.
 function Mdp:hash_a(action)
     error('Must implement hash_a')
 end
