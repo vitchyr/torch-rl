@@ -27,9 +27,22 @@ function QNN:__init(mdp, feature_extractor)
     self.is_first_update = true
 end
 
+-- This took forever to figure out. See
+-- https://github.com/Element-Research/dpnn/blob/165ce5ff37d0bb77c207e82f5423ade08593d020/Module.lua#L488
+-- for detail.
+local function reset_momentum(net)
+    net.momGradParams = nil
+    if net.modules then
+        for _, child in pairs(net.modules) do
+            reset_momentum(child)
+        end
+    end
+end
+
 function QNN:clear()
-    self.module = get_module(self)
     self.is_first_update = true
+    self.module:zeroGradParameters()
+    reset_momentum(self.module)
 end
 
 function QNN:get_value(s, a)
@@ -76,8 +89,6 @@ function QNN:backward(s, a, learning_rate, momentum)
     else
         self.module:updateGradParameters(momentum, 0, false) -- momentum (dpnn)
     end
-    -- ^ momentum MIGHT effectively implement eligibilty traces. It'd be
-    -- interesting to look into this.
     self.module:updateParameters(-learning_rate) -- W = W - rate * dL/dW
 end
 

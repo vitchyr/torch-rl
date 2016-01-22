@@ -39,6 +39,7 @@ function TestQNN.test_backward()
     tester:assertTensorEq(expected_params[2], new_params[2], 0)
 end
 
+-- This test only applies if the network is linear
 function TestQNN.test_backward_no_momentum()
     local q = QNN(mdp, fe)
     local module = q.module:clone()
@@ -48,11 +49,9 @@ function TestQNN.test_backward_no_momentum()
     local old_value = q:get_value(s, a)
 
     local step_size = 0.5
-    local lambda = 0
-    local discount_factor = 0.5
     local td_error = 1
     local learning_rate = step_size * td_error
-    local momentum = lambda * discount_factor
+    local momentum = 0
 
     q:backward(s, a, learning_rate, momentum)
     local new_value1 = q:get_value(s, a)
@@ -65,6 +64,7 @@ function TestQNN.test_backward_no_momentum()
     tester:assert(math.abs(d_value_1 - d_value_2) < FLOAT_EPS)
 end
 
+-- This test only applies if the network is linear
 function TestQNN.test_backward_with_momentum()
     local q = QNN(mdp, fe)
     local module = q.module:clone()
@@ -89,6 +89,58 @@ function TestQNN.test_backward_with_momentum()
     local d_value_2 = new_value2 - new_value1
 
     tester:assert(math.abs((1+momentum)*d_value_1 - d_value_2) < FLOAT_EPS)
+end
+
+function TestQNN.test_momentum_exists()
+    local q = QNN(mdp, fe)
+    local module = q.module:clone()
+
+    local s = 2
+    local a = 4
+    local old_value = q:get_value(s, a)
+
+    local step_size = 0.5
+    local lambda = 1
+    local discount_factor = 1
+    local td_error = 1
+    local learning_rate = step_size * td_error
+    local momentum = lambda * discount_factor
+
+    q:backward(s, a, learning_rate, momentum)
+    local new_value1 = q:get_value(s, a)
+    local d_value_1 = new_value1 - old_value
+
+    q:backward(s, a, learning_rate, momentum)
+    local new_value2 = q:get_value(s, a)
+    local d_value_2 = new_value2 - new_value1
+
+    tester:assert(math.abs(d_value_1 - d_value_2) > FLOAT_EPS)
+end
+
+function TestQNN.test_backward_no_momentum()
+    local q = QNN(mdp, fe)
+    local module = q.module:clone()
+
+    local s = 2
+    local a = 4
+    local old_value = q:get_value(s, a)
+
+    local step_size = 0.5
+    local td_error = 1
+    local learning_rate = step_size * td_error
+    local momentum = 1
+
+    q:backward(s, a, learning_rate, momentum)
+    local new_value1 = q:get_value(s, a)
+    local d_value_1 = new_value1 - old_value
+
+    q:clear()
+
+    q:backward(s, a, learning_rate, momentum)
+    local new_value2 = q:get_value(s, a)
+    local d_value_2 = new_value2 - new_value1
+
+    tester:assert(math.abs(d_value_1 - d_value_2) < FLOAT_EPS)
 end
 
 tester:add(TestQNN)

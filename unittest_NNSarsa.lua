@@ -81,7 +81,7 @@ function TestNNSarsa.test_td_update_many_times()
 
     s = 2
     a = 2
-    local td_error = -0.6
+    td_error = -0.6
     sarsa:update_eligibility(s, a)
     sarsa:td_update(td_error)
 
@@ -101,6 +101,34 @@ function TestNNSarsa.test_td_update_many_times()
     expected_sarsa.last_action = a
 
     tester:assert(sarsa == expected_sarsa)
+end
+
+-- This test only applies if the network is linear
+function TestNNSarsa.test_reset_eligibility()
+    local lambda = 1
+    local eps = 0.032
+    local explorer = ConstExplorer(eps)
+    local step_size = 0.05
+    local sarsa = NNSarsa(mdp_config, lambda, explorer, fe, step_size)
+    local expected_module = sarsa.q.module:clone()
+
+    local s = 2
+    local a = 1
+    local td_error = -0.4
+    local old_value = sarsa.q:get_value(s, a)
+    sarsa:update_eligibility(s, a)
+    sarsa:td_update(td_error)
+
+    local new_value1 = sarsa.q:get_value(s, a)
+    local d_value_1 = new_value1 - old_value
+
+    sarsa:reset_eligibility(s, a)
+    sarsa:update_eligibility(s, a)
+    sarsa:td_update(td_error)
+    local new_value2 = sarsa.q:get_value(s, a)
+    local d_value_2 = new_value2 - new_value1
+
+    tester:assert(math.abs(d_value_1 - d_value_2) < FLOAT_EPS)
 end
 
 tester:add(TestNNSarsa)

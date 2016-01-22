@@ -24,6 +24,7 @@ end
 function NNSarsa:reset_eligibility()
     self.last_state = nil
     self.last_action = nil
+    self.q:clear()
 end
 
 function NNSarsa:update_eligibility(s, a)
