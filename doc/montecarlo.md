@@ -5,7 +5,7 @@ Q-function estimation and epsilon-greedy policy improvement.
 
 Example use:
 
-```
+```lua
 local mdp = TestMdp()
 local discount_factor = 0.9
 local n_iters = 1000

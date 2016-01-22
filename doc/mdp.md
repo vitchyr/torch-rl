@@ -8,7 +8,7 @@ Most other classes will require a `MdpConfig` instance instead of a `Mdp`
 instance. `MdpConfig` is a wrapper data structure that contains an MDP and
 configuration, such as the discount factor. A common pattern is the following:
 
-```
+```lua
 local mdp = TestMdp()
 local discount_factor = 0.9
 
