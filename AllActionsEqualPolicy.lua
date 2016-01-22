@@ -1,5 +1,4 @@
-require 'Policy'
-local AAEP, parent = torch.class('AllActionsEqualPolicy', 'Policy')
+local AAEP, parent = torch.class('rl.AllActionsEqualPolicy', 'rl.Policy')
 
 function AAEP:__init(mdp)
     parent:__init(self)

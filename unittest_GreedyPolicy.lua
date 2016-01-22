@@ -1,4 +1,4 @@
-require 'GreedyPolicy'
+require 'rl'
 require 'ConstExplorer'
 require 'TestMdp'
 require 'QFunc'
@@ -14,7 +14,7 @@ local function get_policy(best_action, eps)
     q.get_best_action = function (s)
         return best_action
     end
-    return GreedyPolicy(q, explorer, mdp:get_all_actions())
+    return rl.GreedyPolicy(q, explorer, mdp:get_all_actions())
 end
 
 function TestGreedyPolicy.test_greedy()

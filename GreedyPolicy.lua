@@ -1,5 +1,4 @@
-require 'Policy'
-local GreedyPolicy, parent = torch.class('GreedyPolicy', 'Policy')
+local GreedyPolicy, parent = torch.class('rl.GreedyPolicy', 'rl.Policy')
 
 function GreedyPolicy:__init(q, exploration_strat, actions)
     parent.__init(self)

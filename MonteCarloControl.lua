@@ -1,7 +1,6 @@
 require 'ValueIteration'
 require 'MdpSampler'
 require 'constants'
-require 'GreedyPolicy'
 require 'DecayTableExplorer'
 require 'QHash'
 require 'VHash'
@@ -19,7 +18,7 @@ function MonteCarloControl:__init(mdp_config)
 end
 
 function MonteCarloControl:optimize_policy()
-    self.policy = GreedyPolicy(
+    self.policy = rl.GreedyPolicy(
         self.q,
         DecayTableExplorer(self.N0, self.Ns),
         self.actions

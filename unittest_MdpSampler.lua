@@ -1,8 +1,8 @@
+require 'rl'
 require 'constants'
 require 'MdpSampler'
 require 'MdpConfig'
 require 'TestMdp'
-local tp = require 'TestPolicy'
 
 local tester = torch.Tester()
 
@@ -41,15 +41,15 @@ end
 
 function TestMdpSampler.test_get_episode_discounted_reward()
     local discount_factor = 1
-    local episode = get_policy_episode(tp.always_one, discount_factor)
+    local episode = get_policy_episode(rl.TestPolicy(1), discount_factor)
     tester:assert(is_discount_good(episode, discount_factor))
 
     local discount_factor = 0.5
-    local episode = get_policy_episode(tp.always_one, discount_factor)
+    local episode = get_policy_episode(rl.TestPolicy(1), discount_factor)
     tester:assert(is_discount_good(episode, discount_factor))
 
     local discount_factor = 0
-    local episode = get_policy_episode(tp.always_one, discount_factor)
+    local episode = get_policy_episode(rl.TestPolicy(1), discount_factor)
     tester:assert(is_discount_good(episode, discount_factor))
 end
 
@@ -68,7 +68,7 @@ function TestMdpSampler.test_discounted_reward_error()
 end
 
 function TestMdpSampler.test_sample_return_always_one()
-    local policy = tp.always_one
+    local policy = rl.TestPolicy(1)
 
     local discount_factor = 1
     local sampler = get_sampler(discount_factor)
@@ -84,7 +84,7 @@ function TestMdpSampler.test_sample_return_always_one()
 end
 
 function TestMdpSampler.test_sample_return_always_two()
-    local policy = tp.always_two
+    local policy = rl.TestPolicy(2)
 
     local discount_factor = 1
     local sampler = get_sampler(discount_factor)
@@ -100,7 +100,7 @@ function TestMdpSampler.test_sample_return_always_two()
 end
 
 function TestMdpSampler.test_sample_return_always_three()
-    local policy = tp.always_three
+    local policy = rl.TestPolicy(3)
 
     local discount_factor = 1
     local sampler = get_sampler(discount_factor)
@@ -116,7 +116,7 @@ function TestMdpSampler.test_sample_return_always_three()
 end
 
 local function is_action_good(episode, expected)
-    local policy = TestPolicy(expected)
+    local policy = rl.TestPolicy(expected)
     local discount_factor = 1
 
     local episode = get_policy_episode(policy, discount_factor)
@@ -142,7 +142,7 @@ end
 
 
 function TestMdpSampler.test_episode()
-    local policy = tp.always_one
+    local policy = rl.TestPolicy(1)
     local discount_factor = 1
     local episode = get_policy_episode(policy, discount_factor)
 

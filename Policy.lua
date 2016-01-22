@@ -1,4 +1,4 @@
-local Policy = torch.class('Policy')
+local Policy = torch.class('rl.Policy')
 
 function Policy:__init()
 end

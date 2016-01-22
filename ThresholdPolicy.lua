@@ -1,12 +1,12 @@
+require 'rl'
 require 'constants'
-require 'Policy'
 
 do
     --[[
     -- A simple policy that always does the same thing based on the player's sum:
     --  Hit if their sum is greater than some threshold `t`.
     --]]
-    local ThresholdPolicy, parent = torch.class('ThresholdPolicy', 'Policy')
+    local ThresholdPolicy, parent = torch.class('ThresholdPolicy', 'rl.Policy')
 
     function ThresholdPolicy:__init(threshold)
         parent.__init(self)

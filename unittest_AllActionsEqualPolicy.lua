@@ -1,4 +1,4 @@
-require 'AllActionsEqualPolicy'
+require 'rl'
 require 'TestMdp'
 local util = require 'util'
 local tester = torch.Tester()
@@ -19,7 +19,7 @@ end
 
 function TestAllActionsEqualPolicy.test_policy()
     local mdp = TestMdp()
-    local policy = AllActionsEqualPolicy(mdp)
+    local policy = rl.AllActionsEqualPolicy(mdp)
     local N = 100000
     local action_history = {}
     for i = 1, N do

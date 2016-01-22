@@ -1,8 +1,8 @@
+require 'rl'
 require 'MonteCarloControl'
 require 'constants'
 require 'TestMdp'
 require 'MdpConfig'
-local tp = require 'TestPolicy'
 local ufu = require 'util_for_unittests'
 
 math.randomseed(os.time())
@@ -24,7 +24,7 @@ function TestMonteCarloControl.test_evalute_policy()
     --      action 1: 1
     --      reward 1: -1
     --      Gt 1: -1
-    local policy = tp.always_one
+    local policy = rl.TestPolicy(1)
     local config = MdpConfig(mdp, discount_factor)
     local mcc = MonteCarloControl(config)
     mcc:set_policy(policy)
