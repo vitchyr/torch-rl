@@ -1,8 +1,9 @@
+require 'rl'
 -- Episode: list of {state, action, discounted return, reward}, indexed by time.
 -- Time starts at 1 (going along with Lua conventions).
 -- This class builds this list intelligentally based on discount_factor, the discount
 -- factor.
-local EpisodeBuilder = torch.class('EpisodeBuilder')
+local EpisodeBuilder = torch.class('rl.EpisodeBuilder')
 
 function EpisodeBuilder:__init(discount_factor)
     if discount_factor < 0 or discount_factor > 1 then

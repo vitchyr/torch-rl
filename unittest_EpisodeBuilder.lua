@@ -1,4 +1,4 @@
-require 'EpisodeBuilder'
+require 'rl'
 local util = require 'util'
 local tester = torch.Tester()
 
@@ -7,7 +7,7 @@ function are_discounted_return_good(
         discount_factor,
         rewards,
         expected_discounted_returns)
-    local builder = EpisodeBuilder(discount_factor)
+    local builder = rl.EpisodeBuilder(discount_factor)
     local state = 5
     local action = 9
 

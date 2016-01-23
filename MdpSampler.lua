@@ -1,7 +1,6 @@
 require 'rl'
 
 local mdputil = require 'mdputil'
-require 'EpisodeBuilder'
 
 local MdpSampler = torch.class('rl.MdpSampler')
 
@@ -27,7 +26,7 @@ function MdpSampler:get_episode(policy)
     local r = 0
     local a = nil
     local next_s = nil
-    local episode_builder = EpisodeBuilder(self.discount_factor)
+    local episode_builder = rl.EpisodeBuilder(self.discount_factor)
 
     while not self.mdp:is_terminal(s) do
         a = policy:get_action(s)
