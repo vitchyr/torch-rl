@@ -1,4 +1,3 @@
-require 'rl'
 util = require 'util'
 
 local QFunc = torch.class('rl.QFunc')

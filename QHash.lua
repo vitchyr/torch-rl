@@ -1,4 +1,3 @@
-require 'rl'
 mdputil = require 'mdputil'
 
 -- A simple implementation of a state-action value function using hashes and
