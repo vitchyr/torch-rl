@@ -1,5 +1,4 @@
 require 'constants'
-require 'DecayTableExplorer'
 
 local MonteCarloControl, parent =
     torch.class('rl.MonteCarloControl', 'rl.ValueIteration')
@@ -16,7 +15,7 @@ end
 function MonteCarloControl:optimize_policy()
     self.policy = rl.GreedyPolicy(
         self.q,
-        DecayTableExplorer(self.N0, self.Ns),
+        rl.DecayTableExplorer(self.N0, self.Ns),
         self.actions
     )
 end

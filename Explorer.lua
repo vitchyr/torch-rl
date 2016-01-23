@@ -1,4 +1,6 @@
-local Explorer = torch.class('Explorer')
+require 'rl'
+
+local Explorer = torch.class('rl.Explorer')
 
 function Explorer:__init()
 end

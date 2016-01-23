@@ -1,5 +1,4 @@
 require 'rl'
-require 'ConstExplorer'
 local tester = torch.Tester()
 
 local mdp = rl.TestMdp()
@@ -9,7 +8,7 @@ function TestLinSarsaFactory.test_get_control()
     local mdp_config = rl.MdpConfig(mdp, discount_factor)
     local lambda = 0.65
     local eps = 0.2437
-    local explorer = ConstExplorer(eps)
+    local explorer = rl.ConstExplorer(eps)
     local feature_extractor = rl.TestSAFE()
     local step_size = 0.92
 

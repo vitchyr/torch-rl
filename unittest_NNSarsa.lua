@@ -1,4 +1,3 @@
-require 'ConstExplorer'
 local tester = torch.Tester()
 
 local discount_factor = 0.95
@@ -7,7 +6,7 @@ local mdp_config = rl.MdpConfig(mdp, discount_factor)
 local fe = rl.TestSAFE()
 local lambda = 1
 local eps = 0.032
-local explorer = ConstExplorer(eps)
+local explorer = rl.ConstExplorer(eps)
 local step_size = 0.05
 
 local function get_sarsa()

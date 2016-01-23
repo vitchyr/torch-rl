@@ -37,3 +37,7 @@ require('VHash')
 require('MdpConfig')
 require('MdpSampler')
 require('EpisodeBuilder')
+
+require('Explorer')
+require('ConstExplorer')
+require('DecayTableExplorer')

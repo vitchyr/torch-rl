@@ -1,5 +1,4 @@
 require 'constants'
-require 'DecayTableExplorer'
 
 -- Implement SARSA algorithm using a linear function approximator for on-line
 -- policy control
@@ -56,7 +55,7 @@ function TableSarsa:td_update(td_error)
 end
 
 function TableSarsa:update_policy()
-    self.explorer = DecayTableExplorer(N0, self.Ns)
+    self.explorer = rl.DecayTableExplorer(N0, self.Ns)
     self.policy = rl.GreedyPolicy(
         self.q,
         self.explorer,

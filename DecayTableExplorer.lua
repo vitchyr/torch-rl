@@ -1,6 +1,7 @@
-require 'Explorer'
+require 'rl'
 --- Choose epsilon to be N0 / N0 + (# times visited a state)
-local DecayTableExplorer, parent = torch.class('DecayTableExplorer', 'Explorer')
+local DecayTableExplorer, parent =
+    torch.class('rl.DecayTableExplorer', 'rl.Explorer')
 
 function DecayTableExplorer:__init(N0, state_table)
     parent.__init(self)

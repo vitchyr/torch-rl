@@ -1,4 +1,3 @@
-require 'ConstExplorer'
 local ufu = require 'util_for_unittests'
 local tester = torch.Tester()
 
@@ -12,7 +11,7 @@ local TestLinSarsa = {}
 function TestLinSarsa.test_update_eligibility_one_step()
     local lambda = 1
     local eps = 0.032
-    local explorer = ConstExplorer(eps)
+    local explorer = rl.ConstExplorer(eps)
     local step_size = 0.05
     local sarsa = rl.LinSarsa(mdp_config, lambda, explorer, fe, step_size)
 
@@ -30,7 +29,7 @@ end
 function TestLinSarsa.test_update_eligibility_many_steps()
     local lambda = 0.5
     local eps = 0.032
-    local explorer = ConstExplorer(eps)
+    local explorer = rl.ConstExplorer(eps)
     local step_size = 0.05
     local sarsa = rl.LinSarsa(mdp_config, lambda, explorer, fe, step_size)
 

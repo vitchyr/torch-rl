@@ -1,6 +1,6 @@
-require 'Explorer'
+require 'rl'
 --- Explore with a fixed probability
-local ConstExplorer = torch.class('ConstExplorer', 'Explorer')
+local ConstExplorer = torch.class('rl.ConstExplorer', 'rl.Explorer')
 
 function ConstExplorer:__init(p)
     self.p = p

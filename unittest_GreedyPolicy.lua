@@ -1,5 +1,4 @@
 require 'rl'
-require 'ConstExplorer'
 local tester = torch.Tester()
 local ufu = require 'util_for_unittests'
 
@@ -8,7 +7,7 @@ local mdp = rl.TestMdp()
 local q = rl.QFunc()
 
 local function get_policy(best_action, eps)
-    local explorer = ConstExplorer(eps)
+    local explorer = rl.ConstExplorer(eps)
     q.get_best_action = function (s)
         return best_action
     end
