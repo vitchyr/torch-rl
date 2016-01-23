@@ -1,6 +1,5 @@
 require 'rl'
 require 'BlackJack'
-require 'Evaluator'
 
 math.randomseed(os.time())
 
@@ -13,7 +12,7 @@ local discount_factor = 1
 
 local function test_montecarlo_for_mdp(mdp)
     local mdp_config = rl.MdpConfig(mdp, discount_factor)
-    local e = Evaluator(mdp_config)
+    local e = rl.Evaluator(mdp_config)
 
     for n = params.min, params.max do
         local n_iters = 10^n

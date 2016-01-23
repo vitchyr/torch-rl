@@ -1,10 +1,10 @@
+require 'rl'
 require 'constants'
-require 'MdpSampler'
 
-local Evaluator = torch.class('Evaluator')
+local Evaluator = torch.class('rl.Evaluator')
 
 function Evaluator.__init(self, mdp_config)
-    self.sampler = MdpSampler(mdp_config)
+    self.sampler = rl.MdpSampler(mdp_config)
     self.mdp_description = mdp_config:get_description()
 end
 
