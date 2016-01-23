@@ -1,4 +1,4 @@
-require 'MdpSampler'
+require 'rl'
 
 local Control = torch.class("rl.Control")
 
@@ -6,7 +6,7 @@ local Control = torch.class("rl.Control")
 function Control:__init(mdp_config)
     self.mdp = mdp_config:get_mdp()
     self.policy = rl.AllActionsEqualPolicy(self.mdp)
-    self.sampler = MdpSampler(mdp_config)
+    self.sampler = rl.MdpSampler(mdp_config)
 end
 
 function Control:improve_policy_for_n_iters(n_iters)

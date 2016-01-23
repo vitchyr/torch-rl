@@ -4,7 +4,6 @@ require 'constants'
 require 'BlackJack'
 require 'BlackJackQVAnalyzer'
 require 'TestMdpQVAnalyzer'
-require 'MdpConfig'
 
 -- Script for generating Q for Monte Carlo to save.
 local cmd = torch.CmdLine()
@@ -16,7 +15,7 @@ local mdp = BlackJack()
 local discount_factor = 1
 local n_iters = 10^params.ni
 
-local mdp_config = MdpConfig(mdp, discount_factor)
+local mdp_config = rl.MdpConfig(mdp, discount_factor)
 local mc = rl.MonteCarloControl(mdp_config)
 mc:improve_policy_for_n_iters(n_iters)
 

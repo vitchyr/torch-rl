@@ -33,3 +33,6 @@ require('QNN')
 
 require('VFunc')
 require('VHash')
+
+require('MdpConfig')
+require('MdpSampler')

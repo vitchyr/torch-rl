@@ -1,4 +1,3 @@
-require 'MdpConfig'
 local ufu = require 'util_for_unittests'
 
 local tester = torch.Tester()
@@ -6,7 +5,7 @@ local tester = torch.Tester()
 local TestTableSarsa = {}
 local discount_factor = 0.9
 local mdp = rl.TestMdp()
-local mdp_config = MdpConfig(mdp, discount_factor)
+local mdp_config = rl.MdpConfig(mdp, discount_factor)
 
 local function non_q_params_match(
         sarsa,

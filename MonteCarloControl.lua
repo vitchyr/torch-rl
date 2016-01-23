@@ -1,4 +1,3 @@
-require 'MdpSampler'
 require 'constants'
 require 'DecayTableExplorer'
 

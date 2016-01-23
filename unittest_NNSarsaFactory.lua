@@ -1,5 +1,4 @@
 require 'rl'
-require 'MdpConfig'
 require 'ConstExplorer'
 local tester = torch.Tester()
 
@@ -7,7 +6,7 @@ local mdp = rl.TestMdp()
 local discount_factor = 0.631
 local TestNNSarsaFactory = {}
 function TestNNSarsaFactory.test_get_control()
-    local mdp_config = MdpConfig(mdp, discount_factor)
+    local mdp_config = rl.MdpConfig(mdp, discount_factor)
     local lambda = 0.65
     local eps = 0.2437
     local explorer = ConstExplorer(eps)

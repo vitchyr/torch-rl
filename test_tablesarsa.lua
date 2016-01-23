@@ -1,6 +1,5 @@
 require 'rl'
 require 'BlackJack'
-require 'MdpConfig'
 require 'Evaluator'
 
 math.randomseed(os.time())
@@ -13,7 +12,7 @@ local n_iters = 10^params.ni
 local discount_factor = 1
 
 local function test_sarsa_diff_lambda(mdp)
-    local mdp_config = MdpConfig(mdp, discount_factor)
+    local mdp_config = rl.MdpConfig(mdp, discount_factor)
     local e = Evaluator(mdp_config)
 
     for lambda = 0, 1, 0.1 do

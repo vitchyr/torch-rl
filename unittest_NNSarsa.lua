@@ -1,10 +1,9 @@
-require 'MdpConfig'
 require 'ConstExplorer'
 local tester = torch.Tester()
 
 local discount_factor = 0.95
 local mdp = rl.TestMdp()
-local mdp_config = MdpConfig(mdp, discount_factor)
+local mdp_config = rl.MdpConfig(mdp, discount_factor)
 local fe = rl.TestSAFE()
 local lambda = 1
 local eps = 0.032

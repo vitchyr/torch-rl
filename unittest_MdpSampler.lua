@@ -1,15 +1,13 @@
 require 'rl'
 require 'constants'
-require 'MdpSampler'
-require 'MdpConfig'
 
 local tester = torch.Tester()
 
 local TestMdpSampler = {}
 
 local function get_sampler(discount_factor)
-    local config = MdpConfig(rl.TestMdp(), discount_factor)
-    return MdpSampler(config)
+    local config = rl.MdpConfig(rl.TestMdp(), discount_factor)
+    return rl.MdpSampler(config)
 end
 
 local function get_policy_episode(policy, discount_factor)
@@ -55,13 +53,13 @@ end
 function TestMdpSampler.test_discounted_reward_error()
     local discount_factor = 2
     local get_config = function ()
-        return MdpConfig(TestMdp, discount_factor)
+        return rl.MdpConfig(TestMdp, discount_factor)
     end
     tester:assertError(get_config)
 
     discount_factor = -1
     get_config = function ()
-        return MdpConfig(TestMdp, discount_factor)
+        return rl.MdpConfig(TestMdp, discount_factor)
     end
     tester:assertError(get_config)
 end

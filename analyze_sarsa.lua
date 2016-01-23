@@ -1,6 +1,5 @@
 require 'rl'
 require 'SarsaAnalyzer'
-require 'MdpConfig'
 require 'BlackJack'
 require 'BlackJackQVAnalyzer'
 
@@ -19,7 +18,7 @@ local M = {}
 
 function M.analyze_sarsa(sarsa_factory, fname_base)
     local discount_factor = 1
-    local mdp_config = MdpConfig(BlackJack(), discount_factor)
+    local mdp_config = rl.MdpConfig(BlackJack(), discount_factor)
     local qvanalyzer = BlackJackQVAnalyzer()
     sarsa_factory:set_mdp_config(mdp_config)
     local analyzer = SarsaAnalyzer(opt, mdp_config, qvanalyzer, sarsa_factory)

@@ -1,7 +1,9 @@
+require 'rl'
+
 local mdputil = require 'mdputil'
 require 'EpisodeBuilder'
 
-local MdpSampler = torch.class('MdpSampler')
+local MdpSampler = torch.class('rl.MdpSampler')
 
 function MdpSampler:__init(mdp_config)
     self.mdp = mdp_config:get_mdp()

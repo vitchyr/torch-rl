@@ -1,6 +1,5 @@
 require 'rl'
 require 'constants'
-require 'MdpConfig'
 local ufu = require 'util_for_unittests'
 
 math.randomseed(os.time())
@@ -23,7 +22,7 @@ function TestMonteCarloControl.test_evalute_policy()
     --      reward 1: -1
     --      Gt 1: -1
     local policy = rl.TestPolicy(1)
-    local config = MdpConfig(mdp, discount_factor)
+    local config = rl.MdpConfig(mdp, discount_factor)
     local mcc = rl.MonteCarloControl(config)
     mcc:set_policy(policy)
     mcc:evaluate_policy()
@@ -50,7 +49,7 @@ end
 function TestMonteCarloControl.test_optimize_policy()
     local mdp = rl.TestMdp()
     local discount_factor = 1
-    local config = MdpConfig(mdp, discount_factor)
+    local config = rl.MdpConfig(mdp, discount_factor)
     local mcc = rl.MonteCarloControl(config)
     local q = rl.QHash(mdp)
     q:add(1, 1, 100) -- make action "1" be the best action
