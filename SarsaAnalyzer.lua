@@ -1,9 +1,10 @@
+require 'rl'
 -- Analyze different control algorithms.
 local io_util = require 'io_util'
 require 'constants'
 local gnuplot = require 'gnuplot'
 
-local SarsaAnalyzer = torch.class('SarsaAnalyzer')
+local SarsaAnalyzer = torch.class('rl.SarsaAnalyzer')
 
 function SarsaAnalyzer:__init(opt, mdp_config, qvanalyzer, sarsa_factory)
     self.loadqfrom = opt.loadqfrom
