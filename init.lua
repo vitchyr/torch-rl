@@ -1,1 +1,0 @@
-module('init', package.seeall)
