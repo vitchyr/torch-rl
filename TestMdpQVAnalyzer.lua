@@ -1,12 +1,10 @@
-require 'rl'
-require 'TestMdp'
 local tensorutil = require 'tensorutil'
 
 local TestMdpQVAnalyzer, parent =
     torch.class('rl.TestMdpQVAnalyzer', 'rl.QVAnalyzer')
 
 function TestMdpQVAnalyzer:__init()
-    parent.__init(self, TestMdp())
+    parent.__init(self, rl.TestMdp())
     self.n_states = #self.mdp.get_all_states()
     self.n_actions = #self.mdp.get_all_actions()
 end
