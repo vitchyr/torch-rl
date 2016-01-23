@@ -3,7 +3,7 @@ version = "scm-1"
 
 source = {
    url = "git://github.com/vpong/torch-rl.git",
-   tag = "v1.1"
+   tag = "v1.2"
 }
 
 description = {
