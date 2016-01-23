@@ -1,5 +1,7 @@
-require 'SarsaFactory'
-local LinSarsaFactory, parent = torch.class('LinSarsaFactory', 'SarsaFactory')
+require 'rl'
+
+local LinSarsaFactory, parent =
+    torch.class('rl.LinSarsaFactory', 'rl.SarsaFactory')
 
 function LinSarsaFactory:__init(
         mdp_config,

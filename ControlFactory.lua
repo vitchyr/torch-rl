@@ -1,4 +1,4 @@
-local ControlFactory = torch.class('ControlFactory')
+local ControlFactory = torch.class('rl.ControlFactory')
 
 function ControlFactory:__init(mdp_config)
     self.mdp_config = mdp_config

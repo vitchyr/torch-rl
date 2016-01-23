@@ -1,5 +1,7 @@
-require 'SarsaFactory'
-local NNSarsaFactory, parent = torch.class('NNSarsaFactory', 'SarsaFactory')
+require 'rl'
+
+local NNSarsaFactory, parent =
+    torch.class('rl.NNSarsaFactory', 'rl.SarsaFactory')
 
 function NNSarsaFactory:__init(
         mdp_config,

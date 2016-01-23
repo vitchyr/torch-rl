@@ -1,4 +1,4 @@
-require 'NNSarsaFactory'
+require 'rl'
 require 'TestMdp'
 require 'TestSAFE'
 require 'MdpConfig'
@@ -22,7 +22,7 @@ function TestNNSarsaFactory.test_get_control()
         explorer,
         feature_extractor,
         step_size)
-    local factory = NNSarsaFactory(
+    local factory = rl.NNSarsaFactory(
         mdp_config,
         lambda,
         explorer,

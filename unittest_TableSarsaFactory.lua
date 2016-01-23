@@ -1,4 +1,4 @@
-require 'TableSarsaFactory'
+require 'rl'
 require 'TestMdp'
 require 'MdpConfig'
 local tester = torch.Tester()
@@ -11,7 +11,7 @@ function TestTableSarsaFactory.test_get_control()
     local lambda = 0.126
 
     local table_sarsa = rl.TableSarsa(mdp_config, lambda)
-    local factory = TableSarsaFactory(mdp_config, lambda)
+    local factory = rl.TableSarsaFactory(mdp_config, lambda)
     tester:assert(factory:get_control() == table_sarsa)
 end
 

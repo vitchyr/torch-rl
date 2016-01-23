@@ -1,4 +1,4 @@
-require 'LinSarsaFactory'
+require 'rl'
 require 'TestMdp'
 require 'TestSAFE'
 require 'MdpConfig'
@@ -22,7 +22,7 @@ function TestLinSarsaFactory.test_get_control()
         explorer,
         feature_extractor,
         step_size)
-    local factory = LinSarsaFactory(
+    local factory = rl.LinSarsaFactory(
         mdp_config,
         lambda,
         explorer,

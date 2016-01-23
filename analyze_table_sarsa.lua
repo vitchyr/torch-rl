@@ -1,8 +1,8 @@
 -- Analyze how TableSarsa does on BlackJack
-require 'TableSarsaFactory'
+require 'rl'
 require 'BlackJackBoxSAFE'
 require 'constants'
 local as = require 'analyze_sarsa'
 
-local factory = TableSarsaFactory()
+local factory = rl.TableSarsaFactory()
 as.analyze_sarsa(factory, 'table_sarsa')
