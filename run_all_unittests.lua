@@ -1,2 +1,2 @@
-require 'run_rl_unittests'
-require 'run_BlackJack_unittests'
+require 'test.run_rl_unittests'
+require 'test_BlackJack.run_BlackJack_unittests'
