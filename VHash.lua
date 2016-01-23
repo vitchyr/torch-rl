@@ -1,4 +1,3 @@
-require 'rl'
 mdputil = require 'mdputil'
 
 -- A slow implementation of a state value function using hashes and tables

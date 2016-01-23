@@ -1,5 +1,3 @@
-require 'rl'
-
 local TestSAFE, parent = torch.class('rl.TestSAFE', 'rl.SAFeatureExtractor')
 
 -- simple feature extractor that returns the sum and difference of s and a for

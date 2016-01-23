@@ -1,4 +1,3 @@
-require 'rl'
 -- Episode: list of {state, action, discounted return, reward}, indexed by time.
 -- Time starts at 1 (going along with Lua conventions).
 -- This class builds this list intelligentally based on discount_factor, the discount

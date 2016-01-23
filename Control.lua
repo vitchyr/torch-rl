@@ -1,5 +1,3 @@
-require 'rl'
-
 local Control = torch.class("rl.Control")
 
 -- Control captures an algorithm that optimizes a policy for a given MDP.

@@ -1,4 +1,3 @@
-require 'rl'
 local TableSarsaFactory, parent =
     torch.class('rl.TableSarsaFactory', 'rl.SarsaFactory')
 

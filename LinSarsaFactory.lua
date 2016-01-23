@@ -1,5 +1,3 @@
-require 'rl'
-
 local LinSarsaFactory, parent =
     torch.class('rl.LinSarsaFactory', 'rl.SarsaFactory')
 

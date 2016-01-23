@@ -1,5 +1,3 @@
-require 'rl'
-
 local MdpConfig = torch.class('rl.MdpConfig')
 
 function MdpConfig:__init(mdp, discount_factor)

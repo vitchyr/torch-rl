@@ -1,4 +1,3 @@
-require 'rl'
 local util = require 'util'
 
 -- Abstract class for a Q function approximation class

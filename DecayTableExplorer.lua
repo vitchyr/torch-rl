@@ -1,4 +1,3 @@
-require 'rl'
 --- Choose epsilon to be N0 / N0 + (# times visited a state)
 local DecayTableExplorer, parent =
     torch.class('rl.DecayTableExplorer', 'rl.Explorer')

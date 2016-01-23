@@ -1,4 +1,3 @@
-require 'rl'
 --- Explore with a fixed probability
 local ConstExplorer = torch.class('rl.ConstExplorer', 'rl.Explorer')
 

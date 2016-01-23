@@ -1,4 +1,3 @@
-require 'rl'
 require 'constants'
 local util = require 'util'
 

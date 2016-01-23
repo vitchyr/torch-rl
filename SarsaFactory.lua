@@ -1,5 +1,3 @@
-require 'rl'
-
 local SarsaFactory, parent = torch.class('rl.SarsaFactory', 'rl.ControlFactory')
 
 function SarsaFactory:__init(mdp_config, lambda)

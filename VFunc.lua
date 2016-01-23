@@ -1,4 +1,3 @@
-require 'rl'
 util = require 'util'
 
 local VFunc = torch.class('rl.VFunc')

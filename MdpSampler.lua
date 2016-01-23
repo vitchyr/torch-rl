@@ -1,5 +1,3 @@
-require 'rl'
-
 local mdputil = require 'mdputil'
 
 local MdpSampler = torch.class('rl.MdpSampler')

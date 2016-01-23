@@ -1,5 +1,3 @@
-require 'rl'
-
 -- Dummy MDP for testing
 -- state = either 1, 2, or 3
 -- action = either 1, 2, or 3
