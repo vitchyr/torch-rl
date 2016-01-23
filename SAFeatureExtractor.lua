@@ -1,5 +1,7 @@
+require 'rl'
+
 -- Feature extractor for a state-action pair.
-local SAFeatureExtractor = torch.class('SAFeatureExtractor')
+local SAFeatureExtractor = torch.class('rl.SAFeatureExtractor')
 
 function SAFeatureExtractor:__init()
 end

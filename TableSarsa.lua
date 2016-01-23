@@ -1,6 +1,4 @@
 require 'constants'
-require 'QHash'
-require 'VHash'
 require 'DecayTableExplorer'
 
 -- Implement SARSA algorithm using a linear function approximator for on-line
@@ -8,18 +6,18 @@ require 'DecayTableExplorer'
 local TableSarsa, parent = torch.class('rl.TableSarsa', 'rl.Sarsa')
 function TableSarsa:__init(mdp_config, lambda)
     parent.__init(self, mdp_config, lambda)
-    self.Ns = VHash(self.mdp)
-    self.Nsa = QHash(self.mdp)
-    self.q = QHash(self.mdp)
-    self.eligibility = QHash(self.mdp)
+    self.Ns = rl.VHash(self.mdp)
+    self.Nsa = rl.QHash(self.mdp)
+    self.q = rl.QHash(self.mdp)
+    self.eligibility = rl.QHash(self.mdp)
 end
 
 function TableSarsa:get_new_q()
-    return QHash(self.mdp)
+    return rl.QHash(self.mdp)
 end
 
 function TableSarsa:reset_eligibility()
-    self.eligibility = QHash(self.mdp)
+    self.eligibility = rl.QHash(self.mdp)
 end
 
 function TableSarsa:update_eligibility(s, a)

@@ -1,6 +1,4 @@
 require 'rl'
-require 'QLin'
-require 'TestSAFE'
 local ufu = require 'util_for_unittests'
 local tester = torch.Tester()
 
@@ -8,9 +6,9 @@ local TestQLin = {}
 
 local mdp = rl.TestMdp()
 function TestQLin.test_add_once()
-    local fe = TestSAFE()
+    local fe = rl.TestSAFE()
 
-    local q = QLin(mdp, fe)
+    local q = rl.QLin(mdp, fe)
     local feature_dim = fe:get_sa_features_dim()
     q.weights = torch.zeros(feature_dim)
     local d_weights = torch.zeros(feature_dim)
@@ -31,9 +29,9 @@ function TestQLin.test_add_once()
 end
 
 function TestQLin.test_add_complex()
-    local fe = TestSAFE()
+    local fe = rl.TestSAFE()
 
-    local q = QLin(mdp, fe)
+    local q = rl.QLin(mdp, fe)
     local feature_dim = fe:get_sa_features_dim()
     q.weights = torch.zeros(feature_dim)
     local d_weights = torch.zeros(feature_dim)
@@ -69,9 +67,9 @@ function TestQLin.test_add_complex()
 end
 
 function TestQLin.test_add_and_multiply()
-    local fe = TestSAFE()
+    local fe = rl.TestSAFE()
 
-    local q = QLin(mdp, fe)
+    local q = rl.QLin(mdp, fe)
     local feature_dim = fe:get_sa_features_dim()
     q.weights = torch.zeros(feature_dim)
     local d_weights = torch.zeros(feature_dim)
@@ -113,9 +111,9 @@ function TestQLin.test_add_and_multiply()
 end
 
 function TestQLin.test_clear()
-    local fe = TestSAFE()
+    local fe = rl.TestSAFE()
 
-    local q = QLin(mdp, fe)
+    local q = rl.QLin(mdp, fe)
     local feature_dim = fe:get_sa_features_dim()
     q.weights = torch.zeros(feature_dim)
     local d_weights = torch.zeros(feature_dim)

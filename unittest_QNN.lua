@@ -1,16 +1,14 @@
 require 'rl'
-require 'QNN'
-require 'TestSAFE'
 require 'constants'
 local tester = torch.Tester()
 
 local TestQNN = {}
 
 local mdp = rl.TestMdp()
-local fe = TestSAFE()
+local fe = rl.TestSAFE()
 
 function TestQNN.test_backward()
-    local q = QNN(mdp, fe)
+    local q = rl.QNN(mdp, fe)
     local module = q.module:clone()
 
     local s = 2
@@ -40,7 +38,7 @@ function TestQNN.test_backward()
 end
 
 function TestQNN.test_backward_no_momentum()
-    local q = QNN(mdp, fe)
+    local q = rl.QNN(mdp, fe)
     if not q:is_linear() then
         return
     end
@@ -68,7 +66,7 @@ function TestQNN.test_backward_no_momentum()
 end
 
 function TestQNN.test_backward_with_momentum()
-    local q = QNN(mdp, fe)
+    local q = rl.QNN(mdp, fe)
     if not q:is_linear() then
         return
     end
@@ -97,7 +95,7 @@ function TestQNN.test_backward_with_momentum()
 end
 
 function TestQNN.test_momentum_exists()
-    local q = QNN(mdp, fe)
+    local q = rl.QNN(mdp, fe)
     -- If q is non-linear, then all bets are off on whether or not the momentum
     -- will change things.
     if not q:is_linear() then
@@ -128,7 +126,7 @@ function TestQNN.test_momentum_exists()
 end
 
 function TestQNN.test_backward_reset_momentum()
-    local q = QNN(mdp, fe)
+    local q = rl.QNN(mdp, fe)
     if not q:is_linear() then
         return
     end

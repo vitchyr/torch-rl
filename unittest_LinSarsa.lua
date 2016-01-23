@@ -1,6 +1,4 @@
 require 'MdpConfig'
-require 'TestSAFE'
-require 'QLin'
 require 'ConstExplorer'
 local ufu = require 'util_for_unittests'
 local tester = torch.Tester()
@@ -8,7 +6,7 @@ local tester = torch.Tester()
 local discount_factor = 0.95
 local mdp = rl.TestMdp()
 local mdp_config = MdpConfig(mdp, discount_factor)
-local fe = TestSAFE()
+local fe = rl.TestSAFE()
 
 local TestLinSarsa = {}
 
@@ -23,7 +21,7 @@ function TestLinSarsa.test_update_eligibility_one_step()
     local a = 1
     sarsa:update_eligibility(s, a)
 
-    local eligibility_expected = QLin(mdp, fe)
+    local eligibility_expected = rl.QLin(mdp, fe)
     eligibility_expected.weights[1] = s + a
     eligibility_expected.weights[2] = s - a
 
@@ -41,7 +39,7 @@ function TestLinSarsa.test_update_eligibility_many_steps()
     local a = 1
     sarsa:update_eligibility(s, a)
 
-    local eligibility_expected = QLin(mdp, fe)
+    local eligibility_expected = rl.QLin(mdp, fe)
     eligibility_expected.weights = eligibility_expected.weights 
         + torch.Tensor{s+a, s-a}
 

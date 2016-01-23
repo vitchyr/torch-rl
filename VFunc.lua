@@ -1,6 +1,7 @@
+require 'rl'
 util = require 'util'
 
-local VFunc = torch.class('VFunc')
+local VFunc = torch.class('rl.VFunc')
 
 function VFunc:__init(mdp)
     self.mdp = mdp

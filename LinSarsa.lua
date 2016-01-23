@@ -1,5 +1,4 @@
 require 'constants'
-require 'QLin'
 
 -- Implement SARSA algorithm using a linear function approximator for on-line
 -- policy control
@@ -10,16 +9,16 @@ function LinSarsa:__init(mdp_config, lambda, explorer, feature_extractor, step_s
     self.explorer = explorer
     self.feature_extractor = feature_extractor
     self.step_size = step_size
-    self.q = QLin(self.mdp, self.feature_extractor)
-    self.eligibility = QLin(self.mdp, self.feature_extractor)
+    self.q = rl.QLin(self.mdp, self.feature_extractor)
+    self.eligibility = rl.QLin(self.mdp, self.feature_extractor)
 end
 
 function LinSarsa:get_new_q()
-    return QLin(self.mdp, self.feature_extractor)
+    return rl.QLin(self.mdp, self.feature_extractor)
 end
 
 function LinSarsa:reset_eligibility()
-    self.eligibility = QLin(self.mdp, self.feature_extractor)
+    self.eligibility = rl.QLin(self.mdp, self.feature_extractor)
 end
 
 function LinSarsa:update_eligibility(s, a)

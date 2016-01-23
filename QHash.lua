@@ -1,9 +1,9 @@
-require 'QFunc'
+require 'rl'
 mdputil = require 'mdputil'
 
 -- A simple implementation of a state-action value function using hashes and
 -- tables
-local QHash, parent = torch.class('QHash', 'QFunc')
+local QHash, parent = torch.class('rl.QHash', 'rl.QFunc')
 
 function QHash:__init(mdp)
     parent.__init(self, mdp)

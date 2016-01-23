@@ -1,5 +1,4 @@
 require 'constants'
-require 'QNN'
 
 -- Implement SARSA algorithm using a neural network function approximator for
 -- on-line policy control
@@ -10,7 +9,7 @@ function NNSarsa:__init(mdp_config, lambda, explorer, feature_extractor, step_si
     self.explorer = explorer
     self.feature_extractor = feature_extractor
     self.step_size = step_size
-    self.q = QNN(mdp_config:get_mdp(), feature_extractor)
+    self.q = rl.QNN(mdp_config:get_mdp(), feature_extractor)
     self.last_state = nil
     self.last_action = nil
     self.momentum = self.lambda * self.discount_factor

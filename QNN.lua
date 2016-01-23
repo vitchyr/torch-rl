@@ -1,12 +1,12 @@
+require 'rl'
 require 'constants'
-require 'QApprox'
 local util = require 'util'
 local nn = require 'nn'
 local nngraph = require 'nngraph'
 local dpnn = require 'dpnn'
 
 -- Implementation of a state-action value function approx using a neural network
-local QNN, parent = torch.class('QNN', 'QApprox')
+local QNN, parent = torch.class('rl.QNN', 'rl.QApprox')
 
 local function get_module(self)
     local x = nn.Identity()() -- use nngraph for practice

@@ -1,7 +1,6 @@
+require 'rl'
 require 'BlackJackQVAnalyzer'
 require 'BlackJack'
-require 'QHash'
-require 'VHash'
 
 local tester = torch.Tester()
 
@@ -9,8 +8,8 @@ local mdp = BlackJack()
 local qva = BlackJackQVAnalyzer()
 TestBlackJackQVAnalyzer = {}
 function TestBlackJackQVAnalyzer.test_v_from_q()
-    local q = QHash(mdp)
-    local v = VHash(mdp)
+    local q = rl.QHash(mdp)
+    local v = rl.VHash(mdp)
     local s = {1, 1}
     local a = 1
     q:add(s, a, 1)
@@ -33,8 +32,8 @@ function TestBlackJackQVAnalyzer.test_v_from_q()
 end
 
 function TestBlackJackQVAnalyzer.test_q_rms()
-    local q1 = QHash(mdp)
-    local q2 = QHash(mdp)
+    local q1 = rl.QHash(mdp)
+    local q2 = rl.QHash(mdp)
     local s = {1, 1}
     local a = 1
 

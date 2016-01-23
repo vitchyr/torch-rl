@@ -21,3 +21,15 @@ require('NNSarsaFactory')
 
 require('Mdp')
 require('TestMdp')
+
+require('SAFeatureExtractor')
+require('TestSAFE')
+
+require('QFunc')
+require('QHash')
+require('QApprox')
+require('QLin')
+require('QNN')
+
+require('VFunc')
+require('VHash')

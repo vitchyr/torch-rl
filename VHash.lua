@@ -1,9 +1,9 @@
-require 'VFunc'
+require 'rl'
 mdputil = require 'mdputil'
 
 -- A slow implementation of a state value function using hashes and tables
 
-local VHash, parent = torch.class('VHash', 'VFunc')
+local VHash, parent = torch.class('rl.VHash', 'rl.VFunc')
 
 function VHash:__init(mdp)
     parent.__init(self, mdp)

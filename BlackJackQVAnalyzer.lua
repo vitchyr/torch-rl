@@ -1,3 +1,4 @@
+require 'rl'
 require 'constants'
 require 'BlackJack'
 require 'QVAnalyzer'
@@ -69,7 +70,7 @@ function BlackJackQVAnalyzer:get_q_tensor(q)
 end
 
 function BlackJackQVAnalyzer:v_from_q(q)
-    local v = VHash(self.mdp)
+    local v = rl.VHash(self.mdp)
     for dealer = 1, N_DEALER_STATES do
         for player = 1, N_PLAYER_STATES do
             local s = {dealer, player}

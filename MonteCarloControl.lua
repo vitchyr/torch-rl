@@ -1,17 +1,15 @@
 require 'MdpSampler'
 require 'constants'
 require 'DecayTableExplorer'
-require 'QHash'
-require 'VHash'
 
 local MonteCarloControl, parent =
     torch.class('rl.MonteCarloControl', 'rl.ValueIteration')
 
 function MonteCarloControl:__init(mdp_config)
     parent.__init(self, mdp_config)
-    self.q = QHash(self.mdp)
-    self.Ns = VHash(self.mdp)
-    self.Nsa = QHash(self.mdp)
+    self.q = rl.QHash(self.mdp)
+    self.Ns = rl.VHash(self.mdp)
+    self.Nsa = rl.QHash(self.mdp)
     self.N0 = N0
     self.actions = self.mdp.get_all_actions()
 end

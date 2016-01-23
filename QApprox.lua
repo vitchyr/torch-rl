@@ -1,8 +1,8 @@
-require 'QFunc'
+require 'rl'
 local util = require 'util'
 
 -- Abstract class for a Q function approximation class
-local QApprox, parent = torch.class('QApprox', 'QFunc')
+local QApprox, parent = torch.class('rl.QApprox', 'rl.QFunc')
 
 function QApprox:__init(mdp, feature_extractor)
     parent.__init(self, mdp)

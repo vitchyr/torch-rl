@@ -1,5 +1,4 @@
 require 'rl'
-require 'TestSAFE'
 require 'MdpConfig'
 require 'ConstExplorer'
 local tester = torch.Tester()
@@ -12,7 +11,7 @@ function TestLinSarsaFactory.test_get_control()
     local lambda = 0.65
     local eps = 0.2437
     local explorer = ConstExplorer(eps)
-    local feature_extractor = TestSAFE()
+    local feature_extractor = rl.TestSAFE()
     local step_size = 0.92
 
     local lin_sarsa = rl.LinSarsa(

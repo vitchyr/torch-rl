@@ -1,8 +1,9 @@
-require 'SAFeatureExtractor'
+require 'rl'
 require 'BlackJack_constants'
 
 -- Features are a coarse coding.
-local BlackJackBoxSAFE, parent = torch.class('BlackJackBoxSAFE', 'SAFeatureExtractor')
+local BlackJackBoxSAFE, parent =
+    torch.class('BlackJackBoxSAFE', 'rl.SAFeatureExtractor')
 
 local N_FEATURES = #DEALER_VALUES * #PLAYER_VALUES * N_ACTIONS
 function BlackJackBoxSAFE:get_sa_features(s, a)

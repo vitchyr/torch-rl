@@ -1,12 +1,11 @@
 require 'rl'
 require 'ConstExplorer'
-require 'QFunc'
 local tester = torch.Tester()
 local ufu = require 'util_for_unittests'
 
 local TestGreedyPolicy = {}
 local mdp = rl.TestMdp()
-local q = QFunc()
+local q = rl.QFunc()
 
 local function get_policy(best_action, eps)
     local explorer = ConstExplorer(eps)

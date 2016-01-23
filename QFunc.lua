@@ -1,6 +1,7 @@
+require 'rl'
 util = require 'util'
 
-local QFunc = torch.class('QFunc')
+local QFunc = torch.class('rl.QFunc')
 
 function QFunc:__init(mdp)
     self.mdp = mdp
