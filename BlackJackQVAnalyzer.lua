@@ -1,10 +1,10 @@
 require 'rl'
 require 'constants'
 require 'BlackJack'
-require 'QVAnalyzer'
 local tensorutil = require 'tensorutil'
 
-local BlackJackQVAnalyzer, parent = torch.class('BlackJackQVAnalyzer', 'QVAnalyzer')
+local BlackJackQVAnalyzer, parent =
+    torch.class('BlackJackQVAnalyzer', 'rl.QVAnalyzer')
 
 function BlackJackQVAnalyzer:__init()
     parent.__init(self, BlackJack())

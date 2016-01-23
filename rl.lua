@@ -41,3 +41,6 @@ require('EpisodeBuilder')
 require('Explorer')
 require('ConstExplorer')
 require('DecayTableExplorer')
+
+require('Evaluator')
+require('QVAnalyzer')

@@ -3,7 +3,6 @@ local io_util = require 'io_util'
 require 'constants'
 require 'BlackJack'
 require 'BlackJackQVAnalyzer'
-require 'TestMdpQVAnalyzer'
 
 -- Script for generating Q for Monte Carlo to save.
 local cmd = torch.CmdLine()

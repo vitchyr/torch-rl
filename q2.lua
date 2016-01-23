@@ -1,6 +1,5 @@
 require 'BlackJack'
 require 'BlackJackQVAnalyzer'
-require 'TestMdpQVAnalyzer'
 local plot = require 'gnuplot'
 
 math.randomseed(os.time())
@@ -41,5 +40,5 @@ local function show_mc_plots(mdp, analyzer)
     end
 end
 
-show_mc_plots(rl.TestMdp(), TestMdpQVAnalyzer())
+show_mc_plots(rl.TestMdp(), rl.TestMdpQVAnalyzer())
 show_mc_plots(BlackJack(), BlackJackQVAnalyzer())

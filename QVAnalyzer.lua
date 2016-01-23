@@ -1,9 +1,8 @@
-require 'VHash'
 require 'constants'
 local gnuplot = require 'gnuplot'
 local tensorutil = require 'tensorutil'
 
-local QVAnalyzer = torch.class('QVAnalyzer')
+local QVAnalyzer = torch.class('rl.QVAnalyzer')
 
 function QVAnalyzer:__init(mdp)
     self.mdp = mdp

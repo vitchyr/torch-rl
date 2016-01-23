@@ -1,8 +1,9 @@
+require 'rl'
 require 'TestMdp'
-require 'QVAnalyzer'
 local tensorutil = require 'tensorutil'
 
-local TestMdpQVAnalyzer, parent = torch.class('TestMdpQVAnalyzer', 'QVAnalyzer')
+local TestMdpQVAnalyzer, parent =
+    torch.class('rl.TestMdpQVAnalyzer', 'rl.QVAnalyzer')
 
 function TestMdpQVAnalyzer:__init()
     parent.__init(self, TestMdp())
