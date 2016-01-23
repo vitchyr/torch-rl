@@ -1,9 +1,9 @@
 package = "rl"
-version = "scm-1"
+version = "0.1-1"
 
 source = {
    url = "git://github.com/vpong/torch-rl.git",
-   tag = "v1.2"
+   tag = "v0.1"
 }
 
 description = {
