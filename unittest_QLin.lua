@@ -1,12 +1,12 @@
+require 'rl'
 require 'QLin'
 require 'TestSAFE'
-require 'TestMdp'
 local ufu = require 'util_for_unittests'
 local tester = torch.Tester()
 
 local TestQLin = {}
 
-local mdp = TestMdp()
+local mdp = rl.TestMdp()
 function TestQLin.test_add_once()
     local fe = TestSAFE()
 

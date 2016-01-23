@@ -1,6 +1,5 @@
 require 'rl'
 require 'constants'
-require 'TestMdp'
 require 'MdpConfig'
 local ufu = require 'util_for_unittests'
 
@@ -9,7 +8,7 @@ local tester = torch.Tester()
 
 local TestMonteCarloControl = {}
 function TestMonteCarloControl.test_evalute_policy()
-    local mdp = TestMdp()
+    local mdp = rl.TestMdp()
     local discount_factor = 1
     -- With this policy, the episode will be:
     -- Step 1
@@ -49,7 +48,7 @@ function TestMonteCarloControl.test_evalute_policy()
 end
 
 function TestMonteCarloControl.test_optimize_policy()
-    local mdp = TestMdp()
+    local mdp = rl.TestMdp()
     local discount_factor = 1
     local config = MdpConfig(mdp, discount_factor)
     local mcc = rl.MonteCarloControl(config)

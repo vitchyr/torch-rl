@@ -1,11 +1,11 @@
+require 'rl'
 require 'VHash'
-require 'TestMdp'
 
 local tester = torch.Tester()
 local TestVHash = {}
 
 function TestVHash.test_add_once()
-    local v = VHash(TestMdp())
+    local v = VHash(rl.TestMdp())
     local s = 1
     local val = 2
     v:add(s, val)
@@ -14,7 +14,7 @@ function TestVHash.test_add_once()
 end
 
 function TestVHash.test_mult()
-    local v = VHash(TestMdp())
+    local v = VHash(rl.TestMdp())
     local s = 2
     v:add(s, 1)
     v:mult(s, 3)
@@ -25,14 +25,14 @@ function TestVHash.test_mult()
 end
 
 function TestVHash.test_equality()
-    local v1 = VHash(TestMdp())
+    local v1 = VHash(rl.TestMdp())
     local s = 2
     v1:add(s, 1)
     v1:mult(s, 3)
     v1:mult(s, 3)
     v1:mult(s, 3)
 
-    local v2 = VHash(TestMdp())
+    local v2 = VHash(rl.TestMdp())
     local s = 2
     v2:add(s, 5)
     v2:mult(s, 0)

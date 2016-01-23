@@ -1,4 +1,6 @@
-local Mdp = torch.class('Mdp')
+require 'rl'
+
+local Mdp = torch.class('rl.Mdp')
 
 function Mdp:__init()
 end

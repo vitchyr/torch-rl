@@ -1,5 +1,4 @@
 require 'rl'
-require 'TestMdp'
 local util = require 'util'
 local tester = torch.Tester()
 
@@ -18,7 +17,7 @@ local function all_actions_have_good_freq(
 end
 
 function TestAllActionsEqualPolicy.test_policy()
-    local mdp = TestMdp()
+    local mdp = rl.TestMdp()
     local policy = rl.AllActionsEqualPolicy(mdp)
     local N = 100000
     local action_history = {}

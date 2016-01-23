@@ -18,3 +18,6 @@ require('SarsaFactory')
 require('TableSarsaFactory')
 require('LinSarsaFactory')
 require('NNSarsaFactory')
+
+require('Mdp')
+require('TestMdp')

@@ -1,5 +1,4 @@
 require 'MdpConfig'
-require 'TestMdp'
 require 'TestSAFE'
 require 'QLin'
 require 'ConstExplorer'
@@ -7,7 +6,7 @@ local ufu = require 'util_for_unittests'
 local tester = torch.Tester()
 
 local discount_factor = 0.95
-local mdp = TestMdp()
+local mdp = rl.TestMdp()
 local mdp_config = MdpConfig(mdp, discount_factor)
 local fe = TestSAFE()
 

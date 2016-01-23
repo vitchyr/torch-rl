@@ -1,6 +1,5 @@
 require 'rl'
 require 'BlackJack'
-require 'TestMdp'
 require 'Evaluator'
 require 'MdpConfig'
 
@@ -28,4 +27,4 @@ local function test_montecarlo_for_mdp(mdp)
 end
 
 test_montecarlo_for_mdp(BlackJack())
-test_montecarlo_for_mdp(TestMdp())
+test_montecarlo_for_mdp(rl.TestMdp())

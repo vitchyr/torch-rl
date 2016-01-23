@@ -1,8 +1,8 @@
-require 'Mdp'
+require 'rl'
 require 'BlackJack_constants'
 local util = require 'util'
 
-local BlackJack, parent = torch.class('BlackJack', 'Mdp')
+local BlackJack, parent = torch.class('BlackJack', 'rl.Mdp')
 
 local function draw()
     local v = math.random(1,10)

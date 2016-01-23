@@ -1,12 +1,12 @@
+require 'rl'
 require 'QNN'
 require 'TestSAFE'
-require 'TestMdp'
 require 'constants'
 local tester = torch.Tester()
 
 local TestQNN = {}
 
-local mdp = TestMdp()
+local mdp = rl.TestMdp()
 local fe = TestSAFE()
 
 function TestQNN.test_backward()

@@ -1,9 +1,8 @@
 require 'rl'
-require 'TestMdp'
 require 'MdpConfig'
 local tester = torch.Tester()
 
-local mdp = TestMdp()
+local mdp = rl.TestMdp()
 local discount_factor = 0.12
 local TestTableSarsaFactory = {}
 function TestTableSarsaFactory.test_get_control()

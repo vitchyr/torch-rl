@@ -1,6 +1,5 @@
 require 'BlackJack'
 require 'BlackJackQVAnalyzer'
-require 'TestMdp'
 require 'TestMdpQVAnalyzer'
 require 'MdpConfig'
 local plot = require 'gnuplot'
@@ -43,5 +42,5 @@ local function show_mc_plots(mdp, analyzer)
     end
 end
 
-show_mc_plots(TestMdp(), TestMdpQVAnalyzer())
+show_mc_plots(rl.TestMdp(), TestMdpQVAnalyzer())
 show_mc_plots(BlackJack(), BlackJackQVAnalyzer())

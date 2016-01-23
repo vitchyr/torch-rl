@@ -2,14 +2,13 @@ require 'rl'
 require 'constants'
 require 'MdpSampler'
 require 'MdpConfig'
-require 'TestMdp'
 
 local tester = torch.Tester()
 
 local TestMdpSampler = {}
 
 local function get_sampler(discount_factor)
-    local config = MdpConfig(TestMdp(), discount_factor)
+    local config = MdpConfig(rl.TestMdp(), discount_factor)
     return MdpSampler(config)
 end
 

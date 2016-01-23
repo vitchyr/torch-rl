@@ -1,9 +1,9 @@
-require 'Mdp'
+require 'rl'
 
 -- Dummy MDP for testing
 -- state = either 1, 2, or 3
 -- action = either 1, 2, or 3
-local TestMdp, parent = torch.class('TestMdp', 'Mdp')
+local TestMdp, parent = torch.class('rl.TestMdp', 'rl.Mdp')
 
 local TERMINAL = 3
 

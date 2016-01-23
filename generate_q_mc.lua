@@ -3,7 +3,6 @@ local io_util = require 'io_util'
 require 'constants'
 require 'BlackJack'
 require 'BlackJackQVAnalyzer'
-require 'TestMdp'
 require 'TestMdpQVAnalyzer'
 require 'MdpConfig'
 

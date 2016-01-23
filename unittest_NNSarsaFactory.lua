@@ -1,11 +1,10 @@
 require 'rl'
-require 'TestMdp'
 require 'TestSAFE'
 require 'MdpConfig'
 require 'ConstExplorer'
 local tester = torch.Tester()
 
-local mdp = TestMdp()
+local mdp = rl.TestMdp()
 local discount_factor = 0.631
 local TestNNSarsaFactory = {}
 function TestNNSarsaFactory.test_get_control()
