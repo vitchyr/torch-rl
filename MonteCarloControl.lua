@@ -1,12 +1,11 @@
-require 'ValueIteration'
 require 'MdpSampler'
 require 'constants'
 require 'DecayTableExplorer'
 require 'QHash'
 require 'VHash'
 
-local MonteControl, parent =
-    torch.class('MonteCarloControl', 'ValueIteration')
+local MonteCarloControl, parent =
+    torch.class('rl.MonteCarloControl', 'rl.ValueIteration')
 
 function MonteCarloControl:__init(mdp_config)
     parent.__init(self, mdp_config)

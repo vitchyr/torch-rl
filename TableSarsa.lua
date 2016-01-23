@@ -1,12 +1,11 @@
 require 'constants'
-require 'Sarsa'
 require 'QHash'
 require 'VHash'
 require 'DecayTableExplorer'
 
 -- Implement SARSA algorithm using a linear function approximator for on-line
 -- policy control
-local TableSarsa, parent = torch.class('TableSarsa', 'Sarsa')
+local TableSarsa, parent = torch.class('rl.TableSarsa', 'rl.Sarsa')
 function TableSarsa:__init(mdp_config, lambda)
     parent.__init(self, mdp_config, lambda)
     self.Ns = VHash(self.mdp)

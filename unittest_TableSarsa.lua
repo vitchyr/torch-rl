@@ -1,4 +1,3 @@
-require 'TableSarsa'
 require 'MdpConfig'
 require 'TestMdp'
 local ufu = require 'util_for_unittests'
@@ -26,7 +25,7 @@ end
 
 function TestTableSarsa.test_update_eligibility_one_step()
     local lambda = 1
-    local sarsa = TableSarsa(mdp_config, lambda)
+    local sarsa = rl.TableSarsa(mdp_config, lambda)
 
     local s = 2
     local a = 1
@@ -49,7 +48,7 @@ end
 
 function TestTableSarsa.test_update_eligibility_lambda1()
     local lambda = 1
-    local sarsa = TableSarsa(mdp_config, lambda)
+    local sarsa = rl.TableSarsa(mdp_config, lambda)
 
     local s = 2
     local a = 1
@@ -76,7 +75,7 @@ end
 
 function TestTableSarsa:test_update_eligibility_lambda_frac()
     local lambda = 0.5
-    local sarsa = TableSarsa(mdp_config, lambda)
+    local sarsa = rl.TableSarsa(mdp_config, lambda)
 
     local s = 2
     local a = 1
@@ -107,7 +106,7 @@ end
 
 function TestTableSarsa:test_update_eligibility_lambda0()
     local lambda = 0
-    local sarsa = TableSarsa(mdp_config, lambda)
+    local sarsa = rl.TableSarsa(mdp_config, lambda)
 
     local s = 2
     local a = 1
@@ -138,7 +137,7 @@ end
 
 function TestTableSarsa:test_update_eligibility_mixed_updates()
     local lambda = 0.4
-    local sarsa = TableSarsa(mdp_config, lambda)
+    local sarsa = rl.TableSarsa(mdp_config, lambda)
 
     local s = 2
     local a = 1
@@ -173,7 +172,7 @@ end
 
 function TestTableSarsa:test_td_update_one_update()
     local lambda = 0.4
-    local sarsa = TableSarsa(mdp_config, lambda)
+    local sarsa = rl.TableSarsa(mdp_config, lambda)
 
     local s = 2
     local a = 1
@@ -190,7 +189,7 @@ end
 
 function TestTableSarsa:test_td_update_many_updates()
     local lambda = 0.4
-    local sarsa = TableSarsa(mdp_config, lambda)
+    local sarsa = rl.TableSarsa(mdp_config, lambda)
 
     local s = 2
     local a = 1

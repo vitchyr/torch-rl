@@ -1,4 +1,3 @@
-require 'LinSarsa'
 require 'MdpConfig'
 require 'TestMdp'
 require 'TestSAFE'
@@ -19,7 +18,7 @@ function TestLinSarsa.test_update_eligibility_one_step()
     local eps = 0.032
     local explorer = ConstExplorer(eps)
     local step_size = 0.05
-    local sarsa = LinSarsa(mdp_config, lambda, explorer, fe, step_size)
+    local sarsa = rl.LinSarsa(mdp_config, lambda, explorer, fe, step_size)
 
     local s = 2
     local a = 1
@@ -37,7 +36,7 @@ function TestLinSarsa.test_update_eligibility_many_steps()
     local eps = 0.032
     local explorer = ConstExplorer(eps)
     local step_size = 0.05
-    local sarsa = LinSarsa(mdp_config, lambda, explorer, fe, step_size)
+    local sarsa = rl.LinSarsa(mdp_config, lambda, explorer, fe, step_size)
 
     local s = 2
     local a = 1

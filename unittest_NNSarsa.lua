@@ -1,4 +1,3 @@
-require 'NNSarsa'
 require 'MdpConfig'
 require 'TestMdp'
 require 'TestSAFE'
@@ -15,7 +14,7 @@ local explorer = ConstExplorer(eps)
 local step_size = 0.05
 
 local function get_sarsa()
-    return NNSarsa(mdp_config, lambda, explorer, fe, step_size)
+    return rl.NNSarsa(mdp_config, lambda, explorer, fe, step_size)
 end
 
 local TestNNSarsa = {}
@@ -47,7 +46,7 @@ function TestNNSarsa.test_td_update_once()
     local learning_rate = step_size * td_error
     expected_module:updateParameters(-learning_rate)
 
-    local expected_sarsa = NNSarsa(mdp_config, lambda, explorer, fe, step_size)
+    local expected_sarsa = rl.NNSarsa(mdp_config, lambda, explorer, fe, step_size)
     expected_sarsa.q.module = expected_module
     expected_sarsa.last_state = s
     expected_sarsa.last_action = a
@@ -89,7 +88,7 @@ function TestNNSarsa.test_td_update_many_times()
     local learning_rate = step_size * td_error
     expected_module:updateParameters(-learning_rate)
 
-    local expected_sarsa = NNSarsa(mdp_config, lambda, explorer, fe, step_size)
+    local expected_sarsa = rl.NNSarsa(mdp_config, lambda, explorer, fe, step_size)
     expected_sarsa.q.module = expected_module
     expected_sarsa.last_state = s
     expected_sarsa.last_action = a

@@ -1,5 +1,4 @@
 require 'rl'
-require 'MonteCarloControl'
 require 'constants'
 require 'TestMdp'
 require 'MdpConfig'
@@ -26,11 +25,11 @@ function TestMonteCarloControl.test_evalute_policy()
     --      Gt 1: -1
     local policy = rl.TestPolicy(1)
     local config = MdpConfig(mdp, discount_factor)
-    local mcc = MonteCarloControl(config)
+    local mcc = rl.MonteCarloControl(config)
     mcc:set_policy(policy)
     mcc:evaluate_policy()
 
-    local expected = MonteCarloControl(config)
+    local expected = rl.MonteCarloControl(config)
     local q = QHash(mdp)
     q:add(1, 1, -2)
     q:add(2, 1, -1)
@@ -53,7 +52,7 @@ function TestMonteCarloControl.test_optimize_policy()
     local mdp = TestMdp()
     local discount_factor = 1
     local config = MdpConfig(mdp, discount_factor)
-    local mcc = MonteCarloControl(config)
+    local mcc = rl.MonteCarloControl(config)
     local q = QHash(mdp)
     q:add(1, 1, 100) -- make action "1" be the best action
     q:add(2, 1, 100)

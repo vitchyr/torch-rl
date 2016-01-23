@@ -1,7 +1,6 @@
 -- Analyze different control algorithms.
 local io_util = require 'io_util'
 require 'constants'
-require 'MonteCarloControl'
 local gnuplot = require 'gnuplot'
 
 local SarsaAnalyzer = torch.class('SarsaAnalyzer')
@@ -27,7 +26,7 @@ function SarsaAnalyzer:get_true_q(n_iters)
     end
 
     self.n_iters = n_iters or self.n_iters
-    local mc = MonteCarloControl(self.mdp_config)
+    local mc = rl.MonteCarloControl(self.mdp_config)
     print('Computing Q from Monte Carlo. # iters = ' .. self.n_iters)
     mc:improve_policy_for_n_iters(self.n_iters)
 

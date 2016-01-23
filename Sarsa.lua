@@ -1,8 +1,6 @@
-require 'Control'
-
 -- Abstract class for implementing SARSA.
 -- See end of file for functions that must be implemented.
-local Sarsa, parent = torch.class('Sarsa', 'Control')
+local Sarsa, parent = torch.class('rl.Sarsa', 'rl.Control')
 
 function Sarsa:__init(mdp_config, lambda)
     parent.__init(self, mdp_config)

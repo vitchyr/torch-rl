@@ -1,6 +1,4 @@
-require 'Control'
-
-local ValueIteration = torch.class('ValueIteration', 'Control')
+local ValueIteration = torch.class('rl.ValueIteration', 'rl.Control')
 
 -- ValueIteration captures an algorithm that optimizes a policy by alternating
 -- between policy evaluation for one step and policy iteration for one step

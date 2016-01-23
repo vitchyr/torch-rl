@@ -1,10 +1,9 @@
 require 'constants'
-require 'Sarsa'
 require 'QNN'
 
 -- Implement SARSA algorithm using a neural network function approximator for
 -- on-line policy control
-local NNSarsa, parent = torch.class('NNSarsa', 'Sarsa')
+local NNSarsa, parent = torch.class('rl.NNSarsa', 'rl.Sarsa')
 
 function NNSarsa:__init(mdp_config, lambda, explorer, feature_extractor, step_size)
     parent.__init(self, mdp_config, lambda)

@@ -1,6 +1,6 @@
 require 'MdpSampler'
 
-local Control = torch.class("Control")
+local Control = torch.class("rl.Control")
 
 -- Control captures an algorithm that optimizes a policy for a given MDP.
 function Control:__init(mdp_config)

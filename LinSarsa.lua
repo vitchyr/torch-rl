@@ -1,10 +1,9 @@
 require 'constants'
-require 'Sarsa'
 require 'QLin'
 
 -- Implement SARSA algorithm using a linear function approximator for on-line
 -- policy control
-local LinSarsa, parent = torch.class('LinSarsa', 'Sarsa')
+local LinSarsa, parent = torch.class('rl.LinSarsa', 'rl.Sarsa')
 
 function LinSarsa:__init(mdp_config, lambda, explorer, feature_extractor, step_size)
     parent.__init(self, mdp_config, lambda)

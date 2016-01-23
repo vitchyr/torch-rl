@@ -3,7 +3,6 @@ require 'BlackJack'
 require 'TestMdp'
 require 'Evaluator'
 require 'MdpConfig'
-require 'MonteCarloControl'
 
 math.randomseed(os.time())
 
@@ -20,7 +19,7 @@ local function test_montecarlo_for_mdp(mdp)
 
     for n = params.min, params.max do
         local n_iters = 10^n
-        local mc = MonteCarloControl(mdp_config)
+        local mc = rl.MonteCarloControl(mdp_config)
         mc:improve_policy_for_n_iters(n_iters)
         local policy = mc:get_policy()
 

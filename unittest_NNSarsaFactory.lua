@@ -1,5 +1,4 @@
 require 'NNSarsaFactory'
-require 'NNSarsa'
 require 'TestMdp'
 require 'TestSAFE'
 require 'MdpConfig'
@@ -17,7 +16,7 @@ function TestNNSarsaFactory.test_get_control()
     local feature_extractor = TestSAFE()
     local step_size = 0.92
 
-    local nn_sarsa = NNSarsa(
+    local nn_sarsa = rl.NNSarsa(
         mdp_config,
         lambda,
         explorer,

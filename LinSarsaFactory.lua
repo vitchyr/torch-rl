@@ -1,5 +1,4 @@
 require 'SarsaFactory'
-require 'LinSarsa'
 local LinSarsaFactory, parent = torch.class('LinSarsaFactory', 'SarsaFactory')
 
 function LinSarsaFactory:__init(
@@ -23,7 +22,7 @@ function LinSarsaFactory:set_feature_extractor(feature_extractor)
 end
 
 function LinSarsaFactory:get_control()
-    return LinSarsa(self.mdp_config,
+    return rl.LinSarsa(self.mdp_config,
                     self.lambda,
                     self.explorer,
                     self.feature_extractor,

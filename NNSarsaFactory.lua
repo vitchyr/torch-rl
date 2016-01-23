@@ -1,4 +1,3 @@
-require 'NNSarsa'
 require 'SarsaFactory'
 local NNSarsaFactory, parent = torch.class('NNSarsaFactory', 'SarsaFactory')
 
@@ -23,7 +22,7 @@ function NNSarsaFactory:set_feature_extractor(feature_extractor)
 end
 
 function NNSarsaFactory:get_control()
-    return NNSarsa(self.mdp_config,
+    return rl.NNSarsa(self.mdp_config,
                    self.lambda,
                    self.explorer,
                    self.feature_extractor,

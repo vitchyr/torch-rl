@@ -3,7 +3,6 @@ require 'BlackJackQVAnalyzer'
 require 'TestMdp'
 require 'TestMdpQVAnalyzer'
 require 'MdpConfig'
-require 'MonteCarloControl'
 local plot = require 'gnuplot'
 
 math.randomseed(os.time())
@@ -19,7 +18,7 @@ local discount_factor = 1
 
 local function show_mc_plots(mdp, analyzer)
     local mdp_config = MdpConfig(mdp, discount_factor)
-    local mc = MonteCarloControl(mdp_config)
+    local mc = rl.MonteCarloControl(mdp_config)
     mc:improve_policy_for_n_iters(n_iters)
 
     local q = mc:get_q()

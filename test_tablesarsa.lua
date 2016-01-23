@@ -2,7 +2,6 @@ require 'rl'
 require 'BlackJack'
 require 'TestMdp'
 require 'MdpConfig'
-require 'TableSarsa'
 require 'Evaluator'
 
 math.randomseed(os.time())
@@ -19,7 +18,7 @@ local function test_sarsa_diff_lambda(mdp)
     local e = Evaluator(mdp_config)
 
     for lambda = 0, 1, 0.1 do
-        local control = TableSarsa(mdp_config, lambda)
+        local control = rl.TableSarsa(mdp_config, lambda)
         control:improve_policy_for_n_iters(n_iters)
 
         local policy = control:get_policy()
