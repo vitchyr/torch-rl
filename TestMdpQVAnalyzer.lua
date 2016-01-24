@@ -49,7 +49,7 @@ function TestMdpQVAnalyzer:plot_best_action(q)
 end
 
 function TestMdpQVAnalyzer:v_from_q(q)
-    local v = VHash(self.mdp)
+    local v = rl.VHash(self.mdp)
     for s = 1, self.n_states do
         local a = q:get_best_action(s)
         v:add(s, q:get_value(s, a))

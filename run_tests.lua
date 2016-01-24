@@ -21,3 +21,8 @@ require 'test.unittest_LinSarsaFactory'
 require 'test.unittest_QNN'
 require 'test.unittest_NNSarsa'
 require 'test.unittest_NNSarsaFactory'
+
+require 'test.unittest_TestMdp'
+require 'test.unittest_TestPolicy'
+require 'test.unittest_TestSAFE'
+require 'test.unittest_TestMdpQVAnalyzer'
