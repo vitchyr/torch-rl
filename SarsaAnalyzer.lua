@@ -32,12 +32,13 @@ function SarsaAnalyzer:get_true_q(n_iters)
     return  mc:get_q()
 end
 
-local function plot_rms_lambda_data(data)
+local function plot_rms_lambda_data(self, data)
     gnuplot.plot(data)
     gnuplot.grid(true)
     gnuplot.xlabel('lambda')
     gnuplot.ylabel('RMS between Q-MC and Q-SARSA')
-    gnuplot.title('Q RMS after 1000 episodes vs lambda')
+    gnuplot.title('Q RMS episodes vs lambda, after '
+                   .. self.n_iters .. ' iterations')
 end
 
 local function get_sarsa(self, lambda)
@@ -96,12 +97,12 @@ function SarsaAnalyzer:eval_lambdas(
 
     plot_results(self,
                  function ()
-                     plot_rms_lambda_data(rms_lambda_data)
+                     plot_rms_lambda_data(self, rms_lambda_data)
                  end,
                  image_fname)
 end
 
-local function plot_rms_episode_data(data_table)
+local function plot_rms_episode_data(self, data_table)
     for lambda, data in pairs(data_table) do
         gnuplot.plot({tostring(lambda), data})
     end
@@ -111,7 +112,8 @@ local function plot_rms_episode_data(data_table)
     gnuplot.grid(true)
     gnuplot.xlabel('Episode')
     gnuplot.ylabel('RMS between Q-MC and Q-SARSA')
-    gnuplot.title('Q RMS vs Episode, lambda = 0 and 1')
+    gnuplot.title('Q RMS vs Episode, lambda = 0 and 1, after '
+                    .. self.n_iters .. ' iterations')
 end
 
 -- hack to get around that torch doesn't seem to allow private class methods
@@ -152,7 +154,7 @@ function SarsaAnalyzer:eval_l0_l1_rms(
     print('Generating plots for RMS vs episode')
     plot_results(self,
                  function ()
-                     plot_rms_episode_data(data)
+                     plot_rms_episode_data(self, data)
                  end,
                  image_fname)
 end
