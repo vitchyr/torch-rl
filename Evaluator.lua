@@ -1,5 +1,3 @@
-require 'constants'
-
 local Evaluator = torch.class('rl.Evaluator')
 
 function Evaluator.__init(self, mdp_config)
@@ -16,7 +14,7 @@ function Evaluator:get_policy_avg_return(policy, n_iters)
 end
 
 function Evaluator:display_metrics(policy, description, n_iters)
-    n_iters = n_iters or N_ITERS
+    n_iters = n_iters or rl.EVALUATOR_DEFAULT_N_ITERS
     local total_r = self:get_policy_avg_return(policy, n_iters)
     print('Avg Reward for <' .. description .. '> policy for ' ..
             self.mdp_description .. ': ' ..

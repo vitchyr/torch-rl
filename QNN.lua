@@ -1,4 +1,3 @@
-require 'constants'
 local nn = require 'nn'
 local nngraph = require 'nngraph'
 local dpnn = require 'dpnn'
@@ -7,15 +6,7 @@ local dpnn = require 'dpnn'
 local QNN, parent = torch.class('rl.QNN', 'rl.QApprox')
 
 local function get_module(self)
-    local x = nn.Identity()() -- use nngraph for practice
-    --[[
-    local l1 = nn.Linear(self.n_features, self.n_features)(x)
-    local l2 = nn.Sigmoid()(l1)
-    local l3 = nn.Linear(self.n_features, 1)(l1)
-    local l4 = nn.Sigmoid()(l3)
-    local l5 = nn.Linear(self.n_features, 1)(l4)
-    return nn.gModule({x}, {l3})
-    ]]--
+    local x = nn.Identity()()
     local l1 = nn.Linear(self.n_features, 1)(x)
     return nn.gModule({x}, {l1})
 end

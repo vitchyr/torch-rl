@@ -1,4 +1,5 @@
 require 'rl'
+
 local tester = torch.Tester()
 
 local mdp = rl.TestMdp()

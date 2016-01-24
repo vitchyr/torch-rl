@@ -1,14 +1,12 @@
-require 'constants'
-
 local MonteCarloControl, parent =
     torch.class('rl.MonteCarloControl', 'rl.ValueIteration')
 
-function MonteCarloControl:__init(mdp_config)
+function MonteCarloControl:__init(mdp_config, N0)
     parent.__init(self, mdp_config)
     self.q = rl.QHash(self.mdp)
     self.Ns = rl.VHash(self.mdp)
     self.Nsa = rl.QHash(self.mdp)
-    self.N0 = N0
+    self.N0 = N0 or rl.MONTECARLOCONTROL_DEFAULT_N0
     self.actions = self.mdp.get_all_actions()
 end
 

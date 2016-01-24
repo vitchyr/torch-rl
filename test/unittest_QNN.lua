@@ -1,5 +1,4 @@
 require 'rl'
-require 'constants'
 local tester = torch.Tester()
 
 local TestQNN = {}
@@ -62,7 +61,7 @@ function TestQNN.test_backward_no_momentum()
     local new_value2 = q:get_value(s, a)
     local d_value_2 = new_value2 - new_value1
 
-    tester:assert(math.abs(d_value_1 - d_value_2) < FLOAT_EPS)
+    tester:assert(math.abs(d_value_1 - d_value_2) < rl.FLOAT_EPS)
 end
 
 function TestQNN.test_backward_with_momentum()
@@ -91,7 +90,7 @@ function TestQNN.test_backward_with_momentum()
     local new_value2 = q:get_value(s, a)
     local d_value_2 = new_value2 - new_value1
 
-    tester:assert(math.abs((1+momentum)*d_value_1 - d_value_2) < FLOAT_EPS)
+    tester:assert(math.abs((1+momentum)*d_value_1 - d_value_2) < rl.FLOAT_EPS)
 end
 
 function TestQNN.test_momentum_exists()
@@ -122,7 +121,7 @@ function TestQNN.test_momentum_exists()
     local new_value2 = q:get_value(s, a)
     local d_value_2 = new_value2 - new_value1
 
-    tester:assert(math.abs(d_value_1 - d_value_2) > FLOAT_EPS)
+    tester:assert(math.abs(d_value_1 - d_value_2) > rl.FLOAT_EPS)
 end
 
 function TestQNN.test_backward_reset_momentum()
@@ -151,7 +150,7 @@ function TestQNN.test_backward_reset_momentum()
     local new_value2 = q:get_value(s, a)
     local d_value_2 = new_value2 - new_value1
 
-    tester:assert(math.abs(d_value_1 - d_value_2) < FLOAT_EPS)
+    tester:assert(math.abs(d_value_1 - d_value_2) < rl.FLOAT_EPS)
 end
 
 tester:add(TestQNN)

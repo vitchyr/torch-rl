@@ -1,5 +1,3 @@
-require 'constants'
-
 -- Implement SARSA algorithm using a linear function approximator for on-line
 -- policy control
 local TableSarsa, parent = torch.class('rl.TableSarsa', 'rl.Sarsa')
@@ -55,7 +53,9 @@ function TableSarsa:td_update(td_error)
 end
 
 function TableSarsa:update_policy()
-    self.explorer = rl.DecayTableExplorer(N0, self.Ns)
+    self.explorer = rl.DecayTableExplorer(
+        rl.MONTECARLOCONTROL_DEFAULT_N0,
+        self.Ns)
     self.policy = rl.GreedyPolicy(
         self.q,
         self.explorer,

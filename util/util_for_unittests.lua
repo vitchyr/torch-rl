@@ -1,4 +1,3 @@
-require 'constants'
 function rl.util.are_testmdp_policy_probabilities_good(
         policy,
         expected_probabilities)
@@ -37,7 +36,7 @@ function rl.util.do_qtable_qfunc_match(mdp, q_table, qfunc)
     for _, state in pairs(mdp:get_all_states()) do
         for _, action in pairs(mdp:get_all_actions()) do
             local sa_value = qfunc:get_value(state, action)
-            if math.abs(q_table[state][action] - sa_value) > FLOAT_EPS then
+            if math.abs(q_table[state][action] - sa_value) > rl.FLOAT_EPS then
                 return false
             end
         end

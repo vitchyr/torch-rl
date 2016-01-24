@@ -1,5 +1,3 @@
-require 'constants'
-
 -- Implementation of a state-action value function approx using linear function
 -- of features
 local QLin, parent = torch.class('rl.QLin', 'rl.QApprox')

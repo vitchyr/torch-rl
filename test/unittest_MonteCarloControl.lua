@@ -1,5 +1,4 @@
 require 'rl'
-require 'constants'
 
 math.randomseed(os.time())
 local tester = torch.Tester()
@@ -36,7 +35,7 @@ function TestMonteCarloControl.test_evalute_policy()
     local Nsa = rl.QHash(mdp)
     Nsa:add(1, 1, 1)
     Nsa:add(2, 1, 1)
-    local N0 = N0
+    local N0 = rl.MONTECARLOCONTROL_DEFAULT_N0
     expected.q = q
     expected.Ns = Ns
     expected.Nsa = Nsa

@@ -1,5 +1,4 @@
 -- Analyze different control algorithms.
-require 'constants'
 local gnuplot = require 'gnuplot'
 
 local SarsaAnalyzer = torch.class('rl.SarsaAnalyzer')

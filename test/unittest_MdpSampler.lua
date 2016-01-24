@@ -1,5 +1,4 @@
 require 'rl'
-require 'constants'
 
 local tester = torch.Tester()
 

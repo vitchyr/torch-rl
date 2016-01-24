@@ -1,5 +1,3 @@
-require 'constants'
-
 -- Implement SARSA algorithm using a linear function approximator for on-line
 -- policy control
 local LinSarsa, parent = torch.class('rl.LinSarsa', 'rl.Sarsa')

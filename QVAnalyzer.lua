@@ -1,4 +1,3 @@
-require 'constants'
 local gnuplot = require 'gnuplot'
 
 local QVAnalyzer = torch.class('rl.QVAnalyzer')

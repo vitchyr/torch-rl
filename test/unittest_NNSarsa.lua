@@ -1,3 +1,5 @@
+require 'rl'
+
 local tester = torch.Tester()
 
 local discount_factor = 0.95
@@ -116,7 +118,7 @@ function TestNNSarsa.test_reset_eligibility()
     local new_value2 = sarsa.q:get_value(s, a)
     local d_value_2 = new_value2 - new_value1
 
-    tester:assert(math.abs(d_value_1 - d_value_2) < FLOAT_EPS)
+    tester:assert(math.abs(d_value_1 - d_value_2) < rl.FLOAT_EPS)
 end
 
 tester:add(TestNNSarsa)

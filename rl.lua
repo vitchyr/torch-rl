@@ -7,6 +7,8 @@ require('util.mdputil')
 require('util.tensorutil')
 require('util.util_for_unittests')
 
+require('constants')
+
 require('Policy')
 require('GreedyPolicy')
 require('AllActionsEqualPolicy')

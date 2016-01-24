@@ -1,5 +1,3 @@
-require 'constants'
-
 -- Implement SARSA algorithm using a neural network function approximator for
 -- on-line policy control
 local NNSarsa, parent = torch.class('rl.NNSarsa', 'rl.Sarsa')
