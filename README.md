@@ -1,5 +1,5 @@
 # torch-rl
-This is a Torch 7 package that implements a few reinforcement learning
+This is a Torch 7 package that implements a few reinforcement learning (RL)
 algorithms. So far, we've only implemented Q-learning.
 
 This documentation is intended to mostly to give a high-level idea of what each
@@ -7,10 +7,56 @@ abstract class does. We start with a summary of the important files, and then
 give a slightly more detailed description afterwards. For more detail, see the
 source code. For examples on how to use the functions, see the unit tests.
 
+## Installation
+### Dependencies
+0. (Optional)[LuaRocks](https://github.com/keplerproject/luarocks/wiki/Download)
+Highly recommended for anyone who wants to use Lua. Also, install this before
+install Torch, as Torch has weird configurations for LuaRocks.
+1. [Torch](http://torch.ch/docs/getting-started.html)
+2. Lua 5.1 - Installing torch automatically installs Lua
+
+### LuaRocks - Automatic Installation (Recommended)
+Install directly from luarocks
+1. Install [LuaRocks](https://github.com/keplerproject/luarocks/wiki/Download).
+2. From terminal, run
+```
+$ luarocks install rl
+```
+
+Error finding the module? Try
+```
+$ luarocks install --server=https://luarocks.org/ rl
+```
+
+### LuaRocks - Manual Installation
+1. `$ git clone git@github.com:vpong/torch-rl.git`
+2. `$ luarocks make`
+
+### Totally Manually
+```
+$ git clone git@github.com:vpong/torch-rl.git
+```
+Note that you'll basically have to the files around to any project that you want
+to use.
+
+## Reinforcement Learning Topics
+* [MDP](doc/mdp.md) - A Markov Decision Process (MDP) models the world. Read
+  about useful MDP functions and [how to create your own
+  MDP](doc/mdp.md#create_mdp).
+* [Policy](doc/policy.md) - Policies are mappings from state to action.
+* [Sarsa](doc/sarsa.md) - Read about the Sarsa-lambda algorithm and scripts that
+  test them.
+* [Monte Carlo Control](doc/montecarlo.md) - Read about Monte Carlo Control and
+  how to use it.
+* [Value Functions](doc/valuefunctions.md) - Value functions represent how
+  valuable certains states and/or actions are.
+* [Black Jack](https://github.com/vpong/rl-example) - An example repository that
+  shows how to use RL algorithms to learn to play (a simplified version of)
+  black jack.
+
 ## Summary of files
-Files that start with upper cases are classes. Every other file is a script,
-except for the constants and util file. This gives a summary of the most
-important files.
+This gives a summary of the most important files. Files that start with upper
+cases are classes.
 
 ### Interfaces/abstract classes
 * `Control.lua` - Represents an algorithm that improves a policy.
@@ -39,27 +85,14 @@ important files.
 * `TableSarsa.lua` - Implements Sarsa-lambda using a lookup table.
 * `MonteCarloControl.lua` - Implements Monte Carlo control.
 
-### Test Files
+### Other Files
+* `util/*.lua` - Utility functions used throughout the project.
 * `test/unittest_*.lua` - Unit tests. Can be run individual tests with `th
 unittest_*.lua`.
 * `run_tests.lua` - Run all unit tests in `test/`directory.
 * `TestMdp.lua` - An MDP used for testing.
 * `TestPolicy.lua` - A policy for TestMdp used for testing.
 * `TestSAFE.lua` - A feature extractor used for testing.
-
-## Read More
-* [MDP](doc/mdp.md) - A Markov Decision Process (MDP) models the world. Read
-  about useful MDP functions and [how to create your own
-  MDP](doc/mdp.md#create_mdp).
-* [Policy](doc/policy.md) - Policies are mappings from state to action.
-* [Sarsa](doc/sarsa.md) - Read about the Sarsa-lambda algorithm and scripts that
-  test them.
-* [Monte Carlo Control](doc/montecarlo.md) - Read about Monte Carlo Control and
-  how to use it.
-* [Value Functions](doc/valuefunctions.md) - Value functions represent how
-  valuable certains states and/or actions are.
-* [Black Jack](https://github.com/vpong/rl-example) - An example repository that
-show how to learn to play (a simplified version of) black jack.
 
 ## A note on Abstract Classes and private methods
 Torch doesn't implement interfaces nor abstract classes natively, but this
