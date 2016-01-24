@@ -1,5 +1,5 @@
 package = "rl"
-version = "0.2-1"
+version = "0.2-2"
 
 source = {
    url = "git://github.com/vpong/torch-rl.git",
