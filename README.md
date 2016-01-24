@@ -40,10 +40,9 @@ important files.
 * `MonteCarloControl.lua` - Implements Monte Carlo control.
 
 ### Test Files
-* `unittest_*.lua` - Unit tests. Can be run directly with `th unittest_*.lua`.
-* `run_rl_unittests.lua` - Run all unit tests related to this package.
-* `run_BlackJack_unittests.lua` - Run all unit tests related to Black Jack.
-* `run_all_unittests.lua` - Run all unit tests in this package.
+* `test/unittest_*.lua` - Unit tests. Can be run individual tests with `th
+unittest_*.lua`.
+* `run_tests.lua` - Run all unit tests in `test/`directory.
 * `TestMdp.lua` - An MDP used for testing.
 * `TestPolicy.lua` - A policy for TestMdp used for testing.
 * `TestSAFE.lua` - A feature extractor used for testing.
@@ -59,8 +58,8 @@ important files.
   how to use it.
 * [Value Functions](doc/valuefunctions.md) - Value functions represent how
   valuable certains states and/or actions are.
-* [Black Jack](doc/blackjack.md) - An example MDP that is a simplified version
-  of black jack.
+* [Black Jack](https://github.com/vpong/rl-example) - An example repository that
+show how to learn to play (a simplified version of) black jack.
 
 ## A note on Abstract Classes and private methods
 Torch doesn't implement interfaces nor abstract classes natively, but this
