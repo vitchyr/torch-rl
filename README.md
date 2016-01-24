@@ -10,7 +10,8 @@ algorithms. So far, only Q-learning is implemented.
  - Highly recommended for anyone who wants to use Lua. Also, install this before
    install Torch, as Torch has weird configurations for LuaRocks.
 1. [Torch](http://torch.ch/docs/getting-started.html)
-2. Lua 5.1 - Installing torch automatically installs Lua
+2. [Lua 5.1](http://www.lua.org/download.html) - Installing torch automatically
+   installs Lua
 
 #### LuaRocks - Automatic Installation (Recommended)
 
