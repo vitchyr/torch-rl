@@ -1,4 +1,3 @@
-local tensorutil = require 'tensorutil'
 
 local tester = torch.Tester()
 
@@ -15,7 +14,7 @@ function TestTensorUtil.test_apply_to_slices()
     B[2][1] = 2
     B[2][2] = 2
     tester:assertTensorEq(
-        tensorutil.apply_to_slices(A, 1, power_fill),
+        rl.util.apply_to_slices(A, 1, power_fill),
         B,
         0)
 end
@@ -28,7 +27,7 @@ function TestTensorUtil.fill_range()
     B[2][1] = 0
     B[2][2] = 0
     tester:assertTensorEq(
-        tensorutil.apply_to_slices(A, 1, tensorutil.fill_range, -2),
+        rl.util.apply_to_slices(A, 1, rl.util.fill_range, -2),
         B,
         0)
 
@@ -37,7 +36,7 @@ function TestTensorUtil.fill_range()
     B[1][2] = 124
     B[2][2] = 124
     tester:assertTensorEq(
-        tensorutil.apply_to_slices(A, 2, tensorutil.fill_range, 122),
+        rl.util.apply_to_slices(A, 2, rl.util.fill_range, 122),
         B,
         0)
 end

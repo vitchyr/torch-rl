@@ -1,5 +1,4 @@
 require 'rl'
-local ufu = require 'util_for_unittests'
 local tester = torch.Tester()
 
 local TestQLin = {}
@@ -25,7 +24,7 @@ function TestQLin.test_add_once()
         [2] = {2+1, 2+2, 2+3},
         [3] = {3+1, 3+2, 3+3}
     }
-    tester:assert(ufu.do_qtable_qfunc_match(mdp, expected_q_table, q))
+    tester:assert(rl.util.do_qtable_qfunc_match(mdp, expected_q_table, q))
 end
 
 function TestQLin.test_add_complex()
@@ -63,7 +62,7 @@ function TestQLin.test_add_complex()
             weight_1*(3+3) + weight_2*(3-3)
         }
     }
-    tester:assert(ufu.do_qtable_qfunc_match(mdp, expected_q_table, q))
+    tester:assert(rl.util.do_qtable_qfunc_match(mdp, expected_q_table, q))
 end
 
 function TestQLin.test_add_and_multiply()
@@ -107,7 +106,7 @@ function TestQLin.test_add_and_multiply()
             factor * (weight_1*(3+3) + weight_2*(3-3))
         }
     }
-    tester:assert(ufu.do_qtable_qfunc_match(mdp, expected_q_table, q))
+    tester:assert(rl.util.do_qtable_qfunc_match(mdp, expected_q_table, q))
 end
 
 function TestQLin.test_clear()
@@ -143,7 +142,7 @@ function TestQLin.test_clear()
         [2] = {2+1, 2+2, 2+3},
         [3] = {3+1, 3+2, 3+3}
     }
-    tester:assert(ufu.do_qtable_qfunc_match(mdp, expected_q_table, q))
+    tester:assert(rl.util.do_qtable_qfunc_match(mdp, expected_q_table, q))
 end
 tester:add(TestQLin)
 

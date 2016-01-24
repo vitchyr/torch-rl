@@ -1,5 +1,3 @@
-local mdputil = require 'mdputil'
-
 local MdpSampler = torch.class('rl.MdpSampler')
 
 function MdpSampler:__init(mdp_config)

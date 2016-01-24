@@ -20,5 +20,5 @@ function GreedyPolicy:get_action(s)
     best_a = self.q:get_best_action(s)
     pi[best_a] = pi[best_a] + 1 - eps
 
-    return util.weighted_random_choice(pi)
+    return rl.util.weighted_random_choice(pi)
 end

@@ -1,5 +1,4 @@
 require 'constants'
-local util = require 'util'
 
 -- Implementation of a state-action value function approx using linear function
 -- of features

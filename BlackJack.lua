@@ -1,6 +1,5 @@
 require 'rl'
 require 'BlackJack_constants'
-local util = require 'util'
 
 local BlackJack, parent = torch.class('BlackJack', 'rl.Mdp')
 
@@ -81,7 +80,6 @@ function BlackJack:get_all_states()
     end
     return states
 end
---BlackJack:get_all_states = util.memoize(_get_all_states) <-- this doesn't really help
 
 function BlackJack:get_all_actions()
     return {HIT, STICK}

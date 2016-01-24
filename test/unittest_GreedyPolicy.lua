@@ -1,6 +1,5 @@
 require 'rl'
 local tester = torch.Tester()
-local ufu = require 'util_for_unittests'
 
 local TestGreedyPolicy = {}
 local mdp = rl.TestMdp()
@@ -22,7 +21,7 @@ function TestGreedyPolicy.test_greedy()
         1 - 2*eps/3,
         eps/3
     }
-    tester:assert(ufu.are_testmdp_policy_probabilities_good(
+    tester:assert(rl.util.are_testmdp_policy_probabilities_good(
         policy,
         expected_probabilities))
 end
@@ -35,7 +34,7 @@ function TestGreedyPolicy.test_greedy2()
         eps/3,
         eps/3
     }
-    tester:assert(ufu.are_testmdp_policy_probabilities_good(
+    tester:assert(rl.util.are_testmdp_policy_probabilities_good(
         policy,
         expected_probabilities))
 end

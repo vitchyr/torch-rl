@@ -1,6 +1,5 @@
 require 'rl'
 require 'constants'
-local ufu = require 'util_for_unittests'
 
 math.randomseed(os.time())
 local tester = torch.Tester()
@@ -74,7 +73,7 @@ function TestMonteCarloControl.test_optimize_policy()
         expected_eps / 3
     }
 
-    tester:assert(ufu.are_testmdp_policy_probabilities_good(
+    tester:assert(rl.util.are_testmdp_policy_probabilities_good(
         policy,
         expected_probabilities))
 end

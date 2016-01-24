@@ -1,5 +1,12 @@
 module('rl', package.seeall)
 
+module('rl.util', package.seeall)
+require('util.io_util')
+require('util.util')
+require('util.mdputil')
+require('util.tensorutil')
+require('util.util_for_unittests')
+
 require('Policy')
 require('GreedyPolicy')
 require('AllActionsEqualPolicy')
@@ -44,3 +51,4 @@ require('DecayTableExplorer')
 
 require('Evaluator')
 require('QVAnalyzer')
+require('SarsaAnalyzer')

@@ -1,7 +1,6 @@
 require 'rl'
 require 'constants'
 require 'BlackJack'
-local tensorutil = require 'tensorutil'
 
 local BlackJackQVAnalyzer, parent =
     torch.class('BlackJackQVAnalyzer', 'rl.QVAnalyzer')
@@ -27,9 +26,9 @@ function BlackJackQVAnalyzer:plot_v(v)
     local tensor = self:get_v_tensor(v)
 
     local x = torch.Tensor(N_DEALER_STATES, N_PLAYER_STATES)
-    x = tensorutil.apply_to_slices(x, 1, tensorutil.fill_range, 0)
+    x = rl.util.apply_to_slices(x, 1, rl.util.fill_range, 0)
     local y = torch.Tensor(N_DEALER_STATES, N_PLAYER_STATES)
-    y = tensorutil.apply_to_slices(y, 2, tensorutil.fill_range, 0)
+    y = rl.util.apply_to_slices(y, 2, rl.util.fill_range, 0)
     gnuplot.splot(x, y, tensor)
     gnuplot.xlabel('Dealer Showing')
     gnuplot.ylabel('Player Sum')
@@ -46,9 +45,9 @@ function BlackJackQVAnalyzer:plot_best_action(q)
         end
     end
     local x = torch.Tensor(N_DEALER_STATES, N_PLAYER_STATES)
-    x = tensorutil.apply_to_slices(x, 1, tensorutil.fill_range, 0)
+    x = rl.util.apply_to_slices(x, 1, rl.util.fill_range, 0)
     local y = torch.Tensor(N_DEALER_STATES, N_PLAYER_STATES)
-    y = tensorutil.apply_to_slices(y, 2, tensorutil.fill_range, 0)
+    y = rl.util.apply_to_slices(y, 2, rl.util.fill_range, 0)
     gnuplot.splot(x, y, best_action_at_state)
     gnuplot.xlabel('Dealer Showing')
     gnuplot.ylabel('Player Sum')

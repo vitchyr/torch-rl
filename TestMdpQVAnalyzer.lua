@@ -1,5 +1,3 @@
-local tensorutil = require 'tensorutil'
-
 local TestMdpQVAnalyzer, parent =
     torch.class('rl.TestMdpQVAnalyzer', 'rl.QVAnalyzer')
 
@@ -20,7 +18,7 @@ end
 function TestMdpQVAnalyzer:plot_v(v)
     local tensor = self:get_v_tensor(v)
     local x = torch.Tensor(self.n_states)
-    x = tensorutil.apply_to_slices(x, 1, tensorutil.fill_range, 0)
+    x = rl.util.apply_to_slices(x, 1, rl.util.fill_range, 0)
     gnuplot.plot(x, tensor)
     gnuplot.xlabel('Dealer Showing')
     gnuplot.ylabel('State Value')
@@ -43,7 +41,7 @@ function TestMdpQVAnalyzer:plot_best_action(q)
         best_action_at_state[s] = q:get_best_action(s)
     end
     local x = torch.Tensor(self.n_actions)
-    x = tensorutil.apply_to_slices(x, 1, tensorutil.fill_range, 0)
+    x = rl.util.apply_to_slices(x, 1, rl.util.fill_range, 0)
     gnuplot.plot(x, best_action_at_state)
     gnuplot.xlabel('State')
     gnuplot.zlabel('Best Action')

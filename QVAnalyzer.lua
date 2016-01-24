@@ -1,6 +1,5 @@
 require 'constants'
 local gnuplot = require 'gnuplot'
-local tensorutil = require 'tensorutil'
 
 local QVAnalyzer = torch.class('rl.QVAnalyzer')
 

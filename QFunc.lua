@@ -1,5 +1,3 @@
-util = require 'util'
-
 local QFunc = torch.class('rl.QFunc')
 
 function QFunc:__init(mdp)
@@ -13,7 +11,7 @@ end
 function QFunc:get_best_action(s)
     local actions = self.mdp:get_all_actions()
     local Qs = self.q_table[self.hs(s)]
-    local best_a, best_i = util.max(
+    local best_a, best_i = rl.util.max(
         actions,
         function (a) return Qs[self.ha(a)] end)
     return best_a

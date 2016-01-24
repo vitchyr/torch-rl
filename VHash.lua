@@ -1,12 +1,10 @@
-mdputil = require 'mdputil'
-
 -- A slow implementation of a state value function using hashes and tables
 
 local VHash, parent = torch.class('rl.VHash', 'rl.VFunc')
 
 function VHash:__init(mdp)
     parent.__init(self, mdp)
-    self.v_table = mdputil.get_all_states_map(mdp)
+    self.v_table = rl.util.get_all_states_map(mdp)
     self.hs = function (s) return mdp:hash_s(s) end
 end
 

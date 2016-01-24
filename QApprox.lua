@@ -1,5 +1,3 @@
-local util = require 'util'
-
 -- Abstract class for a Q function approximation class
 local QApprox, parent = torch.class('rl.QApprox', 'rl.QFunc')
 
@@ -43,7 +41,7 @@ end
 
 function QApprox:get_best_action(s)
     local actions = self.mdp:get_all_actions()
-    local best_a, best_i = util.max(
+    local best_a, best_i = rl.util.max(
         actions,
         function (a) return self:get_value(s, a) end)
     return best_a

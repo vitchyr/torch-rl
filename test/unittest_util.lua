@@ -1,35 +1,35 @@
-local util = require 'util'
+require 'rl'
 
 local tester = torch.Tester()
 
 local TestUtil = {}
 function TestUtil.test_get_count()
     local list = {1, 1, 1, 2}
-    tester:asserteq(util.get_count(1, list), 3)
+    tester:asserteq(rl.util.get_count(1, list), 3)
 end
 
 function TestUtil.test_is_prob_good_good()
     local n = 5
     local p = 0.5
     local N = 10
-    tester:assert(util.is_prob_good(n, p, N))
-    tester:assert(util.is_prob_good(0, 0, N))
+    tester:assert(rl.util.is_prob_good(n, p, N))
+    tester:assert(rl.util.is_prob_good(0, 0, N))
 end
 
 function TestUtil.test_is_prob_good_bad()
     local n = 1
     local p = 0.5
     local N = 100
-    tester:assert(not util.is_prob_good(n, p, N))
-    tester:assert(not util.is_prob_good(1, 0, N))
+    tester:assert(not rl.util.is_prob_good(n, p, N))
+    tester:assert(not rl.util.is_prob_good(1, 0, N))
 end
 
 function TestUtil.test_elem_has_good_freq()
     local list = {1, 1, 1, 2}
-    tester:assert(util.elem_has_good_freq(1, list, 0.75))
-    tester:assert(util.elem_has_good_freq(2, list, 0.25))
-    tester:assert(util.elem_has_good_freq(3, list, 0))
-    tester:assert(not util.elem_has_good_freq(2, list, 0))
+    tester:assert(rl.util.elem_has_good_freq(1, list, 0.75))
+    tester:assert(rl.util.elem_has_good_freq(2, list, 0.25))
+    tester:assert(rl.util.elem_has_good_freq(3, list, 0))
+    tester:assert(not rl.util.elem_has_good_freq(2, list, 0))
 end
 
 function TestUtil.test_fold()
@@ -44,9 +44,9 @@ function TestUtil.test_fold()
         3
     }
 
-    tester:asserteq(util.sum(t), 12)
-    tester:asserteq(util.fold(function(a, b) return a - b end)(0)(t), -12)
-    tester:asserteq(util.fold(function(a, b) return a - b end)(-8)(t), -20)
+    tester:asserteq(rl.util.sum(t), 12)
+    tester:asserteq(rl.util.fold(function(a, b) return a - b end)(0)(t), -12)
+    tester:asserteq(rl.util.fold(function(a, b) return a - b end)(-8)(t), -20)
 end
 
 function TestUtil.test_fold_with_key()
@@ -58,10 +58,10 @@ function TestUtil.test_fold_with_key()
     }
 
     tester:asserteq(
-        util.fold_with_key(function(a, k, b) return a + k + b end)(0)(t),
+        rl.util.fold_with_key(function(a, k, b) return a + k + b end)(0)(t),
         16)
     tester:asserteq(
-        util.fold_with_key(function(a, k, b) return a + k + b end)(-6)(t),
+        rl.util.fold_with_key(function(a, k, b) return a + k + b end)(-6)(t),
         10)
 end
 
@@ -74,7 +74,7 @@ function TestUtil.test_weighted_random_choice_only_one()
     }
     local function choice_is_always_good()
         for i = 1, 100 do
-            if util.weighted_random_choice(t) ~= 'd' then
+            if rl.util.weighted_random_choice(t) ~= 'd' then
                 return false
             end
         end
@@ -95,15 +95,15 @@ function TestUtil.test_weighted_random_choice()
         3
     }
     local N = 100000
-    local denom = util.sum(t)
+    local denom = rl.util.sum(t)
     local nums = torch.zeros(8)
     for i = 1, N do
-        result = util.weighted_random_choice(t)
+        result = rl.util.weighted_random_choice(t)
         nums[result] = nums[result] + 1
     end
     local function prob_is_good()
         for i = 1, nums:numel() do
-            if not util.is_prob_good(nums[i], t[i] / denom, N) then
+            if not rl.util.is_prob_good(nums[i], t[i] / denom, N) then
                 return false
             end
         end
@@ -119,11 +119,11 @@ function TestUtil.test_max()
         c = 3,
         d = -6
     }
-    local maxElem, maxK = util.max(t, function (v) return v end)
+    local maxElem, maxK = rl.util.max(t, function (v) return v end)
     tester:asserteq(maxElem , 3)
     tester:asserteq(maxK , 'c')
 
-    maxElem, maxK = util.max(t, function (v) return -v end)
+    maxElem, maxK = rl.util.max(t, function (v) return -v end)
     tester:asserteq(maxElem , -6)
     tester:asserteq(maxK , 'd')
 end
@@ -141,7 +141,7 @@ function TestUtil.test_deepcompare()
         d = -6,
         c = {1, 2, 3}
     }
-    tester:assert(util.deepcompare(t1, t2))
+    tester:assert(rl.util.deepcompare(t1, t2))
 end
 
 function TestUtil.test_deepcompare_int_keys()
@@ -157,7 +157,7 @@ function TestUtil.test_deepcompare_int_keys()
         [1] = -6,
         [0] = {1, 2, 3}
     }
-    tester:assert(util.deepcompare(t1, t2))
+    tester:assert(rl.util.deepcompare(t1, t2))
 end
 
 function TestUtil.test_deepcompare_with_meta()
@@ -180,7 +180,7 @@ function TestUtil.test_deepcompare_with_meta()
     }
     setmetatable(t1, mt)
     setmetatable(t2, mt)
-    tester:assert(util.deepcompare_with_meta(t1, t2))
+    tester:assert(rl.util.deepcompare_with_meta(t1, t2))
 end
 
 function TestUtil.test_deepcompare_with_meta_false()
@@ -204,7 +204,7 @@ function TestUtil.test_deepcompare_with_meta_false()
     setmetatable(t1, mt)
     setmetatable(t2, mt)
 
-    tester:assert(not util.deepcompare_with_meta(t1, t2))
+    tester:assert(not rl.util.deepcompare_with_meta(t1, t2))
 end
 
 tester:add(TestUtil)

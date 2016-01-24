@@ -1,5 +1,4 @@
 -- Analyze different control algorithms.
-local io_util = require 'io_util'
 require 'constants'
 local gnuplot = require 'gnuplot'
 
@@ -22,7 +21,7 @@ end
 function SarsaAnalyzer:get_true_q(n_iters)
     if self.loadqfrom ~= nil and self.loadqfrom ~= '' then
         print('Loading q_mc from ' .. self.loadqfrom)
-        return io_util.load_q(self.loadqfrom)
+        return rl.util.load_q(self.loadqfrom)
     end
 
     self.n_iters = n_iters or self.n_iters

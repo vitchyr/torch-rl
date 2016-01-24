@@ -1,5 +1,4 @@
 require 'BlackJackBoxSAFE'
-local ufu = require 'util_for_unittests'
 
 local tester = torch.Tester()
 
@@ -10,7 +9,7 @@ function TestBlackJackBoxSAFE.test_dim()
     local fe = BlackJackBoxSAFE()
     local f = fe:get_sa_features(s, a)
     local expected = torch.zeros(fe:get_sa_features_dim())
-    tester:assert(ufu.are_tensors_same_shape(f, expected))
+    tester:assert(rl.util.are_tensors_same_shape(f, expected))
 end
 
 function TestBlackJackBoxSAFE.test_num_features()

@@ -1,5 +1,3 @@
-util = require 'util'
-
 local VFunc = torch.class('rl.VFunc')
 
 function VFunc:__init(mdp)

@@ -1,5 +1,4 @@
 require 'rl'
-local io_util = require 'io_util'
 require 'constants'
 require 'BlackJack'
 require 'BlackJackQVAnalyzer'
@@ -20,4 +19,4 @@ mc:improve_policy_for_n_iters(n_iters)
 
 local q = mc:get_q()
 
-io_util.save_q(params.saveqto, q)
+rl.util.save_q(params.saveqto, q)

@@ -1,5 +1,4 @@
 require 'constants'
-local util = require 'util'
 local nn = require 'nn'
 local nngraph = require 'nngraph'
 local dpnn = require 'dpnn'

@@ -1,4 +1,3 @@
-local ufu = require 'util_for_unittests'
 local tester = torch.Tester()
 
 local discount_factor = 0.95

@@ -1,5 +1,4 @@
 require 'rl'
-local util = require 'util'
 local tester = torch.Tester()
 
 local TestEpisodeBuilder = {}
@@ -25,7 +24,7 @@ function are_discounted_return_good(
         }
     end
 
-    return util.deepcompare(expected, builder:get_episode())
+    return rl.util.deepcompare(expected, builder:get_episode())
 end
 function TestEpisodeBuilder.test_gamma_one()
     local discount_factor = 1

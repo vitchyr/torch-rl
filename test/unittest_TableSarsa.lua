@@ -1,4 +1,3 @@
-local ufu = require 'util_for_unittests'
 
 local tester = torch.Tester()
 
@@ -16,9 +15,9 @@ local function non_q_params_match(
     local Nsa = sarsa.Nsa
     local elig = sarsa.eligibility
 
-    return ufu.do_vtable_vfunc_match(mdp, Ns_expected, Ns)
-        and ufu.do_qtable_qfunc_match(mdp, Nsa_expected, Nsa)
-        and ufu.do_qtable_qfunc_match(mdp, eligibility_expected, elig)
+    return rl.util.do_vtable_vfunc_match(mdp, Ns_expected, Ns)
+        and rl.util.do_qtable_qfunc_match(mdp, Nsa_expected, Nsa)
+        and rl.util.do_qtable_qfunc_match(mdp, eligibility_expected, elig)
 end
 
 function TestTableSarsa.test_update_eligibility_one_step()
@@ -182,7 +181,7 @@ function TestTableSarsa:test_td_update_one_update()
         [2] = {5, 0, 0},
         [3] = {0, 0, 0}
     }
-    tester:assert(ufu.do_qtable_qfunc_match(mdp, q_expected, sarsa.q))
+    tester:assert(rl.util.do_qtable_qfunc_match(mdp, q_expected, sarsa.q))
 end
 
 function TestTableSarsa:test_td_update_many_updates()
@@ -209,7 +208,7 @@ function TestTableSarsa:test_td_update_many_updates()
         [2] = {5+5*(1+decay_factor)/2-10*decay_factor*(1+decay_factor)/2, 0, 0},
         [3] = {0, 0, -10}
     }
-    tester:assert(ufu.do_qtable_qfunc_match(mdp, q_expected, sarsa.q))
+    tester:assert(rl.util.do_qtable_qfunc_match(mdp, q_expected, sarsa.q))
 end
 
 tester:add(TestTableSarsa)
